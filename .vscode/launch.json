@@ -4,16 +4,18 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+       
+        {
+            "name": "flow",
+            "request": "launch",
+            "noDebug": true,
+            "type": "dart",
+        },
         {
             "name": "Flutter: Run all Tests",
             "type": "dart",
             "request": "launch",
             "program": "./test/"
-        },
-        {
-            "name": "flow",
-            "request": "launch",
-            "type": "dart"
         },
         {
             "name": "flow (profile mode)",
