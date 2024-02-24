@@ -12,10 +12,45 @@ Boost your productivity and achieve your flow with our simple yet powerful task 
 -   Simple and intuitive user interface
 
 **Folder Structure:**
-
-       lib
-        └── main.dart
-
+```
+lib
+├── core
+│   ├── configs
+│   │   └── app_config.dart
+│   ├── errors
+│   ├── router
+│   ├── services
+│   ├── utils
+│   │   ├── constants
+│   │   │   └── enums
+│   │   ├── extensions
+│   │   ├── responsive.dart
+│   │   ├── theme
+│   │   │   ├── app_theme.dart
+│   │   │   └── cubit
+│   │   │       └── theme_cubit.dart
+│   │   └── validations
+│   └── widgets
+├── features
+│   └── todo
+│       ├── data
+│       │   ├── datasources
+│       │   ├── models
+│       │   └── repositories
+│       ├── domain
+│       │   ├── entities
+│       │   ├── repositories
+│       │   └── usecases
+│       └── presentation
+│           ├── bloc
+│           │   ├── todo_bloc.dart
+│           │   ├── todo_event.dart
+│           │   └── todo_state.dart
+│           ├── pages
+│           │   └── home_page.dart
+│           └── widgets
+└── main.dart
+```
 **Getting Started:**
 
 1.  Clone the repository:  `git clone https://github.com/your_username/simple_task_manager`
