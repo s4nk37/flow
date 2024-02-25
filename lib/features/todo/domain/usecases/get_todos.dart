@@ -16,7 +16,4 @@ class GetTodos implements Usecase<List<Todo>, NoParams> {
   }
 }
 
-// class Params extends Equatable {
-//   @override
-//   List<Object?> get props => [];
-// }
+
