@@ -4,14 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/theme/app_theme.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,18 +15,25 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.light),
-            onPressed: () =>
-                context.read<ThemeCubit>().changeTheme(ThemeMode.light),
+            onPressed: () => context.read<ThemeCubit>().changeTheme(),
           ),
         ],
       ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
-          style: TextStyle(
-            color: AppTheme.of(context).secondary,
-          ),
-        ),
+      body: ListView.builder(
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return ListTile(
+            tileColor: AppTheme.of(context).primaryBackground,
+            title: Text(
+              'Task $index',
+              style: TextStyle(color: AppTheme.of(context).primaryText),
+            ),
+            subtitle: Text(
+              'Description $index',
+              style: TextStyle(color: AppTheme.of(context).secondaryText),
+            ),
+          );
+        },
       ),
     );
   }
