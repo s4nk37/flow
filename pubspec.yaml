@@ -49,6 +49,7 @@ dependencies:
   injectable: ^2.3.2
   flutter_launcher_icons: ^0.13.1
   shared_preferences: ^2.2.2
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
