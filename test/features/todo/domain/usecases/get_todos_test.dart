@@ -1,14 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:flow/core/usecases/usecase.dart';
-import 'package:flow/features/todo/domain/entities/todo.dart';
-import 'package:flow/features/todo/domain/repositories/todo_repository.dart';
-import 'package:flow/features/todo/domain/usecases/get_todos.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 
-@GenerateNiceMocks([MockSpec<TodoRepository>()])
-import 'get_todos_test.mocks.dart';
+import 'package:flow/core/usecases/usecase.dart';
+import 'package:flow/features/todo/domain/entities/todo.dart';
+
+import 'package:flow/features/todo/domain/usecases/get_todos.dart';
+
+import '../../../../helpers/test_mock.mocks.dart';
 
 void main() {
   late GetTodos usecase;
@@ -42,7 +41,7 @@ void main() {
     ),
   ];
 
-  test('Should get todos', () async {
+  test('Should get list of todos', () async {
     // arrange
     when(mockTodoRepository.getTodos()).thenAnswer((_) async => Right(tTodos));
     // act
