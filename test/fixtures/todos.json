@@ -1,0 +1,33 @@
+[
+    {
+      "id": 1,
+      "title": "Complete code review",
+      "description": "Review the pull request for the new feature",
+      "isCompleted": false,
+      "createdAt": "2024-02-26T18:00:00.000Z",
+      "updatedAt": null,
+      "completedAt": null,
+      "reminderAt": "2024-02-27T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "title": "Prepare for meeting",
+      "description": "Gather presentation slides and notes",
+      "isCompleted": false,
+      "createdAt": "2024-02-26T18:10:00.000Z",
+      "updatedAt": null,
+      "completedAt": null,
+      "reminderAt": null
+    },
+    {
+      "id": 3,
+      "title": "Respond to emails",
+      "description": "Check inbox and respond to urgent messages",
+      "isCompleted": true,
+      "createdAt": "2024-02-26T17:45:00.000Z",
+      "updatedAt": "2024-02-26T18:15:00.000Z",
+      "completedAt": "2024-02-26T18:12:00.000Z",
+      "reminderAt": null
+    }
+  ]
+  
