@@ -10,15 +10,16 @@ class Todo extends Equatable {
   final DateTime? completedAt;
   final DateTime? reminderAt;
 
-  const Todo(
-      {required this.id,
-      required this.title,
-      required this.description,
-      required this.isCompleted,
-      required this.createdAt,
-      required this.updatedAt,
-      required this.completedAt,
-      required this.reminderAt});
+  const Todo({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.isCompleted,
+    required this.createdAt,
+    this.updatedAt,
+    this.completedAt,
+    this.reminderAt,
+  });
 
   @override
   List<Object?> get props => [
