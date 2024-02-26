@@ -12,7 +12,7 @@ void main() {
     title: 'Prepare for meeting',
     description: 'Gather presentation slides and notes',
     isCompleted: false,
-    createdAt: DateTime(2017,9,7),
+    createdAt: DateTime(2017, 9, 7, 0, 0, 0).toUtc(),
   );
 
   test('Should be a subclass of Todo entity', () async {
