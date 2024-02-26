@@ -1,19 +1,19 @@
 import 'package:dartz/dartz.dart';
+import 'package:flow/core/usecases/usecase.dart';
 import 'package:flow/features/todo/domain/entities/todo.dart';
-import 'package:flow/features/todo/domain/usecases/add_todo.dart';
+import 'package:flow/features/todo/domain/usecases/update_todo.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flow/core/usecases/usecase.dart';
 
 import '../../../../helpers/test_mock.mocks.dart';
 
 void main() {
   late MockTodoRepository mockTodoRepository;
-  late AddTodo usecase;
+  late UpdateTodo usecase;
 
   setUp(() {
     mockTodoRepository = MockTodoRepository();
-    usecase = AddTodo(mockTodoRepository);
+    usecase = UpdateTodo(mockTodoRepository);
   });
 
   final noParams = NoParams();
@@ -28,17 +28,15 @@ void main() {
     reminderAt: null,
   );
 
-  test('Should call add todo method successfully', () async {
+  test('Should call update todo by id method successfully', () async {
     // arrange
-    when(mockTodoRepository.addTodo(any))
+    when(mockTodoRepository.updateTodo(any))
         .thenAnswer((_) async => Right(noParams));
-
     // act
-    final result = await usecase(AddTodoParams(tTodo));
-
+    final result = await usecase(UpdateTodoParams(tTodo));
     // assert
     expect(result, Right(noParams));
-    verify(mockTodoRepository.addTodo(tTodo));
+    verify(mockTodoRepository.updateTodo(tTodo));
     verifyNoMoreInteractions(mockTodoRepository);
   });
 }
