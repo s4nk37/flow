@@ -55,6 +55,7 @@ lib
 
 1.  Clone the repository:  `git clone https://github.com/your_username/simple_task_manager`
 2.  Install dependencies:  `flutter pub get`
+3.  Run following command to generate required files: `dart run build_runner build`
 3.  Run the app:  `flutter run`
 
 **Technology Stack:**
