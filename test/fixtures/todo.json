@@ -1,10 +1,10 @@
 {
-    "id": 2,
+    "id": 1.0,
     "title": "Prepare for meeting",
     "description": "Gather presentation slides and notes",
     "isCompleted": false,
-    "createdAt": "2017-09-06 18:30:00.000Z",
+    "createdAt": "2017-09-06T18:30:00.000Z",
     "updatedAt": null,
     "completedAt": null,
     "reminderAt": null
-  }
+}
