@@ -419,6 +419,28 @@ class MockTodoLocalDataSource extends _i1.Mock
       ) as _i5.Future<List<_i3.Todo>>);
 
   @override
+  _i5.Future<_i3.Todo> getTodoById(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #getTodoById,
+          [id],
+        ),
+        returnValue: _i5.Future<_i3.Todo>.value(_FakeTodo_1(
+          this,
+          Invocation.method(
+            #getTodoById,
+            [id],
+          ),
+        )),
+        returnValueForMissingStub: _i5.Future<_i3.Todo>.value(_FakeTodo_1(
+          this,
+          Invocation.method(
+            #getTodoById,
+            [id],
+          ),
+        )),
+      ) as _i5.Future<_i3.Todo>);
+
+  @override
   _i5.Future<void> cacheTodos(List<_i3.Todo>? todos) => (super.noSuchMethod(
         Invocation.method(
           #cacheTodos,
