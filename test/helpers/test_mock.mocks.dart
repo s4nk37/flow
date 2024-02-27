@@ -419,6 +419,16 @@ class MockTodoLocalDataSource extends _i1.Mock
       ) as _i5.Future<List<_i3.Todo>>);
 
   @override
+  _i5.Future<void> cacheTodos(List<_i3.Todo>? todos) => (super.noSuchMethod(
+        Invocation.method(
+          #cacheTodos,
+          [todos],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
   _i5.Future<_i3.Todo> getTodoById(int? id) => (super.noSuchMethod(
         Invocation.method(
           #getTodoById,
@@ -441,10 +451,70 @@ class MockTodoLocalDataSource extends _i1.Mock
       ) as _i5.Future<_i3.Todo>);
 
   @override
-  _i5.Future<void> cacheTodos(List<_i3.Todo>? todos) => (super.noSuchMethod(
+  _i5.Future<void> addTodo(_i3.Todo? todo) => (super.noSuchMethod(
         Invocation.method(
-          #cacheTodos,
-          [todos],
+          #addTodo,
+          [todo],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> updateTodo(_i3.Todo? todo) => (super.noSuchMethod(
+        Invocation.method(
+          #updateTodo,
+          [todo],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> deleteTodoById(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteTodoById,
+          [id],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> deleteAllTodos() => (super.noSuchMethod(
+        Invocation.method(
+          #deleteAllTodos,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> deleteCompletedTodos() => (super.noSuchMethod(
+        Invocation.method(
+          #deleteCompletedTodos,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> markTodoAsCompleted(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #markTodoAsCompleted,
+          [id],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> markTodoAsIncompleted(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #markTodoAsIncompleted,
+          [id],
         ),
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),

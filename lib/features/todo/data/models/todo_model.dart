@@ -16,9 +16,6 @@ class TodoModel extends Todo {
     super.reminderAt,
   }) : super(id: newId);
 
-  factory TodoModel.fromJson(Map<String, dynamic> json) =>
-      _$TodoModelFromJson(json);
-
   @JsonKey(
     fromJson: _fromJson,
     name: "id",
@@ -26,6 +23,9 @@ class TodoModel extends Todo {
   final int newId;
 
   static int _fromJson(num value) => value.toInt();
+
+  factory TodoModel.fromJson(Map<String, dynamic> json) =>
+      _$TodoModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$TodoModelToJson(this);
 }
