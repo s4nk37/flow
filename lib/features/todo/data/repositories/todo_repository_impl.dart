@@ -20,7 +20,7 @@ class TodoRepositoryImpl implements TodoRepository {
     required this.networkInfo,
   });
 
-  @override
+   @override
   Future<Either<Failure, List<Todo>>> getTodos() async {
     if (await networkInfo.isConnected) {
       try {
@@ -59,6 +59,7 @@ class TodoRepositoryImpl implements TodoRepository {
     }
   }
 
+
   @override
   Future<Either<Failure, NoParams>> addTodo(Todo todo) async {
     return _executeTodoOperation(
@@ -91,6 +92,8 @@ class TodoRepositoryImpl implements TodoRepository {
     );
   }
 
+
+
   @override
   Future<Either<Failure, NoParams>> markTodoAsCompleted(int id) async {
     return _executeTodoOperation(
@@ -115,7 +118,7 @@ class TodoRepositoryImpl implements TodoRepository {
     );
   }
 
-  Future<Either<Failure, NoParams>> _executeTodoOperation(
+   Future<Either<Failure, NoParams>> _executeTodoOperation(
     Future<void> Function() remoteOperation,
     Future<void> Function() localOperation,
   ) async {
@@ -135,4 +138,5 @@ class TodoRepositoryImpl implements TodoRepository {
       }
     }
   }
+
 }
