@@ -1,7 +1,6 @@
 import 'package:flow/core/network/network_info.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../helpers/test_mock.mocks.dart';
 
