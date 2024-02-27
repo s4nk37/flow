@@ -6,7 +6,7 @@ part 'todo_model.g.dart';
 @JsonSerializable()
 class TodoModel extends Todo {
   const TodoModel({
-    required super.id,
+    required this.newId,
     required super.title,
     required super.description,
     required super.isCompleted,
@@ -14,10 +14,18 @@ class TodoModel extends Todo {
     super.updatedAt,
     super.completedAt,
     super.reminderAt,
-  });
+  }) : super(id: newId);
 
   factory TodoModel.fromJson(Map<String, dynamic> json) =>
       _$TodoModelFromJson(json);
+
+  @JsonKey(
+    fromJson: _fromJson,
+    name: "id",
+  )
+  final int newId;
+
+  static int _fromJson(num value) => value.toInt();
 
   Map<String, dynamic> toJson() => _$TodoModelToJson(this);
 }
