@@ -8,13 +8,9 @@ import '../../configs/app_config.dart';
 SharedPreferences? _prefs;
 
 final lightThemeData = ThemeData(
-            useMaterial3: true,
-            fontFamily: kAppFont,
-            brightness: Brightness.light);
+    useMaterial3: true, fontFamily: kAppFont, brightness: Brightness.light);
 final darkThemeData = ThemeData(
-            useMaterial3: true,
-            fontFamily: kAppFont,
-            brightness: Brightness.dark);
+    useMaterial3: true, fontFamily: kAppFont, brightness: Brightness.dark);
 
 abstract class AppTheme {
   static Future initialize() async =>

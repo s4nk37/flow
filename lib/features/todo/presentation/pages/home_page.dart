@@ -10,30 +10,44 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tasks'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.light),
-            onPressed: () => context.read<ThemeCubit>().changeTheme(),
-          ),
-        ],
+        appBar: AppBar(
+          title: const Text('Tasks'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.light),
+              onPressed: () => context.read<ThemeCubit>().changeTheme(),
+            ),
+          ],
+        ),
+        body: ListView.builder(
+          itemCount: 10,
+          addRepaintBoundaries: true,
+          itemBuilder: (context, index) {
+            return CustomListTile(index: index);
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ));
+  }
+}
+
+class CustomListTile extends StatelessWidget {
+  final int index;
+  const CustomListTile({super.key, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      tileColor: Theme.of(context).colorScheme.primaryContainer,
+      title: Text(
+        'Task $index',
+        style: TextStyle(color: AppTheme.of(context).primaryText),
       ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return ListTile(
-            tileColor: AppTheme.of(context).primaryBackground,
-            title: Text(
-              'Task $index',
-              style: TextStyle(color: AppTheme.of(context).primaryText),
-            ),
-            subtitle: Text(
-              'Description $index',
-              style: TextStyle(color: AppTheme.of(context).secondaryText),
-            ),
-          );
-        },
+      subtitle: Text(
+        'Description $index',
+        style: TextStyle(color: AppTheme.of(context).secondaryText),
       ),
     );
   }
