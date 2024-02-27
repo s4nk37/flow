@@ -13,13 +13,32 @@ Boost your productivity and achieve your flow with our simple yet powerful task 
 
 **Folder Structure:**
 ```
+assets
+├── animations
+├── fonts
+│   └── SourceCodePro
+│       ├── SourceCodePro-Bold.ttf
+│       ├── SourceCodePro-Light.ttf
+│       ├── SourceCodePro-Medium.ttf
+│       ├── SourceCodePro-Regular.ttf
+│       └── SourceCodePro-SemiBold.ttf
+├── icons
+│   └── logo.png
+├── images
+└── translations
 lib
 ├── core
 │   ├── configs
 │   │   └── app_config.dart
 │   ├── errors
+│   │   ├── exceptions.dart
+│   │   └── failures.dart
+│   ├── network
+│   │   └── network_info.dart
 │   ├── router
 │   ├── services
+│   ├── usecases
+│   │   └── usecase.dart
 │   ├── utils
 │   │   ├── constants
 │   │   │   └── enums
@@ -35,12 +54,28 @@ lib
 │   └── todo
 │       ├── data
 │       │   ├── datasources
+│       │   │   ├── todo_local_datasource.dart
+│       │   │   └── todo_remote_datasource.dart
 │       │   ├── models
+│       │   │   ├── todo_model.dart
+│       │   │   └── todo_model.g.dart
 │       │   └── repositories
+│       │       └── todo_repository_impl.dart
 │       ├── domain
 │       │   ├── entities
+│       │   │   └── todo.dart
 │       │   ├── repositories
+│       │   │   └── todo_repository.dart
 │       │   └── usecases
+│       │       ├── add_todo.dart
+│       │       ├── delete_all_todos.dart
+│       │       ├── delete_completed_todos.dart
+│       │       ├── delete_todo_by_id.dart
+│       │       ├── get_todo_by_id.dart
+│       │       ├── get_todos.dart
+│       │       ├── mark_todo_as_completed.dart
+│       │       ├── mark_todo_as_incompleted.dart
+│       │       └── update_todo.dart
 │       └── presentation
 │           ├── bloc
 │           │   ├── todo_bloc.dart
@@ -50,6 +85,41 @@ lib
 │           │   └── home_page.dart
 │           └── widgets
 └── main.dart
+test
+├── core
+├── features
+│   └── todo
+│       ├── data
+│       │   ├── datasources
+│       │   ├── models
+│       │   │   └── todo_model_test.dart
+│       │   └── repositories
+│       │       └── todo_repository_impl_test.dart
+│       ├── domain
+│       │   ├── entities
+│       │   ├── repositories
+│       │   └── usecases
+│       │       ├── add_todo_test.dart
+│       │       ├── delete_all_todos_test.dart
+│       │       ├── delete_completed_todos_test.dart
+│       │       ├── delete_todo_by_id_test.dart
+│       │       ├── get_todo_by_id_test.dart
+│       │       ├── get_todos_test.dart
+│       │       ├── mark_todo_as_completed_test.dart
+│       │       ├── mark_todo_as_incompleted_test.dart
+│       │       └── update_todo_test.dart
+│       └── presentation
+│           ├── bloc
+│           ├── pages
+│           └── widgets
+├── fixtures
+│   ├── fixture_reader.dart
+│   ├── todo.json
+│   ├── todos.json
+│   └── todos_double.json
+└── helpers
+    ├── test_mock.dart
+    └── test_mock.mocks.dart
 ```
 **Getting Started:**
 
