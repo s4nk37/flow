@@ -8,7 +8,7 @@ import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   final tTodoModel = TodoModel(
-    id: 1,
+    newId: 1,
     title: 'Prepare for meeting',
     description: 'Gather presentation slides and notes',
     isCompleted: false,
