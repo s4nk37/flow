@@ -1,6 +1,7 @@
-[
+{
+  "todos": [
     {
-      "id": 1,
+      "id": 1.0,
       "title": "Complete code review",
       "description": "Review the pull request for the new feature",
       "isCompleted": false,
@@ -10,7 +11,7 @@
       "reminderAt": "2024-02-27T09:00:00.000Z"
     },
     {
-      "id": 2,
+      "id": 2.0,
       "title": "Prepare for meeting",
       "description": "Gather presentation slides and notes",
       "isCompleted": false,
@@ -30,4 +31,4 @@
       "reminderAt": null
     }
   ]
-  
+}

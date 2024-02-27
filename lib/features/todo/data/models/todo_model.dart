@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'todo_model.g.dart';
 
+
 @JsonSerializable()
 class TodoModel extends Todo {
   const TodoModel({
