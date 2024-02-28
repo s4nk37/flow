@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import 'package:flow/features/todo/data/models/todo_model.dart';
+import '../../../../core/configs/app_config.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../models/todo_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/entities/todo.dart';
@@ -12,14 +14,14 @@ abstract class TodoLocalDataSource {
   /// Throws [CacheException] if no cached data is present
   Future<List<Todo>> getTodos();
   Future<void> cacheTodos(List<Todo> todos);
-  Future<Todo> getTodoById(int id);
-  Future<void> addTodo(Todo todo);
-  Future<void> updateTodo(Todo todo);
-  Future<void> deleteTodoById(int id);
-  Future<void> deleteAllTodos();
-  Future<void> deleteCompletedTodos();
-  Future<void> markTodoAsCompleted(int id);
-  Future<void> markTodoAsIncompleted(int id);
+  // Future<Todo> getTodoById(int id);
+  // Future<void> addTodo(Todo todo);
+  // Future<void> updateTodo(Todo todo);
+  // Future<void> deleteTodoById(int id);
+  // Future<void> deleteAllTodos();
+  // Future<void> deleteCompletedTodos();
+  // Future<void> markTodoAsCompleted(int id);
+  // Future<void> markTodoAsIncompleted(int id);
 }
 
 class TodoLocalDataSourceImpl implements TodoLocalDataSource {
@@ -28,68 +30,40 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   TodoLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<void> addTodo(Todo todo) {
-    // TODO: implement addTodo
-    throw UnimplementedError();
+  Future<List<Todo>> getTodos() async {
+    final jsonString = sharedPreferences.getString(kCachedTodosKey);
+    if (jsonString != null) {
+      final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
+      final todoList = jsonMap['todos'] as List<dynamic>;
+      final todos =
+          todoList.map((todoJson) => TodoModel.fromJson(todoJson)).toList();
+
+      return Future.value(todos);
+    } else {
+      throw CacheException();
+    }
   }
 
   @override
   Future<void> cacheTodos(List<Todo> todos) {
-    // TODO: implement cacheTodos
-    throw UnimplementedError();
-  }
+    final List<Map<String, dynamic>> todoList = todos.map((todo) {
+      return TodoModel(
+        newId: todo.id,
+        title: todo.title,
+        isCompleted: todo.isCompleted,
+        createdAt: todo.createdAt,
+        description: todo.description,
+        completedAt: todo.completedAt,
+        reminderAt: todo.reminderAt,
+        updatedAt: todo.updatedAt,
+      ).toJson();
+    }).toList();
 
-  @override
-  Future<void> deleteAllTodos() {
-    // TODO: implement deleteAllTodos
-    throw UnimplementedError();
-  }
+    sharedPreferences.setString(
+      kCachedTodosKey,
+      jsonEncode({'todos': todoList}),
+    );
 
-  @override
-  Future<void> deleteCompletedTodos() {
-    // TODO: implement deleteCompletedTodos
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> deleteTodoById(int id) {
-    // TODO: implement deleteTodoById
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Todo> getTodoById(int id) {
-    // TODO: implement getTodoById
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Todo>> getTodos() async {
-    final jsonString = sharedPreferences.getString('CACHED_TODOS')??"";
-
-   final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
-  final todoList = jsonMap['todos'] as List<dynamic>;
-  final todos = todoList.map((todoJson) => TodoModel.fromJson(todoJson)).toList();
-
-
-    return Future.value(todos);
-  }
-
-  @override
-  Future<void> markTodoAsCompleted(int id) {
-    // TODO: implement markTodoAsCompleted
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> markTodoAsIncompleted(int id) {
-    // TODO: implement markTodoAsIncompleted
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateTodo(Todo todo) {
-    // TODO: implement updateTodo
-    throw UnimplementedError();
+    return Future.value();
   }
 }
