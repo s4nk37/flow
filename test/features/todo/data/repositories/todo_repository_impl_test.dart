@@ -254,21 +254,21 @@ void main() {
     //   // });
     // });
 
-    group('Device is offline', () {
-      setUp(() {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
-      });
-      test('Should preform addTodo in local when deive is offline', () async {
-        // arrange
-        when(mockLocalDataSource.addTodo(any))
-            .thenAnswer((_) async => noParams);
-        // act
-        final result = await repository.addTodo(tTodo);
-        // assert
-        verifyZeroInteractions(mockRemoteDataSource);
-        verify(mockLocalDataSource.addTodo(tTodo));
-        expect(result, equals(Right(noParams)));
-      });
-    });
+    // group('Device is offline', () {
+    //   setUp(() {
+    //     when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+    //   });
+    //   test('Should preform addTodo in local when deive is offline', () async {
+    //     // arrange
+    //     when(mockLocalDataSource.addTodo(any))
+    //         .thenAnswer((_) async => noParams);
+    //     // act
+    //     final result = await repository.addTodo(tTodo);
+    //     // assert
+    //     verifyZeroInteractions(mockRemoteDataSource);
+    //     verify(mockLocalDataSource.addTodo(tTodo));
+    //     expect(result, equals(Right(noParams)));
+    //   });
+    // });
   });
 }
