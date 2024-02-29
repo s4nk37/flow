@@ -18,6 +18,7 @@ Future<void> init() async {
   /// Features - Todos
   //Bloc
   sl.registerFactory(() => TodoBloc(getTodos: sl(), saveTodos: sl()));
+  sl.registerFactory(() => ThemeCubit());
   //Use cases
   sl.registerLazySingleton(() => usecase.GetTodos(sl()));
   sl.registerLazySingleton(() => SaveTodos(sl()));
@@ -37,7 +38,7 @@ Future<void> init() async {
 
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   // sl.registerFactory<ThemeCubit>(() => ThemeCubit());
-  sl.registerSingleton(ThemeCubit());
+ // sl.registerSingleton(ThemeCubit());
 
   /// External
   final SharedPreferences sharedPreferences =
