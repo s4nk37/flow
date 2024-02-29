@@ -1,27 +1,20 @@
 import 'dart:convert';
 
-import '../../../../core/configs/app_config.dart';
-import '../../../../core/errors/exceptions.dart';
-import '../models/todo_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/configs/app_config.dart';
+import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/todo.dart';
+import '../models/todo_model.dart';
+import '../models/todos_response.dart';
 
 abstract class TodoLocalDataSource {
   /// Gets the cached [List<Todo>] which was gotten the last time
   /// the user had an internet connection
   ///
   /// Throws [CacheException] if no cached data is present
-  Future<List<Todo>> getTodos();
+  Future<TodosResponseModel> getTodos();
   Future<void> cacheTodos(List<Todo> todos);
-  // Future<Todo> getTodoById(int id);
-  // Future<void> addTodo(Todo todo);
-  // Future<void> updateTodo(Todo todo);
-  // Future<void> deleteTodoById(int id);
-  // Future<void> deleteAllTodos();
-  // Future<void> deleteCompletedTodos();
-  // Future<void> markTodoAsCompleted(int id);
-  // Future<void> markTodoAsIncompleted(int id);
 }
 
 class TodoLocalDataSourceImpl implements TodoLocalDataSource {
@@ -30,15 +23,12 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   TodoLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<List<Todo>> getTodos() async {
+  Future<TodosResponseModel> getTodos() async {
     final jsonString = sharedPreferences.getString(kCachedTodosKey);
     if (jsonString != null) {
       final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
-      final todoList = jsonMap['todos'] as List<dynamic>;
-      final todos =
-          todoList.map((todoJson) => TodoModel.fromJson(todoJson)).toList();
-
-      return Future.value(todos);
+      final todosResponse = TodosResponseModel.fromJson(jsonMap);
+      return Future.value(todosResponse);
     } else {
       throw CacheException();
     }
@@ -46,24 +36,21 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
 
   @override
   Future<void> cacheTodos(List<Todo> todos) {
-    final List<Map<String, dynamic>> todoList = todos.map((todo) {
-      return TodoModel(
-        newId: todo.id,
-        title: todo.title,
-        isCompleted: todo.isCompleted,
-        createdAt: todo.createdAt,
-        description: todo.description,
-        completedAt: todo.completedAt,
-        reminderAt: todo.reminderAt,
-        updatedAt: todo.updatedAt,
-      ).toJson();
-    }).toList();
-
+    final time = DateTime.now().millisecondsSinceEpoch;
+    final todosModel = todos
+        .map((todo) => TodoModel(
+            newId: todo.id,
+            title: todo.title,
+            description: todo.description,
+            isCompleted: todo.isCompleted,
+            createdAt: todo.createdAt))
+        .toList();
+    final data = TodosResponseModel(todos: todosModel, updatedAt: time);
+    sharedPreferences.remove(kCachedTodosKey);
     sharedPreferences.setString(
       kCachedTodosKey,
-      jsonEncode({'todos': todoList}),
+      jsonEncode(data.toJson()),
     );
-
     return Future.value();
   }
 }

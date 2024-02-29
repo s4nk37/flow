@@ -13,8 +13,7 @@ final darkThemeData = ThemeData(
     useMaterial3: true, fontFamily: kAppFont, brightness: Brightness.dark);
 
 abstract class AppTheme {
-  static Future initialize() async =>
-      _prefs = await SharedPreferences.getInstance();
+  static Future initialize(SharedPreferences? prefs) async => _prefs = prefs;
 
   static ThemeMode get themeMode {
     final darkMode = _prefs?.getBool(kThemeModeKey);

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/configs/app_config.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
@@ -23,148 +24,54 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Either<Failure, List<Todo>>> getTodos() async {
     try {
-      final localTodos = await localDataSource.getTodos();
-      if (localTodos.isEmpty) {
-        if (await networkInfo.isConnected) {
-          try {
-            final remoteTodos = await remoteDataSource.getTodos();
-            localDataSource.cacheTodos(remoteTodos);
-            return Right(remoteTodos);
-          } on ServerException {
-            return Left(ServerFailure());
+      final localTodosResponse = await localDataSource.getTodos();
+      if (await networkInfo.isConnected) {
+        // Fetching remote and comapring latest versions
+        logger.d('Online');
+        try {
+          final remoteTodosResponse = await remoteDataSource.getTodos();
+          logger.d('Local: ${localTodosResponse.updatedAt}');
+          logger.d('Remote: ${remoteTodosResponse.updatedAt}');
+          if (remoteTodosResponse.updatedAt > localTodosResponse.updatedAt) {
+            logger.d('Remote is newer');
+            await localDataSource.cacheTodos(remoteTodosResponse.todos);
+            return Right(remoteTodosResponse.todos);
+          } else {
+            await remoteDataSource.saveTodos(localTodosResponse.todos);
+            return Right(localTodosResponse.todos);
           }
+        } on Exception {
+          return Left(ServerFailure());
         }
       }
-
-      return Right(localTodos);
+      if (localTodosResponse.todos.isEmpty) {
+        // return Left(CacheFailure());
+        return const Right([]);
+      } else {
+        return Right(localTodosResponse.todos);
+      }
     } on CacheException {
-      return Left(CacheFailure());
+      // return Left(CacheFailure());
+      return const Right([]);
     }
-
-    // if (await networkInfo.isConnected) {
-    //   try {
-    //     final remoteTodos = await remoteDataSource.getTodos();
-    //     localDataSource.cacheTodos(remoteTodos);
-    //     return Right(remoteTodos);
-    //   } on ServerException {
-    //     return Left(ServerFailure());
-    //   }
-    // } else {
-    //   try {
-    //     final localTodos = await localDataSource.getTodos();
-    //     return Right(localTodos);
-    //   } on CacheException {
-    //     return Left(CacheFailure());
-    //   }
-    // }
   }
 
   @override
-  Future<Either<Failure, Todo>> getTodoById(int id) async {
+  Future<Either<Failure, NoParams>> saveTodos(List<Todo> todos) async {
+    logger.d('Saving todos');
     try {
-      final localTodo = await localDataSource.getTodoById(id);
-      return Right(localTodo);
-    } on CacheException {
-      return Left(CacheFailure());
-    }
-
-    // if (await networkInfo.isConnected) {
-    //   try {
-    //     final remoteTodo = await remoteDataSource.getTodoById(id);
-    //     return Right(remoteTodo);
-    //   } on ServerException {
-    //     return Left(ServerFailure());
-    //   }
-    // } else {
-    //   try {
-    //     final localTodo = await localDataSource.getTodoById(id);
-    //     return Right(localTodo);
-    //   } on CacheException {
-    //     return Left(CacheFailure());
-    //   }
-    // }
-  }
-
-  @override
-  Future<Either<Failure, NoParams>> addTodo(Todo todo) async {
-    return _executeTodoOperation(
-      //   () => remoteDataSource.addTodo(todo),
-      () => localDataSource.addTodo(todo),
-    );
-  }
-
-  @override
-  Future<Either<Failure, NoParams>> deleteAllTodos() async {
-    return _executeTodoOperation(
-      //   () => remoteDataSource.deleteAllTodos(),
-      () => localDataSource.deleteAllTodos(),
-    );
-  }
-
-  @override
-  Future<Either<Failure, NoParams>> deleteCompletedTodos() async {
-    return _executeTodoOperation(
-      // () => remoteDataSource.deleteCompletedTodos(),
-      () => localDataSource.deleteCompletedTodos(),
-    );
-  }
-
-  @override
-  Future<Either<Failure, NoParams>> deleteTodoById(int id) async {
-    return _executeTodoOperation(
-      //  () => remoteDataSource.deleteTodoById(id),
-      () => localDataSource.deleteTodoById(id),
-    );
-  }
-
-  @override
-  Future<Either<Failure, NoParams>> markTodoAsCompleted(int id) async {
-    return _executeTodoOperation(
-      //  () => remoteDataSource.markTodoAsCompleted(id),
-      () => localDataSource.markTodoAsCompleted(id),
-    );
-  }
-
-  @override
-  Future<Either<Failure, NoParams>> markTodoAsIncompleted(int id) async {
-    return _executeTodoOperation(
-      //  () => remoteDataSource.markTodoAsIncompleted(id),
-      () => localDataSource.markTodoAsIncompleted(id),
-    );
-  }
-
-  @override
-  Future<Either<Failure, NoParams>> updateTodo(Todo todo) async {
-    return _executeTodoOperation(
-      // () => remoteDataSource.updateTodo(todo),
-      () => localDataSource.updateTodo(todo),
-    );
-  }
-
-  Future<Either<Failure, NoParams>> _executeTodoOperation(
-    // Future<void> Function() remoteOperation,
-    Future<void> Function() localOperation,
-  ) async {
-    try {
-      await localOperation();
+      localDataSource.cacheTodos(todos);
+      if (await networkInfo.isConnected) {
+        try {
+          remoteDataSource.saveTodos(todos);
+          return Right(NoParams());
+        } on ServerException {
+          return Left(ServerFailure());
+        }
+      }
       return Right(NoParams());
     } on CacheException {
       return Left(CacheFailure());
     }
-    // if (await networkInfo.isConnected) {
-    //   try {
-    //     await remoteOperation();
-    //     return Right(NoParams());
-    //   } on ServerException {
-    //     return Left(ServerFailure());
-    //   }
-    // } else {
-    //   try {
-    //     await localOperation();
-    //     return Right(NoParams());
-    //   } on CacheException {
-    //     return Left(CacheFailure());
-    //   }
-    // }
   }
 }
