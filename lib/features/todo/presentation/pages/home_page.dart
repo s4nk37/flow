@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/theme/app_theme.dart';
-import '../../data/models/todo_model.dart';
 import '../../domain/entities/todo.dart';
 import '../bloc/todo_bloc.dart';
 

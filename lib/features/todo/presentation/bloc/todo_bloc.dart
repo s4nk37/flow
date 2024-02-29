@@ -43,6 +43,4 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     emit(LoadedTodos(todos: _todos));
   }
-
-  void _deleteTodo() async {}
 }
