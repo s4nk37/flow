@@ -31,6 +31,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       (todos) {
         _todos.clear();
         _todos.addAll(todos);
+        if (todos.isEmpty) {
+          return Empty();
+        }
         return LoadedTodos(todos: _todos);
       },
     ));
