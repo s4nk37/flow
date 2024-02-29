@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flow/core/configs/app_config.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
@@ -28,15 +29,27 @@ class TodoRepositoryImpl implements TodoRepository {
         if (await networkInfo.isConnected) {
           try {
             final remoteTodos = await remoteDataSource.getTodos();
-            localDataSource.cacheTodos(remoteTodos);
-            return Right(remoteTodos);
+            final localTodos = await localDataSource.getTodos();
+
+            if (localTodos[1] < remoteTodos[1]) {
+              await localDataSource.cacheTodos(remoteTodos[0]);
+              return Right(remoteTodos[0]);
+            } else {
+              await remoteDataSource.saveTodos(localTodos[0]);
+              return Right(localTodos[0]);
+            }
+
+            // if(localTodos[1])
+            //
+            // await localDataSource.cacheTodos(remoteTodos[0]);
+            // return Right(remoteTodos[0]);
           } on ServerException {
             return Left(ServerFailure());
           }
         }
       }
 
-      return Right(localTodos);
+      return Right(localTodos[0]);
     } on CacheException {
       return Left(CacheFailure());
     }
@@ -57,6 +70,29 @@ class TodoRepositoryImpl implements TodoRepository {
     //     return Left(CacheFailure());
     //   }
     // }
+  }
+
+  @override
+  Future<Either<Failure, NoParams>> saveTodos(List<Todo> todos) async {
+    try {
+      if (await networkInfo.isConnected) {
+        try {
+          remoteDataSource.saveTodos(todos);
+          try {
+            await localDataSource.cacheTodos(todos);
+          } on CacheException {
+            return Left(CacheFailure());
+          }
+          return Right(NoParams());
+        } on ServerException {
+          return Left(ServerFailure());
+        }
+      }
+      await localDataSource.cacheTodos(todos);
+      return Right(NoParams());
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 
   // // @override

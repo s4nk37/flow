@@ -12,7 +12,7 @@ abstract class TodoLocalDataSource {
   /// the user had an internet connection
   ///
   /// Throws [CacheException] if no cached data is present
-  Future<List<Todo>> getTodos();
+  Future<List<dynamic>> getTodos();
   Future<void> cacheTodos(List<Todo> todos);
   // Future<Todo> getTodoById(int id);
   // Future<void> addTodo(Todo todo);
@@ -30,7 +30,7 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   TodoLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<List<Todo>> getTodos() async {
+  Future<List<dynamic>> getTodos() async {
     final jsonString = sharedPreferences.getString(kCachedTodosKey);
     if (jsonString != null) {
       final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
@@ -38,9 +38,9 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
       final todos =
           todoList.map((todoJson) => TodoModel.fromJson(todoJson)).toList();
 
-      return Future.value(todos);
+      return Future.value([todos, jsonMap['updatedAt']]);
     } else {
-      throw CacheException();
+      return Future.value([]);
     }
   }
 
@@ -59,9 +59,14 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
       ).toJson();
     }).toList();
 
+    final time = DateTime.now().millisecondsSinceEpoch;
+    sharedPreferences.remove(kCachedTodosKey);
     sharedPreferences.setString(
       kCachedTodosKey,
-      jsonEncode({'todos': todoList}),
+      jsonEncode({
+        'todos': todoList,
+        'updatedAt': time,
+      }),
     );
 
     return Future.value();
