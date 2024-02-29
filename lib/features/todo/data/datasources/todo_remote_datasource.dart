@@ -1,24 +1,16 @@
-import 'package:flow/core/errors/exceptions.dart';
-import 'package:logger/logger.dart';
+import 'dart:convert';
 
-import '../../../../core/configs/app_config.dart';
-import '../../domain/entities/todo.dart';
 import 'package:dio/dio.dart';
 
+import '../../../../core/errors/exceptions.dart';
+import '../../domain/entities/todo.dart';
 import '../models/todo_model.dart';
+import '../models/todos_response.dart';
 
 abstract class TodoRemoteDataSource {
   ///Call the Firebase API and Returns ServerExceptions if the response code is not 200
-  Future<List<dynamic>> getTodos();
+  Future<TodosResponseModel> getTodos();
   Future<void> saveTodos(List<Todo> todos);
-  // Future<Todo> getTodoById(int id);
-  // Future<void> addTodo(Todo todo);
-  // Future<void> updateTodo(Todo todo);
-  // Future<void> deleteTodoById(int id);
-  // Future<void> deleteAllTodos();
-  // Future<void> deleteCompletedTodos();
-  // Future<void> markTodoAsCompleted(int id);
-  // Future<void> markTodoAsIncompleted(int id);
 }
 
 class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
@@ -27,7 +19,7 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
   TodoRemoteDataSourceImpl({required this.dio});
 
   @override
-  Future<List<dynamic>> getTodos() async {
+  Future<TodosResponseModel> getTodos() async {
     try {
       final response = await dio.get(
           "https://flutter-chat-42d3a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json",
@@ -35,12 +27,7 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
             contentType: "application/json",
           ));
       if (response.statusCode == 200) {
-        final Map<String, dynamic> jsonMap = response.data;
-        final todoList = jsonMap['todos'] as List<dynamic> ?? [];
-        final List<TodoModel> todosModel = todoList
-            .map((todoJson) => TodoModel.fromJson(todoJson))
-            .toList() as List<TodoModel>;
-        return [todosModel, jsonMap['updatedAt']];
+        return TodosResponseModel.fromJson(response.data);
       } else {
         throw ServerException();
       }
@@ -51,32 +38,23 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
 
   @override
   Future<void> saveTodos(List<Todo> todos) async {
-    final List<Map<String, dynamic>> todoList = todos.map((todo) {
-      return TodoModel(
-        newId: todo.id,
-        title: todo.title,
-        isCompleted: todo.isCompleted,
-        createdAt: todo.createdAt,
-        description: todo.description,
-        completedAt: todo.completedAt,
-        reminderAt: todo.reminderAt,
-        updatedAt: todo.updatedAt,
-      ).toJson();
-    }).toList();
-
     final time = DateTime.now().millisecondsSinceEpoch;
-    final Map<String, dynamic> data = {
-      'todos': todoList,
-      'updatedAt': time,
-    };
-    logger.i(data);
+    final todosModel = todos
+        .map((todo) => TodoModel(
+            newId: todo.id,
+            title: todo.title,
+            description: todo.description,
+            isCompleted: todo.isCompleted,
+            createdAt: todo.createdAt))
+        .toList();
+    final data = TodosResponseModel(todos: todosModel, updatedAt: time);
     try {
       final response = await dio.put(
         "https://flutter-chat-42d3a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json",
         options: Options(
           contentType: "application/json",
         ),
-        data: data,
+        data: jsonEncode(data.toJson()),
       );
       if (response.statusCode != 200) {
         throw ServerException();
