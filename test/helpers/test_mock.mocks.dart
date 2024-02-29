@@ -7,19 +7,20 @@ import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:flow/core/errors/failures.dart' as _i7;
-import 'package:flow/core/network/network_info.dart' as _i11;
-import 'package:flow/core/usecases/usecase.dart' as _i8;
+import 'package:flow/core/network/network_info.dart' as _i12;
+import 'package:flow/core/usecases/usecase.dart' as _i9;
 import 'package:flow/features/todo/data/datasources/todo_local_datasource.dart'
-    as _i10;
+    as _i11;
 import 'package:flow/features/todo/data/datasources/todo_remote_datasource.dart'
-    as _i9;
-import 'package:flow/features/todo/domain/entities/todo.dart' as _i3;
+    as _i10;
+import 'package:flow/features/todo/data/models/todos_response.dart' as _i3;
+import 'package:flow/features/todo/domain/entities/todo.dart' as _i8;
 import 'package:flow/features/todo/domain/repositories/todo_repository.dart'
     as _i5;
 import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:shared_preferences/shared_preferences.dart' as _i12;
+import 'package:shared_preferences/shared_preferences.dart' as _i13;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -44,8 +45,9 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-class _FakeTodo_1 extends _i1.SmartFake implements _i3.Todo {
-  _FakeTodo_1(
+class _FakeTodosResponseModel_1 extends _i1.SmartFake
+    implements _i3.TodosResponseModel {
+  _FakeTodosResponseModel_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -80,14 +82,14 @@ class _FakeAddressCheckResult_3 extends _i1.SmartFake
 /// See the documentation for Mockito's code generation for more information.
 class MockTodoRepository extends _i1.Mock implements _i5.TodoRepository {
   @override
-  _i6.Future<_i2.Either<_i7.Failure, List<_i3.Todo>>> getTodos() =>
+  _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>> getTodos() =>
       (super.noSuchMethod(
         Invocation.method(
           #getTodos,
           [],
         ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, List<_i3.Todo>>>.value(
-            _FakeEither_0<_i7.Failure, List<_i3.Todo>>(
+        returnValue: _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>>.value(
+            _FakeEither_0<_i7.Failure, List<_i8.Todo>>(
           this,
           Invocation.method(
             #getTodos,
@@ -95,358 +97,118 @@ class MockTodoRepository extends _i1.Mock implements _i5.TodoRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, List<_i3.Todo>>>.value(
-                _FakeEither_0<_i7.Failure, List<_i3.Todo>>(
+            _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>>.value(
+                _FakeEither_0<_i7.Failure, List<_i8.Todo>>(
           this,
           Invocation.method(
             #getTodos,
             [],
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, List<_i3.Todo>>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>>);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i3.Todo>> getTodoById(int? id) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>> saveTodos(
+          List<_i8.Todo>? todos) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getTodoById,
-          [id],
+          #saveTodos,
+          [todos],
         ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i3.Todo>>.value(
-            _FakeEither_0<_i7.Failure, _i3.Todo>(
+        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>.value(
+            _FakeEither_0<_i7.Failure, _i9.NoParams>(
           this,
           Invocation.method(
-            #getTodoById,
-            [id],
+            #saveTodos,
+            [todos],
           ),
         )),
         returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, _i3.Todo>>.value(
-                _FakeEither_0<_i7.Failure, _i3.Todo>(
+            _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>.value(
+                _FakeEither_0<_i7.Failure, _i9.NoParams>(
           this,
           Invocation.method(
-            #getTodoById,
-            [id],
+            #saveTodos,
+            [todos],
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i3.Todo>>);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>> addTodo(_i3.Todo? todo) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #addTodo,
-          [todo],
-        ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-            _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #addTodo,
-            [todo],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-                _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #addTodo,
-            [todo],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>> updateTodo(
-          _i3.Todo? todo) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #updateTodo,
-          [todo],
-        ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-            _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #updateTodo,
-            [todo],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-                _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #updateTodo,
-            [todo],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>> deleteTodoById(int? id) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteTodoById,
-          [id],
-        ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-            _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #deleteTodoById,
-            [id],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-                _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #deleteTodoById,
-            [id],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>> deleteAllTodos() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteAllTodos,
-          [],
-        ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-            _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #deleteAllTodos,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-                _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #deleteAllTodos,
-            [],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>> deleteCompletedTodos() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteCompletedTodos,
-          [],
-        ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-            _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #deleteCompletedTodos,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-                _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #deleteCompletedTodos,
-            [],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>> markTodoAsCompleted(
-          int? id) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #markTodoAsCompleted,
-          [id],
-        ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-            _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #markTodoAsCompleted,
-            [id],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-                _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #markTodoAsCompleted,
-            [id],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>);
-
-  @override
-  _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>> markTodoAsIncompleted(
-          int? id) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #markTodoAsIncompleted,
-          [id],
-        ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-            _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #markTodoAsIncompleted,
-            [id],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>.value(
-                _FakeEither_0<_i7.Failure, _i8.NoParams>(
-          this,
-          Invocation.method(
-            #markTodoAsIncompleted,
-            [id],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.NoParams>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>);
 }
 
 /// A class which mocks [TodoRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTodoRemoteDataSource extends _i1.Mock
-    implements _i9.TodoRemoteDataSource {
+    implements _i10.TodoRemoteDataSource {
   @override
-  _i6.Future<List<_i3.Todo>> getTodos() => (super.noSuchMethod(
+  _i6.Future<_i3.TodosResponseModel> getTodos() => (super.noSuchMethod(
         Invocation.method(
           #getTodos,
           [],
         ),
-        returnValue: _i6.Future<List<_i3.Todo>>.value(<_i3.Todo>[]),
+        returnValue:
+            _i6.Future<_i3.TodosResponseModel>.value(_FakeTodosResponseModel_1(
+          this,
+          Invocation.method(
+            #getTodos,
+            [],
+          ),
+        )),
         returnValueForMissingStub:
-            _i6.Future<List<_i3.Todo>>.value(<_i3.Todo>[]),
-      ) as _i6.Future<List<_i3.Todo>>);
+            _i6.Future<_i3.TodosResponseModel>.value(_FakeTodosResponseModel_1(
+          this,
+          Invocation.method(
+            #getTodos,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i3.TodosResponseModel>);
+
+  @override
+  _i6.Future<void> saveTodos(List<_i8.Todo>? todos) => (super.noSuchMethod(
+        Invocation.method(
+          #saveTodos,
+          [todos],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }
 
 /// A class which mocks [TodoLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTodoLocalDataSource extends _i1.Mock
-    implements _i10.TodoLocalDataSource {
+    implements _i11.TodoLocalDataSource {
   @override
-  _i6.Future<List<_i3.Todo>> getTodos() => (super.noSuchMethod(
+  _i6.Future<_i3.TodosResponseModel> getTodos() => (super.noSuchMethod(
         Invocation.method(
           #getTodos,
           [],
         ),
-        returnValue: _i6.Future<List<_i3.Todo>>.value(<_i3.Todo>[]),
+        returnValue:
+            _i6.Future<_i3.TodosResponseModel>.value(_FakeTodosResponseModel_1(
+          this,
+          Invocation.method(
+            #getTodos,
+            [],
+          ),
+        )),
         returnValueForMissingStub:
-            _i6.Future<List<_i3.Todo>>.value(<_i3.Todo>[]),
-      ) as _i6.Future<List<_i3.Todo>>);
+            _i6.Future<_i3.TodosResponseModel>.value(_FakeTodosResponseModel_1(
+          this,
+          Invocation.method(
+            #getTodos,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i3.TodosResponseModel>);
 
   @override
-  _i6.Future<void> cacheTodos(List<_i3.Todo>? todos) => (super.noSuchMethod(
+  _i6.Future<void> cacheTodos(List<_i8.Todo>? todos) => (super.noSuchMethod(
         Invocation.method(
           #cacheTodos,
           [todos],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-
-  @override
-  _i6.Future<_i3.Todo> getTodoById(int? id) => (super.noSuchMethod(
-        Invocation.method(
-          #getTodoById,
-          [id],
-        ),
-        returnValue: _i6.Future<_i3.Todo>.value(_FakeTodo_1(
-          this,
-          Invocation.method(
-            #getTodoById,
-            [id],
-          ),
-        )),
-        returnValueForMissingStub: _i6.Future<_i3.Todo>.value(_FakeTodo_1(
-          this,
-          Invocation.method(
-            #getTodoById,
-            [id],
-          ),
-        )),
-      ) as _i6.Future<_i3.Todo>);
-
-  @override
-  _i6.Future<void> addTodo(_i3.Todo? todo) => (super.noSuchMethod(
-        Invocation.method(
-          #addTodo,
-          [todo],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-
-  @override
-  _i6.Future<void> updateTodo(_i3.Todo? todo) => (super.noSuchMethod(
-        Invocation.method(
-          #updateTodo,
-          [todo],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-
-  @override
-  _i6.Future<void> deleteTodoById(int? id) => (super.noSuchMethod(
-        Invocation.method(
-          #deleteTodoById,
-          [id],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-
-  @override
-  _i6.Future<void> deleteAllTodos() => (super.noSuchMethod(
-        Invocation.method(
-          #deleteAllTodos,
-          [],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-
-  @override
-  _i6.Future<void> deleteCompletedTodos() => (super.noSuchMethod(
-        Invocation.method(
-          #deleteCompletedTodos,
-          [],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-
-  @override
-  _i6.Future<void> markTodoAsCompleted(int? id) => (super.noSuchMethod(
-        Invocation.method(
-          #markTodoAsCompleted,
-          [id],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
-
-  @override
-  _i6.Future<void> markTodoAsIncompleted(int? id) => (super.noSuchMethod(
-        Invocation.method(
-          #markTodoAsIncompleted,
-          [id],
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
@@ -456,7 +218,7 @@ class MockTodoLocalDataSource extends _i1.Mock
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i11.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i12.NetworkInfo {
   @override
   _i6.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),
@@ -583,7 +345,7 @@ class MockInternetConnectionChecker extends _i1.Mock
 /// A class which mocks [SharedPreferences].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedPreferences extends _i1.Mock implements _i12.SharedPreferences {
+class MockSharedPreferences extends _i1.Mock implements _i13.SharedPreferences {
   @override
   Set<String> getKeys() => (super.noSuchMethod(
         Invocation.method(

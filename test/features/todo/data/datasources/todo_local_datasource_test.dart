@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flow/core/configs/app_config.dart';
-import 'package:flow/core/errors/exceptions.dart';
 import 'package:flow/features/todo/data/datasources/todo_local_datasource.dart';
 import 'package:flow/features/todo/data/models/todo_model.dart';
 import 'package:mockito/mockito.dart';
