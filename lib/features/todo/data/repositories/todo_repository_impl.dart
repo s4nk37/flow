@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/configs/app_config.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
@@ -25,10 +26,14 @@ class TodoRepositoryImpl implements TodoRepository {
     try {
       final localTodosResponse = await localDataSource.getTodos();
       if (await networkInfo.isConnected) {
-        // Fetching remote and comapring latest verions
+        // Fetching remote and comapring latest versions
+        logger.d('Online');
         try {
           final remoteTodosResponse = await remoteDataSource.getTodos();
+          logger.d('Local: ${localTodosResponse.updatedAt}');
+          logger.d('Remote: ${remoteTodosResponse.updatedAt}');
           if (remoteTodosResponse.updatedAt > localTodosResponse.updatedAt) {
+            logger.d('Remote is newer');
             await localDataSource.cacheTodos(remoteTodosResponse.todos);
             return Right(remoteTodosResponse.todos);
           } else {
@@ -40,17 +45,20 @@ class TodoRepositoryImpl implements TodoRepository {
         }
       }
       if (localTodosResponse.todos.isEmpty) {
-        return Left(CacheFailure());
+        // return Left(CacheFailure());
+        return const Right([]);
       } else {
         return Right(localTodosResponse.todos);
       }
     } on CacheException {
-      return Left(CacheFailure());
+      // return Left(CacheFailure());
+      return const Right([]);
     }
   }
 
   @override
   Future<Either<Failure, NoParams>> saveTodos(List<Todo> todos) async {
+    logger.d('Saving todos');
     try {
       localDataSource.cacheTodos(todos);
       if (await networkInfo.isConnected) {
