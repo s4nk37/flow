@@ -49,6 +49,7 @@ lib
 │   │   │   └── cubit
 │   │   │       └── theme_cubit.dart
 │   │   └── validations
+│   │       └── input_converter.dart
 │   └── widgets
 ├── features
 │   └── todo
@@ -58,7 +59,9 @@ lib
 │       │   │   └── todo_remote_datasource.dart
 │       │   ├── models
 │       │   │   ├── todo_model.dart
-│       │   │   └── todo_model.g.dart
+│       │   │   ├── todo_model.g.dart
+│       │   │   ├── todos_response.dart
+│       │   │   └── todos_response.g.dart
 │       │   └── repositories
 │       │       └── todo_repository_impl.dart
 │       ├── domain
@@ -67,15 +70,8 @@ lib
 │       │   ├── repositories
 │       │   │   └── todo_repository.dart
 │       │   └── usecases
-│       │       ├── add_todo.dart
-│       │       ├── delete_all_todos.dart
-│       │       ├── delete_completed_todos.dart
-│       │       ├── delete_todo_by_id.dart
-│       │       ├── get_todo_by_id.dart
 │       │       ├── get_todos.dart
-│       │       ├── mark_todo_as_completed.dart
-│       │       ├── mark_todo_as_incompleted.dart
-│       │       └── update_todo.dart
+│       │       └── save_todos.dart
 │       └── presentation
 │           ├── bloc
 │           │   ├── todo_bloc.dart
@@ -84,6 +80,7 @@ lib
 │           ├── pages
 │           │   └── home_page.dart
 │           └── widgets
+├── injection_container.dart
 └── main.dart
 test
 ├── core
