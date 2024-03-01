@@ -4,17 +4,17 @@ class Todo extends Equatable {
   final int id;
   final String title;
   final String description;
-  final bool isCompleted;
+  bool isCompleted;
   final DateTime createdAt;
   final DateTime? updatedAt;
   final DateTime? completedAt;
   final DateTime? reminderAt;
 
-  const Todo({
+  Todo({
     required this.id,
     required this.title,
     required this.description,
-    required this.isCompleted,
+    this.isCompleted = false,
     required this.createdAt,
     this.updatedAt,
     this.completedAt,

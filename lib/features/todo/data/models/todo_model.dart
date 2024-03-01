@@ -5,7 +5,7 @@ part 'todo_model.g.dart';
 
 @JsonSerializable()
 class TodoModel extends Todo {
-  const TodoModel({
+  TodoModel({
     required this.newId,
     required super.title,
     required super.description,

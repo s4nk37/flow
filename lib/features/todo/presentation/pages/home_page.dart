@@ -1,10 +1,9 @@
 import 'package:flow/core/utils/theme/cubit/theme_cubit.dart';
+import 'package:flow/features/todo/presentation/widgets/add_todo_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/utils/theme/app_theme.dart';
-import '../../domain/entities/todo.dart';
 import '../bloc/todo_bloc.dart';
+import '../widgets/todo_tile.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -54,45 +53,14 @@ class HomePage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            final todo = Todo(
-              id: 1,
-              title: 'New Task',
-              description: 'Description',
-              isCompleted: false,
-              createdAt: DateTime.now(),
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return const AddTodoBottomSheet();
+              },
             );
-            context.read<TodoBloc>().add(AddTodo(todo: todo));
           },
           child: const Icon(Icons.add),
         ));
-  }
-}
-
-class TodoTile extends StatelessWidget {
-  final Todo todo;
-  const TodoTile({super.key, required this.todo});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        todo.title,
-        style: TextStyle(
-          color: AppTheme.of(context).primaryText,
-        ),
-      ),
-      subtitle: Text(
-        todo.description,
-        style: TextStyle(
-          color: AppTheme.of(context).secondaryText,
-        ),
-      ),
-      trailing: Checkbox(
-        value: todo.isCompleted,
-        onChanged: (value) {
-          // context.read<TodoBloc>().add(MarkTodoAsCompleted(todo.id));
-        },
-      ),
-    );
   }
 }
