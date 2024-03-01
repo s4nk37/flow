@@ -36,6 +36,10 @@ class MyApp extends StatelessWidget {
             darkTheme: darkThemeData,
             themeMode: themeMode,
             home: const HomePage(),
+            themeAnimationStyle: AnimationStyle(
+              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 1000),
+            ),
           );
         },
       ),

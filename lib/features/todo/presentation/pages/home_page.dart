@@ -1,4 +1,5 @@
 import 'package:flow/core/utils/theme/cubit/theme_cubit.dart';
+import 'package:flow/core/widgets/theme_button.dart';
 import 'package:flow/features/todo/presentation/widgets/add_todo_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,23 +13,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     BlocProvider.of<TodoBloc>(context).add(GetTodos());
     return Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: const Text('Tasks'),
-          actions: [
-            IconButton(
-              icon:
-                  BlocBuilder<ThemeCubit, ThemeMode>(builder: (context, state) {
-                if (state == ThemeMode.dark) {
-                  return const Icon(Icons.nightlight_round);
-                } else if (state == ThemeMode.light) {
-                  return const Icon(Icons.wb_sunny);
-                } else {
-                  return const Icon(Icons.brightness_auto_sharp);
-                }
-              }),
-              onPressed: () => context.read<ThemeCubit>().changeTheme(),
-            ),
-          ],
+          centerTitle: false,
+          actions: const [ThemeButton(), SizedBox(width: 0)],
         ),
         body: BlocBuilder<TodoBloc, TodoState>(
           bloc: BlocProvider.of<TodoBloc>(context),
@@ -40,6 +29,7 @@ class HomePage extends StatelessWidget {
             } else if (state is LoadedTodos) {
               return ListView.builder(
                 itemCount: state.todos.length,
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 itemBuilder: (context, i) {
                   return TodoTile(todo: state.todos[i]);
                 },
@@ -55,6 +45,7 @@ class HomePage extends StatelessWidget {
           onPressed: () {
             showModalBottomSheet(
               context: context,
+              isScrollControlled: true,
               builder: (context) {
                 return const AddTodoBottomSheet();
               },

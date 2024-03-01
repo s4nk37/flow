@@ -39,7 +39,7 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
       Todo newTodo = Todo(
         id: DateTime.now().millisecondsSinceEpoch,
         title: task,
-        description: _descriptionController.text ?? "",
+        description: _descriptionController.text,
         isCompleted: false,
         createdAt: DateTime.now(),
         reminderAt: _reminderController.text.isNotEmpty
@@ -56,74 +56,78 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _taskController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a task';
-                }
-                return null;
-              },
-              decoration: const InputDecoration(
-                hintText: 'Task',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _descriptionController,
-              maxLines: 2,
-              decoration: const InputDecoration(
-                hintText: 'Enter description (optional)',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _reminderController,
-              decoration: const InputDecoration(
-                hintText: 'Enter reminder date (optional)',
-                border: OutlineInputBorder(),
-              ),
-              onTap: () async {
-                DateTime? selectedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime(2100),
-                );
-                if (selectedDate != null) {
-                  _reminderController.text =
-                      DateFormat('yyyy-MM-dd').format(selectedDate);
-                }
-              },
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _saveTask,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.of(context).primaryBackground,
-                minimumSize: const Size(double.infinity, 48),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _taskController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a task';
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  hintText: 'Task',
+                  border: OutlineInputBorder(),
                 ),
               ),
-              child: Text(
-                'Add Task',
-                style: TextStyle(
-                  color: AppTheme.of(context).primaryText,
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _descriptionController,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  hintText: 'Enter description (optional)',
+                  border: OutlineInputBorder(),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _reminderController,
+                decoration: const InputDecoration(
+                  hintText: 'Enter reminder date (optional)',
+                  border: OutlineInputBorder(),
+                ),
+                onTap: () async {
+                  DateTime? selectedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100),
+                  );
+                  if (selectedDate != null) {
+                    _reminderController.text =
+                        DateFormat('yyyy-MM-dd').format(selectedDate);
+                  }
+                },
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _saveTask,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.of(context).primary,
+                  minimumSize: const Size(double.infinity, 48),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'Add Task',
+                  style: TextStyle(
+                    color: AppTheme.of(context).background,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

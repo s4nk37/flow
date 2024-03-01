@@ -4,6 +4,9 @@ import '../../domain/entities/todo.dart';
 part 'todo_model.g.dart';
 
 @JsonSerializable()
+
+//ignore: must_be_immutable.
+
 class TodoModel extends Todo {
   TodoModel({
     required this.newId,
