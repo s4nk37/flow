@@ -26,11 +26,15 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   Future<TodosResponseModel> getTodos() async {
     final jsonString = sharedPreferences.getString(kCachedTodosKey);
     if (jsonString != null) {
-      final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
-      final todosResponse = TodosResponseModel.fromJson(jsonMap);
-      return Future.value(todosResponse);
+      try {
+        final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
+        final todosResponse = TodosResponseModel.fromJson(jsonMap);
+        return Future.value(todosResponse);
+      } on Exception {
+        throw CacheException();
+      }
     } else {
-      throw CacheException();
+      return TodosResponseModel(todos: [], updatedAt: 1);
     }
   }
 

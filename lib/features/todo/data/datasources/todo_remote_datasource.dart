@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 
+import '../../../../core/configs/app_config.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/todo.dart';
 import '../models/todo_model.dart';
@@ -27,6 +27,10 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
             contentType: "application/json",
           ));
       if (response.statusCode == 200) {
+        logger.d(response.data);
+        if (response.data == null) {
+          return TodosResponseModel(todos: [], updatedAt: 1);
+        }
         return TodosResponseModel.fromJson(response.data);
       } else {
         throw ServerException();
@@ -47,14 +51,16 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
             isCompleted: todo.isCompleted,
             createdAt: todo.createdAt))
         .toList();
-    final data = TodosResponseModel(todos: todosModel, updatedAt: time);
+    final data = jsonEncode(
+        TodosResponseModel(todos: todosModel, updatedAt: time).toJson());
+    logger.d(data);
     try {
       final response = await dio.put(
         "https://flutter-chat-42d3a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json",
         options: Options(
           contentType: "application/json",
         ),
-        data: jsonEncode(data.toJson()),
+        data: data,
       );
       if (response.statusCode != 200) {
         throw ServerException();

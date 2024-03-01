@@ -23,8 +23,10 @@ class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<Either<Failure, List<Todo>>> getTodos() async {
+    logger.d('Offline');
     try {
       final localTodosResponse = await localDataSource.getTodos();
+
       if (await networkInfo.isConnected) {
         // Fetching remote and comapring latest versions
         logger.d('Online');
@@ -44,6 +46,7 @@ class TodoRepositoryImpl implements TodoRepository {
           return Left(ServerFailure());
         }
       }
+      logger.d('Offline');
       if (localTodosResponse.todos.isEmpty) {
         // return Left(CacheFailure());
         return const Right([]);
