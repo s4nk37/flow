@@ -120,7 +120,7 @@ test
 ```
 **Getting Started:**
 
-1.  Clone the repository:  `git clone https://github.com/your_username/simple_task_manager`
+1.  Clone the repository:  `git clone https://github.com/s4nk37/flow`
 2.  Install dependencies:  `flutter pub get`
 3.  Run following command to generate required files: `dart run build_runner build`
 4.  Run the app:  `flutter run`

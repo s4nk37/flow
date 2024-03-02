@@ -1,4 +1,3 @@
-import 'package:flow/core/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,13 +11,32 @@ class TodoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<BoxShadow> outerShadows = [
+      BoxShadow(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black12
+            : Colors.grey.withOpacity(0.3),
+        spreadRadius: -2.0,
+        offset: const Offset(4, 4),
+        blurRadius: 8.0,
+      ),
+      BoxShadow(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black12
+            : Colors.white,
+        offset: const Offset(-4, -4),
+        spreadRadius: 2.0,
+        blurRadius: 8.0,
+      ),
+    ];
+
     return Dismissible(
       key: Key(todo.id.toString()),
       direction: DismissDirection.endToStart,
       background: Container(
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 15),
-        margin: const EdgeInsets.symmetric(vertical: 5.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(16),
@@ -35,14 +53,15 @@ class TodoTile extends StatelessWidget {
         context.read<TodoBloc>().add(DeleteTodoById(id: todo.id));
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        margin: const EdgeInsets.symmetric(vertical: 5.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: AppTheme.of(context)
-              .primaryBackground
-              .withOpacity(todo.isCompleted ? 0.0 : 1.0),
+          boxShadow: todo.isCompleted ? null : outerShadows,
+          color: todo.isCompleted
+              ? AppTheme.of(context).accent3
+              : AppTheme.of(context).background,
         ),
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
         child: Row(
           children: [
             Checkbox(

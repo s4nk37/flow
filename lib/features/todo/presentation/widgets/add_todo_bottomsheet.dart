@@ -67,27 +67,45 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               const SizedBox(height: 16),
+              TextFormField(
+                controller: _taskController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a task';
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  hintText: 'Task',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
                     child: TextFormField(
-                      controller: _taskController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a task';
-                        }
-                        return null;
-                      },
+                      controller: _descriptionController,
+                      maxLines: 1,
                       decoration: const InputDecoration(
-                        hintText: 'Task',
+                        hintText: 'Description',
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
                       ),
                     ),
                   ),
-                  IconButton(
-                      onPressed: () async {
+                  const SizedBox(width: 16),
+                  Container(
+                    padding: const EdgeInsets.all(22),
+                    decoration: BoxDecoration(
+                      color: AppTheme.of(context).primary,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: GestureDetector(
+                      onTap: () async {
                         DateTime? selectedDate = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
@@ -100,29 +118,19 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                           setState(() {});
                         }
                       },
-                      icon: const Icon(Icons.notifications_active))
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _descriptionController,
-                      maxLines: 1,
-                      decoration: const InputDecoration(
-                        hintText: 'Description',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                      ),
+                      child: _reminderTime.isEmpty
+                          ? Icon(
+                              Icons.notifications_active,
+                              color: AppTheme.of(context).background,
+                            )
+                          : Text(
+                              _reminderTime,
+                              style: TextStyle(
+                                color: AppTheme.of(context).background,
+                              ),
+                            ),
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  if (_reminderTime.isNotEmpty)
-                    Text(
-                      _reminderTime,
-                    ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -132,7 +140,7 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                   backgroundColor: AppTheme.of(context).primary,
                   minimumSize: const Size(double.infinity, 48),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(16),
                   ),
                 ),
                 child: Text(
