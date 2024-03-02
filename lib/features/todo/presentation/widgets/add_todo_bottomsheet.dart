@@ -1,5 +1,6 @@
 import 'package:flow/features/todo/domain/entities/todo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -20,15 +21,13 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
   late final TextEditingController _titleController = TextEditingController();
   late final TextEditingController _descriptionController =
       TextEditingController();
-  late final TextEditingController _reminderController =
-      TextEditingController();
+  String _reminderTime = "";
 
   @override
   void dispose() {
     _taskController.dispose();
     _titleController.dispose();
     _descriptionController.dispose();
-    _reminderController.dispose();
     super.dispose();
   }
 
@@ -42,8 +41,8 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
         description: _descriptionController.text,
         isCompleted: false,
         createdAt: DateTime.now(),
-        reminderAt: _reminderController.text.isNotEmpty
-            ? DateFormat('yyyy-MM-dd').parse(_reminderController.text)
+        reminderAt: _reminderTime.isNotEmpty
+            ? DateFormat('yyyy-MM-dd').parse(_reminderTime)
             : null,
       );
       // context.read<TodoBloc>().add(AddTodo(todo:newTodo));
@@ -65,49 +64,66 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               const SizedBox(height: 16),
-              TextFormField(
-                controller: _taskController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a task';
-                  }
-                  return null;
-                },
-                decoration: const InputDecoration(
-                  hintText: 'Task',
-                  border: OutlineInputBorder(),
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: _taskController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a task';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Task',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () async {
+                        DateTime? selectedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2100),
+                        );
+                        if (selectedDate != null) {
+                          _reminderTime =
+                              DateFormat('yyyy-MM-dd').format(selectedDate);
+                          setState(() {});
+                        }
+                      },
+                      icon: const Icon(Icons.notifications_active))
+                ],
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                controller: _descriptionController,
-                maxLines: 1,
-                decoration: const InputDecoration(
-                  hintText: 'Enter description (optional)',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _reminderController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter reminder date (optional)',
-                  border: OutlineInputBorder(),
-                ),
-                onTap: () async {
-                  DateTime? selectedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2100),
-                  );
-                  if (selectedDate != null) {
-                    _reminderController.text =
-                        DateFormat('yyyy-MM-dd').format(selectedDate);
-                  }
-                },
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: _descriptionController,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                        hintText: 'Description',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  if (_reminderTime.isNotEmpty)
+                    Text(
+                      _reminderTime,
+                    ),
+                ],
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -116,7 +132,7 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                   backgroundColor: AppTheme.of(context).primary,
                   minimumSize: const Size(double.infinity, 48),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 child: Text(
