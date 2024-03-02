@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           create: (context) => di.sl<ThemeCubit>(),
         ),
         BlocProvider<TodoBloc>(
-          create: (context) => di.sl<TodoBloc>(),
+          create: (context) => di.sl<TodoBloc>()..add(GetTodos()),
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
             themeMode: themeMode,
             home: const HomePage(),
             themeAnimationStyle: AnimationStyle(
-              curve: Curves.easeInOut,
-              duration: const Duration(milliseconds: 1000),
+              curve: Curves.ease,
+              duration: const Duration(milliseconds: 1400),
             ),
           );
         },

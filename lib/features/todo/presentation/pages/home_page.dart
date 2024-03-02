@@ -1,6 +1,5 @@
-import 'package:flow/core/utils/theme/cubit/theme_cubit.dart';
-import 'package:flow/core/widgets/theme_button.dart';
-import 'package:flow/features/todo/presentation/widgets/add_todo_bottomsheet.dart';
+import '../../../../core/widgets/theme_button.dart';
+import '../widgets/add_todo_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/todo_bloc.dart';
@@ -11,7 +10,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<TodoBloc>(context).add(GetTodos());
+    // BlocProvider.of<TodoBloc>(context).add(GetTodos());
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
