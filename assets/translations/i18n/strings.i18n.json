@@ -60,5 +60,10 @@
         "success": "Logged in successfully",
         "fail": "Logged in failed",
         "login": "Login"
-    }
+    },
+    "settings": "Settings",
+    "change_language": "Change language",
+    "change_theme": "Change theme",
+    "English": "English",
+    "Gujarati": "ગુજરાતી"
 }

@@ -60,5 +60,10 @@
         "success": "સફળતાપૂર્વક પ્રવેશ કર્યો",
         "fail": "લૉગિન નિષ્ફળ",
         "login": "લૉગિન"
-    }
+    },
+    "settings": "સેટિંગ્સ",
+    "change_language": "ભાષા બદલો",
+    "change_theme": "થીમ બદલો",
+    "English": "English",
+    "Gujarati": "ગુજરાતી"
 }
