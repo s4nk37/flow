@@ -14,18 +14,18 @@ class TodoTile extends StatelessWidget {
     final List<BoxShadow> outerShadows = [
       BoxShadow(
         color: Theme.of(context).brightness == Brightness.dark
-            ? Colors.black12
+            ? Colors.black26
             : Colors.grey.withOpacity(0.3),
-        spreadRadius: -2.0,
+        spreadRadius: 0.0,
         offset: const Offset(4, 4),
         blurRadius: 8.0,
       ),
       BoxShadow(
         color: Theme.of(context).brightness == Brightness.dark
-            ? Colors.black12
+            ? const Color.fromARGB(255, 55, 55, 55)
             : Colors.white,
         offset: const Offset(-4, -4),
-        spreadRadius: 2.0,
+        spreadRadius: 0.0,
         blurRadius: 8.0,
       ),
     ];
@@ -57,7 +57,7 @@ class TodoTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: todo.isCompleted ? null : outerShadows,
           color: todo.isCompleted
-              ? AppTheme.of(context).accent3
+              ? AppTheme.of(context).disabled
               : AppTheme.of(context).background,
         ),
         padding: const EdgeInsets.symmetric(vertical: 10.0),

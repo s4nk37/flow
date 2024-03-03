@@ -1,11 +1,11 @@
-import 'package:flow/features/todo/domain/entities/todo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/configs/app_config.dart';
+import '../../../../core/i18n/strings.g.dart';
 import '../../../../core/utils/theme/app_theme.dart';
+import '../../domain/entities/todo.dart';
 import '../bloc/todo_bloc.dart';
 
 class AddTodoBottomSheet extends StatefulWidget {
@@ -71,13 +71,13 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                 controller: _taskController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a task';
+                    return t.please_enter_task_name;
                   }
                   return null;
                 },
-                decoration: const InputDecoration(
-                  hintText: 'Task',
-                  border: OutlineInputBorder(
+                decoration: InputDecoration(
+                  hintText: t.task_name,
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
                 ),
@@ -89,9 +89,9 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                     child: TextFormField(
                       controller: _descriptionController,
                       maxLines: 1,
-                      decoration: const InputDecoration(
-                        hintText: 'Description',
-                        border: OutlineInputBorder(
+                      decoration: InputDecoration(
+                        hintText: t.description,
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
                       ),
@@ -144,7 +144,7 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                   ),
                 ),
                 child: Text(
-                  'Add Task',
+                  t.add_task,
                   style: TextStyle(
                     color: AppTheme.of(context).background,
                   ),
