@@ -1,7 +1,9 @@
 import 'package:flow/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'core/configs/app_config.dart';
+import 'core/i18n/strings.g.dart';
 import 'core/utils/theme/app_theme.dart';
 import 'core/utils/theme/cubit/theme_cubit.dart';
 import 'features/todo/presentation/pages/home_page.dart';
@@ -9,8 +11,9 @@ import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocaleSettings.setLocale(AppLocale.guIn);
   await di.init();
-  runApp(const MyApp());
+  runApp(TranslationProvider(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -35,11 +38,11 @@ class MyApp extends StatelessWidget {
             theme: lightThemeData,
             darkTheme: darkThemeData,
             themeMode: themeMode,
+            locale: TranslationProvider.of(context).flutterLocale,
+            supportedLocales: AppLocaleUtils.supportedLocales,
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
             home: const HomePage(),
-            themeAnimationStyle: AnimationStyle(
-              curve: Curves.ease,
-              duration: const Duration(milliseconds: 1400),
-            ),
+            themeAnimationDuration: Duration.zero,
           );
         },
       ),

@@ -50,9 +50,12 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   shared_preferences: ^2.2.2
   dartz: ^0.10.1
-  intl: ^0.19.0
+  intl: any
   internet_connection_checker: ^1.0.0+1
   hive: ^2.2.3
+  slang_flutter: ^3.30.0
+  flutter_localizations:
+    sdk: flutter
   # freezed_annotation: ^2.4.1
 
 dev_dependencies:
