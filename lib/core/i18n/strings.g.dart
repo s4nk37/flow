@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 120 (60 per locale)
+/// Strings: 130 (65 per locale)
 ///
-/// Built on 2024-03-03 at 19:33 UTC
+/// Built on 2024-03-03 at 21:06 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -206,6 +206,11 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get reset_password_email_sent_description => 'We have sent an email to reset your password';
 	String get reset_password_email_sent_description2 => 'Please check your email';
 	late final _StringsLoginEn login = _StringsLoginEn._(_root);
+	String get settings => 'Settings';
+	String get change_language => 'Change language';
+	String get change_theme => 'Change theme';
+	String get English => 'English';
+	String get Gujarati => 'ગુજરાતી';
 }
 
 // Path: login
@@ -302,6 +307,11 @@ class _StringsGuIn implements Translations {
 	@override String get reset_password_email_sent_description => 'અમે તમારો પાસવર્ડ રીસેટ કરવા માટે ઇમેઇલ મોકલ્યો છે';
 	@override String get reset_password_email_sent_description2 => 'કૃપા કરીને તમારું ઇમેઇલ તપાસો';
 	@override late final _StringsLoginGuIn login = _StringsLoginGuIn._(_root);
+	@override String get settings => 'સેટિંગ્સ';
+	@override String get change_language => 'ભાષા બદલો';
+	@override String get change_theme => 'થીમ બદલો';
+	@override String get English => 'English';
+	@override String get Gujarati => 'ગુજરાતી';
 }
 
 // Path: login
@@ -382,6 +392,11 @@ extension on Translations {
 			case 'login.success': return 'Logged in successfully';
 			case 'login.fail': return 'Logged in failed';
 			case 'login.login': return 'Login';
+			case 'settings': return 'Settings';
+			case 'change_language': return 'Change language';
+			case 'change_theme': return 'Change theme';
+			case 'English': return 'English';
+			case 'Gujarati': return 'ગુજરાતી';
 			default: return null;
 		}
 	}
@@ -450,6 +465,11 @@ extension on _StringsGuIn {
 			case 'login.success': return 'સફળતાપૂર્વક પ્રવેશ કર્યો';
 			case 'login.fail': return 'લૉગિન નિષ્ફળ';
 			case 'login.login': return 'લૉગિન';
+			case 'settings': return 'સેટિંગ્સ';
+			case 'change_language': return 'ભાષા બદલો';
+			case 'change_theme': return 'થીમ બદલો';
+			case 'English': return 'English';
+			case 'Gujarati': return 'ગુજરાતી';
 			default: return null;
 		}
 	}

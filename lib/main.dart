@@ -11,7 +11,7 @@ import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocaleSettings.setLocale(AppLocale.guIn);
+  LocaleSettings.useDeviceLocale();
   await di.init();
   runApp(TranslationProvider(child: const MyApp()));
 }

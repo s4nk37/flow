@@ -7,15 +7,18 @@ import '../../../configs/app_config.dart';
 class ThemeCubit extends Cubit<ThemeMode> {
   ThemeCubit() : super(AppTheme.themeMode);
 
-  void changeTheme() {
+  void changeTheme([ThemeMode? themeMode]) {
     ThemeMode newThemeMode;
-
-    if (state == ThemeMode.light) {
-      newThemeMode = ThemeMode.dark;
-    } else if (state == ThemeMode.dark) {
-      newThemeMode = ThemeMode.system;
+    if (themeMode != null) {
+      newThemeMode = themeMode;
     } else {
-      newThemeMode = ThemeMode.light;
+      if (state == ThemeMode.light) {
+        newThemeMode = ThemeMode.dark;
+      } else if (state == ThemeMode.dark) {
+        newThemeMode = ThemeMode.system;
+      } else {
+        newThemeMode = ThemeMode.light;
+      }
     }
 
     AppTheme.saveThemeMode(newThemeMode);

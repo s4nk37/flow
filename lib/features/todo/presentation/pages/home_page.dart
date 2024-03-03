@@ -1,10 +1,10 @@
 import '../../../../core/i18n/strings.g.dart';
-import '../../../../core/widgets/theme_button.dart';
 import '../widgets/add_todo_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/todo_bloc.dart';
 import '../widgets/todo_tile.dart';
+import 'settings_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,7 +17,22 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(t.tasks),
         centerTitle: false,
-        actions: const [ThemeButton(), SizedBox(width: 0)],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const SettingsPage();
+                  },
+                ),
+              );
+            },
+          ),
+          const SizedBox(width: 10),
+        ],
       ),
       body: BlocBuilder<TodoBloc, TodoState>(
         bloc: BlocProvider.of<TodoBloc>(context),

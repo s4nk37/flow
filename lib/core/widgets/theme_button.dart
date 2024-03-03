@@ -10,13 +10,24 @@ class ThemeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: BlocBuilder<ThemeCubit, ThemeMode>(builder: (context, state) {
-        if (state == ThemeMode.dark) {
-          return const Icon(Icons.nightlight_round);
-        } else if (state == ThemeMode.light) {
-          return const Icon(Icons.wb_sunny);
-        } else {
-          return const Icon(Icons.brightness_auto_sharp);
-        }
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            state == ThemeMode.dark
+                ? const Icon(Icons.nightlight_round)
+                : state == ThemeMode.light
+                    ? const Icon(Icons.wb_sunny)
+                    : const Icon(Icons.brightness_auto_sharp),
+            const SizedBox(width: 10),
+            Text(
+              state == ThemeMode.dark
+                  ? 'Dark'
+                  : state == ThemeMode.light
+                      ? 'Light'
+                      : 'System',
+            ),
+          ],
+        );
       }),
       onPressed: () => context.read<ThemeCubit>().changeTheme(),
     );
