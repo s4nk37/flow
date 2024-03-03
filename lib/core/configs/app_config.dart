@@ -1,5 +1,6 @@
 import 'package:logger/logger.dart';
 
+
 const String kAppName = 'Flow';
 const String kAppFont = 'Source Code Pro';
 
@@ -13,3 +14,6 @@ var logger = Logger(
     methodCount: 0,
   ),
 );
+
+// Translations provider
+// late Translations t;

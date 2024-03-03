@@ -82,6 +82,7 @@ abstract class AppTheme {
   late Color warning;
   late Color error;
   late Color info;
+  late Color disabled;
 
   // late Color primaryBtnText;
   // late Color lineColor;
@@ -120,7 +121,7 @@ class LightTheme extends AppTheme {
   // late Color noaktive = const Color(0xFF757575);
   // late Color searchColor = const Color(0xFFEDEDED);
   // late Color grayIcon = const Color(0xFF95A1AC);
-  // late Color gray200 = const Color(0xFFDBE2E7);
+  late Color disabled = const Color(0xFFDBE2E7);
   // late Color gray600 = const Color(0xFF262D34);
   // late Color black600 = const Color(0xFF090F13);
   // late Color tertiary400 = const Color(0xFF39D2C0);
@@ -145,7 +146,7 @@ class DarkTheme extends AppTheme {
   late Color warning = const Color(0xFFFCDC0C);
   late Color error = const Color(0xFFE21C3D);
   late Color info = const Color(0xFF1C4494);
-
+  late Color disabled = const Color.fromARGB(255, 54, 54, 54);
   // late Color primaryBtnText = const Color(0xFFFFFFFF);
   // late Color lineColor = const Color(0xFFE8E8E8);
   // late Color noaktive = const Color(0xFF757575);

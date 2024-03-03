@@ -38,6 +38,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         if (todos.isEmpty) {
           return Empty();
         }
+        _todos.sort((a, b) => a.isCompleted ? 1 : -1);
         return LoadedTodos(todos: _todos);
       },
     ));
@@ -59,7 +60,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   void _markTodoAsCompleted(event, emit) async {
     final index = _todos.indexWhere((todo) => todo.id == event.id);
-    _todos[index].isCompleted = true;
+    _todos[index] = _todos[index].copyWith(isCompleted: true);
+    _todos.sort((a, b) => a.isCompleted ? 1 : -1);
     await saveTodos(SaveTodosParams(_todos));
     emit(Loading());
     emit(LoadedTodos(todos: _todos));
@@ -67,21 +69,22 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   void _markTodoAsIncompleted(event, emit) async {
     final index = _todos.indexWhere((todo) => todo.id == event.id);
-    _todos[index].isCompleted = false;
+    _todos[index] = _todos[index].copyWith(isCompleted: false);
+    _todos.sort((a, b) => a.isCompleted ? 1 : -1);
     await saveTodos(SaveTodosParams(_todos));
     emit(Loading());
     emit(LoadedTodos(todos: _todos));
   }
 
-  void _deleteAllTodos(event, emit) async {
-    _todos.clear();
-    await saveTodos(SaveTodosParams(_todos));
-    emit(Empty());
-  }
+  // void _deleteAllTodos(event, emit) async {
+  //   _todos.clear();
+  //   await saveTodos(SaveTodosParams(_todos));
+  //   emit(Empty());
+  // }
 
-  void _deleteCompletedTodos(event, emit) async {
-    _todos.removeWhere((todo) => todo.isCompleted);
-    await saveTodos(SaveTodosParams(_todos));
-    emit(LoadedTodos(todos: _todos));
-  }
+  // void _deleteCompletedTodos(event, emit) async {
+  //   _todos.removeWhere((todo) => todo.isCompleted);
+  //   await saveTodos(SaveTodosParams(_todos));
+  //   emit(LoadedTodos(todos: _todos));
+  // }
 }

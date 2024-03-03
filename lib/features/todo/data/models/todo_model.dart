@@ -8,7 +8,7 @@ part 'todo_model.g.dart';
 //ignore: must_be_immutable.
 
 class TodoModel extends Todo {
-  TodoModel({
+  const TodoModel({
     required this.newId,
     required super.title,
     required super.description,
