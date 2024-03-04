@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text(t.tasks),
+        title: Text(context.t.tasks),
         centerTitle: false,
         actions: [
           IconButton(
@@ -24,9 +24,7 @@ class HomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) {
-                    return const SettingsPage();
-                  },
+                  builder: (context) => const SettingsPage(),
                 ),
               );
             },
@@ -38,7 +36,7 @@ class HomePage extends StatelessWidget {
         bloc: BlocProvider.of<TodoBloc>(context),
         builder: (context, state) {
           if (state is Empty) {
-            return Center(child: Text(t.no_tasks));
+            return Center(child: Text(context.t.no_tasks));
           } else if (state is Loading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is LoadedTodos) {
@@ -53,7 +51,7 @@ class HomePage extends StatelessWidget {
           } else if (state is Error) {
             return Center(child: Text(state.message));
           } else {
-            return Center(child: Text(t.unknown_error));
+            return Center(child: Text(context.t.unknown_error));
           }
         },
       ),
@@ -76,7 +74,7 @@ class HomePage extends StatelessWidget {
             },
           );
         },
-        label: Text(t.add_task),
+        label: Text(context.t.add_task),
         icon: const Icon(Icons.add),
         // child: const Icon(Icons.add),
       ),
