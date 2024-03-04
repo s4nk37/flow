@@ -56,6 +56,7 @@ dependencies:
   slang_flutter: ^3.30.0
   flutter_localizations:
     sdk: flutter
+  flutter_local_notifications: ^16.3.2
   # freezed_annotation: ^2.4.1
 
 dev_dependencies:
