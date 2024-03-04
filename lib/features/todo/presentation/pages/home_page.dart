@@ -1,7 +1,10 @@
-import '../../../../core/i18n/strings.g.dart';
-import '../widgets/add_todo_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/utils/constants/layout_constants.dart';
+import '../../../../core/utils/theme/app_theme.dart';
+import '../../../../core/i18n/strings.g.dart';
+import '../widgets/add_todo_bottomsheet.dart';
 import '../bloc/todo_bloc.dart';
 import '../widgets/todo_tile.dart';
 import 'settings_page.dart';
@@ -11,7 +14,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // BlocProvider.of<TodoBloc>(context).add(GetTodos());
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -58,15 +60,15 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         elevation: 1.0,
         isExtended: true,
-
         onPressed: () {
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
+            backgroundColor: AppTheme.of(context).disabled,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
+                topLeft: Radius.circular(RadiusConstant.commonRadius),
+                topRight: Radius.circular(RadiusConstant.commonRadius),
               ),
             ),
             builder: (context) {
@@ -76,7 +78,6 @@ class HomePage extends StatelessWidget {
         },
         label: Text(context.t.add_task),
         icon: const Icon(Icons.add),
-        // child: const Icon(Icons.add),
       ),
     );
   }
