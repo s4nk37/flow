@@ -39,9 +39,15 @@ class Todo extends Equatable {
       isCompleted: isCompleted ?? this.isCompleted,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      completedAt: completedAt ?? this.completedAt,
+      //completedAt: completedAt ?? this.completedAt,
+      completedAt: isCompleted == true ? completedAt ?? this.completedAt : null,
       reminderAt: reminderAt ?? this.reminderAt,
     );
+  }
+
+  @override
+  String toString() {
+    return 'Todo(id: $id, title: "$title", description: "$description", isCompleted: $isCompleted, createdAt: $createdAt, updatedAt: $updatedAt, completedAt: $completedAt, reminderAt: $reminderAt)';
   }
 
   @override
