@@ -61,7 +61,7 @@ class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<Either<Failure, NoParams>> saveTodos(List<Todo> todos) async {
-    logger.d('Saving todos');
+    logger.d('Saving todos:  $todos');
     try {
       localDataSource.cacheTodos(todos);
       if (await networkInfo.isConnected) {

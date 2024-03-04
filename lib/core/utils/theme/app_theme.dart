@@ -24,6 +24,7 @@ final lightThemeData = ThemeData(
     elevation: 0.5,
     foregroundColor: AppColors.white,
   ),
+  
 );
 final darkThemeData = ThemeData(
   useMaterial3: true,
