@@ -60,7 +60,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   void _markTodoAsCompleted(event, emit) async {
     final index = _todos.indexWhere((todo) => todo.id == event.id);
-    _todos[index] = _todos[index].copyWith(isCompleted: true);
+    DateTime? completedAt = DateTime.now().toUtc();
+    _todos[index] =
+        _todos[index].copyWith(isCompleted: true, completedAt: completedAt);
+
+    logger.d("Marked as completed: ${_todos[index]}");
+
     _todos.sort((a, b) => a.isCompleted ? 1 : -1);
     await saveTodos(SaveTodosParams(_todos));
     emit(Loading());
@@ -69,7 +74,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   void _markTodoAsIncompleted(event, emit) async {
     final index = _todos.indexWhere((todo) => todo.id == event.id);
-    _todos[index] = _todos[index].copyWith(isCompleted: false);
+    _todos[index] =
+        _todos[index].copyWith(isCompleted: false, completedAt: null);
     _todos.sort((a, b) => a.isCompleted ? 1 : -1);
     await saveTodos(SaveTodosParams(_todos));
     emit(Loading());
