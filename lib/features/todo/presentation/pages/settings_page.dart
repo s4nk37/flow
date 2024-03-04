@@ -1,3 +1,4 @@
+import 'package:flow/core/configs/app_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,36 +23,18 @@ class SettingsPage extends StatelessWidget {
             trailing: const Icon(Icons.language),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: AppLocale.values.map((locale) {
-              // active locale
               AppLocale activeLocale = LocaleSettings.currentLocale;
-
-              // typed version is preferred to avoid typos
               bool active = activeLocale == locale;
-
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: active
-                        ? AppTheme.of(context).secondaryBackground
-                        : null,
-                  ),
-                  onPressed: () {
-                    LocaleSettings.setLocale(locale);
-                  },
-                  child: Text(
-                    locale.name == "en" ? t.English : t.Gujarati,
-                    style: TextStyle(
-                        color: active ? AppTheme.of(context).background : null),
-                  ),
-                ),
+              return LanguageChip(
+                active: active,
+                locale: locale,
               );
             }).toList(),
           ),
           ListTile(
-            title: Text(t.change_theme),
+            title: Text(context.t.change_theme),
             trailing: const Icon(Icons.color_lens),
           ),
           BlocBuilder<ThemeCubit, ThemeMode>(builder: (context, state) {
@@ -80,6 +63,45 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
+class LanguageChip extends StatelessWidget {
+  const LanguageChip({
+    super.key,
+    required this.active,
+    required this.locale,
+  });
+
+  final bool active;
+  final AppLocale locale;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        LocaleSettings.setLocale(locale);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: active ? 2 : 1,
+            color: active
+                ? AppTheme.of(context).primary
+                : AppTheme.of(context).secondaryBackground,
+          ),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Text(
+          locale.name == kLocaleEnglish
+              ? t.English
+              : locale.name == kLocaleGujarati
+                  ? t.Gujarati
+                  : t.Hindi,
+        ),
+      ),
+    );
+  }
+}
+
 class ThemeChip extends StatelessWidget {
   final ThemeMode themeMode;
   final ThemeMode activeThemeMode;
@@ -94,7 +116,7 @@ class ThemeChip extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.read<ThemeCubit>().changeTheme(themeMode),
       child: Container(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         decoration: BoxDecoration(
           border: Border.all(
             width: activeThemeMode == themeMode ? 2 : 1,
