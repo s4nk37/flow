@@ -45,11 +45,15 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
     final time = DateTime.now().millisecondsSinceEpoch;
     final todosModel = todos
         .map((todo) => TodoModel(
-            newId: todo.id,
-            title: todo.title,
-            description: todo.description,
-            isCompleted: todo.isCompleted,
-            createdAt: todo.createdAt))
+              newId: todo.id,
+              title: todo.title,
+              description: todo.description,
+              isCompleted: todo.isCompleted,
+              createdAt: todo.createdAt,
+              reminderAt: todo.reminderAt,
+              updatedAt: todo.updatedAt,
+              completedAt: todo.completedAt,
+            ))
         .toList();
     final data = jsonEncode(
         TodosResponseModel(todos: todosModel, updatedAt: time).toJson());
