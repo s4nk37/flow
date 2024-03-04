@@ -3,10 +3,10 @@
 /// Original: assets/translations/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 2
-/// Strings: 130 (65 per locale)
+/// Locales: 3
+/// Strings: 198 (66 per locale)
 ///
-/// Built on 2024-03-03 at 21:06 UTC
+/// Built on 2024-03-04 at 17:32 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -26,7 +26,8 @@ const AppLocale _baseLocale = AppLocale.en;
 /// - if (LocaleSettings.currentLocale == AppLocale.en) // locale check
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	en(languageCode: 'en', build: Translations.build),
-	guIn(languageCode: 'gu', countryCode: 'IN', build: _StringsGuIn.build);
+	guIn(languageCode: 'gu', countryCode: 'IN', build: _StringsGuIn.build),
+	hiIn(languageCode: 'hi', countryCode: 'IN', build: _StringsHiIn.build);
 
 	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
 
@@ -211,6 +212,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get change_theme => 'Change theme';
 	String get English => 'English';
 	String get Gujarati => 'ગુજરાતી';
+	String get Hindi => 'हिंदी';
 }
 
 // Path: login
@@ -312,6 +314,7 @@ class _StringsGuIn implements Translations {
 	@override String get change_theme => 'થીમ બદલો';
 	@override String get English => 'English';
 	@override String get Gujarati => 'ગુજરાતી';
+	@override String get Hindi => 'हिंदी';
 }
 
 // Path: login
@@ -324,6 +327,108 @@ class _StringsLoginGuIn implements _StringsLoginEn {
 	@override String get success => 'સફળતાપૂર્વક પ્રવેશ કર્યો';
 	@override String get fail => 'લૉગિન નિષ્ફળ';
 	@override String get login => 'લૉગિન';
+}
+
+// Path: <root>
+class _StringsHiIn implements Translations {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	_StringsHiIn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = TranslationMetadata(
+		    locale: AppLocale.hiIn,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ) {
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <hi-IN>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key);
+
+	@override late final _StringsHiIn _root = this; // ignore: unused_field
+
+	// Translations
+	@override String get tasks => 'कार्य';
+	@override String get add_task => 'कार्य जोड़ें';
+	@override String get edit_task => 'कार्य संपादित करें';
+	@override String get task_name => 'कार्य का नाम';
+	@override String get description => 'विवरण';
+	@override String get status => 'स्थिति';
+	@override String get created_at => 'बनाया गया';
+	@override String get updated_at => 'अपडेट किया गया';
+	@override String get actions => 'कार्रवाइयाँ';
+	@override String get edit => 'संपादित करें';
+	@override String get delete => 'हटाएं';
+	@override String get Language => 'भाषा';
+	@override String get english => 'अंग्रेज़ी';
+	@override String get reminder => 'स्मारक';
+	@override String get cancel => 'रद्द करें';
+	@override String get ok => 'ठीक है';
+	@override String get theme => 'थीम';
+	@override String get light => 'प्रकाश';
+	@override String get dark => 'अंधेरा';
+	@override String get save => 'सहेजें';
+	@override String get no_tasks => 'अभी तक कोई कार्य नहीं';
+	@override String get no_internet => 'कोई इंटरनेट कनेक्शन नहीं';
+	@override String get please_enter_task_name => 'कृपया कार्य का नाम दर्ज करें';
+	@override String get unknown_error => 'अज्ञात त्रुटि';
+	@override String get delete_task => 'कार्य हटाएं';
+	@override String get delete_task_confirm => 'क्या आप वाकई इस कार्य को हटाना चाहते हैं?';
+	@override String get delete_task_success => 'कार्य सफलतापूर्वक हटा दिया गया';
+	@override String get delete_task_fail => 'कार्य हटाने में विफल';
+	@override String get add_task_success => 'कार्य सफलतापूर्वक जोड़ा गया';
+	@override String get add_task_fail => 'कार्य जोड़ने में विफल';
+	@override String get edit_task_success => 'कार्य सफलतापूर्वक संपादित किया गया';
+	@override String get edit_task_fail => 'कार्य संपादित करने में विफल';
+	@override String get logout => 'लॉगआउट';
+	@override String get email => 'ईमेल';
+	@override String get password => 'पासवर्ड';
+	@override String get login_fail => 'लॉगिन विफल';
+	@override String get login_success => 'सफलतापूर्वक लॉगिन किया गया';
+	@override String get register => 'रजिस्टर';
+	@override String get register_fail => 'रजिस्टर करने में विफल';
+	@override String get register_success => 'सफलतापूर्वक रजिस्टर किया गया';
+	@override String get email_required => 'ईमेल आवश्यक है';
+	@override String get password_required => 'पासवर्ड आवश्यक है';
+	@override String get email_invalid => 'ईमेल अमान्य है';
+	@override String get password_invalid => 'पासवर्ड अमान्य है';
+	@override String get email_exists => 'ईमेल पहले से मौजूद है';
+	@override String get email_not_exists => 'ईमेल मौजूद नहीं है';
+	@override String get password_incorrect => 'पासवर्ड गलत है';
+	@override String get password_length => 'पासवर्ड कम से कम 6 अक्षरों का होना चाहिए';
+	@override String get check_your_internet => 'अपना इंटरनेट कनेक्शन जांचें';
+	@override String get email_not_found => 'ईमेल नहीं मिला';
+	@override String get reset_password => 'पासवर्ड रीसेट करें';
+	@override String get reset_password_success => 'पासवर्ड रीसेट ईमेल सफलतापूर्वक भेजा गया';
+	@override String get reset_password_fail => 'पासवर्ड रीसेट ईमेल भेजने में विफल';
+	@override String get reset_password_email => 'पासवर्ड रीसेट ईमेल';
+	@override String get reset_password_email_sent => 'पासवर्ड रीसेट ईमेल भेजा गया';
+	@override String get reset_password_email_sent_description => 'हमने आपको पासवर्ड रीसेट करने के लिए एक ईमेल भेजा है';
+	@override String get reset_password_email_sent_description2 => 'कृपया अपना ईमेल देखें';
+	@override late final _StringsLoginHiIn login = _StringsLoginHiIn._(_root);
+	@override String get settings => 'सेटिंग्स';
+	@override String get change_language => 'भाषा बदलें';
+	@override String get change_theme => 'थीम बदलें';
+	@override String get English => 'English';
+	@override String get Gujarati => 'ગુજરાતી';
+	@override String get Hindi => 'हिंदी';
+}
+
+// Path: login
+class _StringsLoginHiIn implements _StringsLoginEn {
+	_StringsLoginHiIn._(this._root);
+
+	@override final _StringsHiIn _root; // ignore: unused_field
+
+	// Translations
+	@override String get success => 'सफलतापूर्वक लॉगिन किया गया';
+	@override String get fail => 'लॉगिन विफल';
+	@override String get login => 'लॉगिन';
 }
 
 /// Flat map(s) containing all translations.
@@ -397,6 +502,7 @@ extension on Translations {
 			case 'change_theme': return 'Change theme';
 			case 'English': return 'English';
 			case 'Gujarati': return 'ગુજરાતી';
+			case 'Hindi': return 'हिंदी';
 			default: return null;
 		}
 	}
@@ -470,6 +576,81 @@ extension on _StringsGuIn {
 			case 'change_theme': return 'થીમ બદલો';
 			case 'English': return 'English';
 			case 'Gujarati': return 'ગુજરાતી';
+			case 'Hindi': return 'हिंदी';
+			default: return null;
+		}
+	}
+}
+
+extension on _StringsHiIn {
+	dynamic _flatMapFunction(String path) {
+		switch (path) {
+			case 'tasks': return 'कार्य';
+			case 'add_task': return 'कार्य जोड़ें';
+			case 'edit_task': return 'कार्य संपादित करें';
+			case 'task_name': return 'कार्य का नाम';
+			case 'description': return 'विवरण';
+			case 'status': return 'स्थिति';
+			case 'created_at': return 'बनाया गया';
+			case 'updated_at': return 'अपडेट किया गया';
+			case 'actions': return 'कार्रवाइयाँ';
+			case 'edit': return 'संपादित करें';
+			case 'delete': return 'हटाएं';
+			case 'Language': return 'भाषा';
+			case 'english': return 'अंग्रेज़ी';
+			case 'reminder': return 'स्मारक';
+			case 'cancel': return 'रद्द करें';
+			case 'ok': return 'ठीक है';
+			case 'theme': return 'थीम';
+			case 'light': return 'प्रकाश';
+			case 'dark': return 'अंधेरा';
+			case 'save': return 'सहेजें';
+			case 'no_tasks': return 'अभी तक कोई कार्य नहीं';
+			case 'no_internet': return 'कोई इंटरनेट कनेक्शन नहीं';
+			case 'please_enter_task_name': return 'कृपया कार्य का नाम दर्ज करें';
+			case 'unknown_error': return 'अज्ञात त्रुटि';
+			case 'delete_task': return 'कार्य हटाएं';
+			case 'delete_task_confirm': return 'क्या आप वाकई इस कार्य को हटाना चाहते हैं?';
+			case 'delete_task_success': return 'कार्य सफलतापूर्वक हटा दिया गया';
+			case 'delete_task_fail': return 'कार्य हटाने में विफल';
+			case 'add_task_success': return 'कार्य सफलतापूर्वक जोड़ा गया';
+			case 'add_task_fail': return 'कार्य जोड़ने में विफल';
+			case 'edit_task_success': return 'कार्य सफलतापूर्वक संपादित किया गया';
+			case 'edit_task_fail': return 'कार्य संपादित करने में विफल';
+			case 'logout': return 'लॉगआउट';
+			case 'email': return 'ईमेल';
+			case 'password': return 'पासवर्ड';
+			case 'login_fail': return 'लॉगिन विफल';
+			case 'login_success': return 'सफलतापूर्वक लॉगिन किया गया';
+			case 'register': return 'रजिस्टर';
+			case 'register_fail': return 'रजिस्टर करने में विफल';
+			case 'register_success': return 'सफलतापूर्वक रजिस्टर किया गया';
+			case 'email_required': return 'ईमेल आवश्यक है';
+			case 'password_required': return 'पासवर्ड आवश्यक है';
+			case 'email_invalid': return 'ईमेल अमान्य है';
+			case 'password_invalid': return 'पासवर्ड अमान्य है';
+			case 'email_exists': return 'ईमेल पहले से मौजूद है';
+			case 'email_not_exists': return 'ईमेल मौजूद नहीं है';
+			case 'password_incorrect': return 'पासवर्ड गलत है';
+			case 'password_length': return 'पासवर्ड कम से कम 6 अक्षरों का होना चाहिए';
+			case 'check_your_internet': return 'अपना इंटरनेट कनेक्शन जांचें';
+			case 'email_not_found': return 'ईमेल नहीं मिला';
+			case 'reset_password': return 'पासवर्ड रीसेट करें';
+			case 'reset_password_success': return 'पासवर्ड रीसेट ईमेल सफलतापूर्वक भेजा गया';
+			case 'reset_password_fail': return 'पासवर्ड रीसेट ईमेल भेजने में विफल';
+			case 'reset_password_email': return 'पासवर्ड रीसेट ईमेल';
+			case 'reset_password_email_sent': return 'पासवर्ड रीसेट ईमेल भेजा गया';
+			case 'reset_password_email_sent_description': return 'हमने आपको पासवर्ड रीसेट करने के लिए एक ईमेल भेजा है';
+			case 'reset_password_email_sent_description2': return 'कृपया अपना ईमेल देखें';
+			case 'login.success': return 'सफलतापूर्वक लॉगिन किया गया';
+			case 'login.fail': return 'लॉगिन विफल';
+			case 'login.login': return 'लॉगिन';
+			case 'settings': return 'सेटिंग्स';
+			case 'change_language': return 'भाषा बदलें';
+			case 'change_theme': return 'थीम बदलें';
+			case 'English': return 'English';
+			case 'Gujarati': return 'ગુજરાતી';
+			case 'Hindi': return 'हिंदी';
 			default: return null;
 		}
 	}
