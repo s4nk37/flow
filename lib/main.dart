@@ -1,11 +1,14 @@
-import 'package:flow/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:timezone/data/latest.dart' as tz;
+
 import 'core/configs/app_config.dart';
 import 'core/i18n/strings.g.dart';
+import 'core/services/local_notification_service.dart';
 import 'core/utils/theme/app_theme.dart';
 import 'core/utils/theme/cubit/theme_cubit.dart';
+import 'features/todo/presentation/bloc/todo_bloc.dart';
 import 'features/todo/presentation/pages/home_page.dart';
 import 'injection_container.dart' as di;
 
@@ -13,6 +16,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
   await di.init();
+  tz.initializeTimeZones();
+  await LocalNotificationService.requestPermission();
+
+  await LocalNotificationService.initialize();
+
   runApp(TranslationProvider(child: const MyApp()));
 }
 

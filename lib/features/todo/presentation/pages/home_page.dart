@@ -1,3 +1,4 @@
+import 'package:flow/core/services/local_notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,12 +24,17 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SettingsPage(),
-                ),
-              );
+              LocalNotificationService.showScheduledNotification(
+                  scheduledDate:
+                      DateTime.now().add(const Duration(seconds: 15)),
+                  title: "HI",
+                  body: "What are you doing?");
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const SettingsPage(),
+              //   ),
+              // );
             },
           ),
           const SizedBox(width: 10),
@@ -60,7 +66,7 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         elevation: 1.0,
         isExtended: true,
-        onPressed: () {
+        onPressed: () async {
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
