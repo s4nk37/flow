@@ -176,6 +176,8 @@ class BaseTextFormField extends StatelessWidget {
 
   final String? labelText;
 
+  final bool denyEmoji;
+
   const BaseTextFormField(
       {this.textFormFieldKey,
       this.controller,
@@ -236,7 +238,8 @@ class BaseTextFormField extends StatelessWidget {
       this.prefixIconWidgetConstraints,
       this.suffixIconWidgetConstraints,
       this.labelText,
-      this.borderColor})
+      this.borderColor,
+      this.denyEmoji = true})
       : super(key: textFormFieldKey);
 
   @override
@@ -262,8 +265,9 @@ class BaseTextFormField extends StatelessWidget {
             inputFormatters: [
               ...?inputFormatters,
               FilteringTextInputFormatter.deny(RegExp(r"^\s*")),
-              FilteringTextInputFormatter.deny(
-                  RegExp(RegexConstants.emojiRegex)),
+              if (denyEmoji)
+                FilteringTextInputFormatter.deny(
+                    RegExp(RegexConstants.emojiRegex)),
             ],
             validator: validator,
             focusNode: focusNode,
@@ -316,7 +320,8 @@ class BaseTextFormField extends StatelessWidget {
                   ///text field with shadow
                   enabledBorder: DecoratedInputBorder(
                     child: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderSide:
+                          BorderSide(color: AppTheme.of(context).background),
                       borderRadius:
                           BorderRadius.circular(RadiusConstant.commonRadius),
                     ),
@@ -415,6 +420,6 @@ class BaseTextFormField extends StatelessWidget {
 
   BoxShadow buildBoxShadow(context) => BoxShadow(
       color: AppTheme.of(context).primary.withOpacity(0.1),
-      blurRadius: 6,
+      blurRadius: 0,
       offset: const Offset(0, 0));
 }
