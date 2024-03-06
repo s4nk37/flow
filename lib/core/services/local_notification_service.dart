@@ -131,13 +131,14 @@ class LocalNotificationService {
 
   ///Show a notification after a specific duration
   static Future<void> showScheduledNotification({
+    required int id,
     required String title,
     required String body,
     required DateTime scheduledDate,
     String? payload,
   }) async {
     return _notificationsPlugin.zonedSchedule(
-      0,
+      id,
       title,
       body,
       tz.TZDateTime.from(scheduledDate, tz.local),
