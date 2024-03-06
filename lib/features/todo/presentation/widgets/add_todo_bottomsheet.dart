@@ -1,3 +1,4 @@
+import 'package:flow/core/utils/validations/form_validations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,15 +22,14 @@ class AddTodoBottomSheet extends StatefulWidget {
 class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _taskController = TextEditingController();
-  late final TextEditingController _titleController = TextEditingController();
   late final TextEditingController _descriptionController =
       TextEditingController();
   DateTime? _reminderTime;
+  bool showDateTimePicker = false;
 
   @override
   void dispose() {
     _taskController.dispose();
-    _titleController.dispose();
     _descriptionController.dispose();
     super.dispose();
   }
@@ -44,8 +44,9 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
         description: _descriptionController.text,
         isCompleted: false,
         createdAt: DateTime.now().toUtc(),
-        reminderAt: _reminderTime?.toUtc(),
+        reminderAt: showDateTimePicker ? _reminderTime?.toUtc() : null,
       );
+
       BlocProvider.of<TodoBloc>(context).add(AddTodo(todo: newTodo));
       logger.d('Saving task: $task');
       Navigator.pop(context);
@@ -69,18 +70,17 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
               BaseTextFormField(
                 controller: _taskController,
                 hintText: t.task_name,
+                denyEmoji: false,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return t.please_enter_task_name;
-                  }
-                  return null;
+                  return FormValidations.validateRequired(
+                      value, t.please_enter_task_name);
                 },
               ),
               const SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
-                    flex: 5,
+                    flex: 8,
                     child: BaseTextFormField(
                       controller: _descriptionController,
                       hintText: t.description,
@@ -88,57 +88,58 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                     ),
                   ),
                   15.0.spaceX,
-                  // Expanded(
-                  //   flex: 4,
-                  //   child: Container(
-                  //     padding: const EdgeInsets.symmetric(
-                  //         vertical: 17, horizontal: 16),
-                  //     decoration: BoxDecoration(
-                  //       color: AppTheme.of(context).primary,
-                  //       borderRadius:
-                  //           BorderRadius.circular(RadiusConstant.commonRadius),
-                  //     ),
-                  //     // child: GestureDetector(
-                  //     //   onTap: () async {
-                  //     //     DatePickerWidget(
-                  //     //       onDateTimeChanged: () {},
-                  //     //     );
-                  //     //     // DateTime? selectedDate = await showDatePicker(
-                  //     //     //   context: context,
-                  //     //     //   initialDate: DateTime.now(),
-                  //     //     //   firstDate: DateTime.now(),
-                  //     //     //   lastDate: DateTime(2100),
-                  //     //     // );
-                  //     //     // if (selectedDate != null) {
-                  //     //     //   _reminderTime =
-                  //     //     //       selectedDate.toString().toDateFormat();
-                  //     //     //   setState(() {});
-                  //     //     // }
-                  //     //   },
-                  //     //   child: _reminderTime.isEmpty
-                  //     //       ? Icon(
-                  //     //           Icons.notifications_active,
-                  //     //           color: AppTheme.of(context).background,
-                  //     //         )
-                  //     //       : Text(
-                  //     //           _reminderTime,
-                  //     //           style: TextStyle(
-                  //     //             color: AppTheme.of(context).background,
-                  //     //           ),
-                  //     //         ),
-                  //     // ),
-                  //     child: DatePickerWidget(
-                  //       onDateTimeChanged: () {},
-                  //     ),
-                  //   ),
-                  // ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: showDateTimePicker
+                            ? AppTheme.of(context).primary
+                            : AppTheme.of(context).disabled,
+                        borderRadius:
+                            BorderRadius.circular(RadiusConstant.commonRadius),
+                      ),
+                      child: GestureDetector(
+                        onTap: () async {
+                          setState(() {
+                            showDateTimePicker = !showDateTimePicker;
+                            _reminderTime = _reminderTime == null
+                                ? DateTime.now().add(const Duration(hours: 1))
+                                : null;
+                          });
+                        },
+                        child: _reminderTime == null
+                            ? Icon(
+                                Icons.notifications_off,
+                                color: AppTheme.of(context).secondaryBackground,
+                              )
+                            : Icon(
+                                Icons.notifications_active,
+                                color: AppTheme.of(context).background,
+                              ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              DateTimePickerWidget(
-                onDateTimeChanged: (date) {
-                  logger.d("Date: $date");
-                  _reminderTime = date;
-                },
+              AnimatedContainer(
+                margin: EdgeInsets.symmetric(
+                    vertical: showDateTimePicker ? 15.0 : 7.5),
+                decoration: BoxDecoration(
+                  color: AppTheme.of(context).background,
+                  borderRadius:
+                      BorderRadius.circular(RadiusConstant.commonRadius),
+                ),
+                height: showDateTimePicker ? 150.0 : 0.001,
+                duration: const Duration(seconds: 1),
+                curve: Curves.ease,
+                child: DateTimePickerWidget(
+                  onDateTimeChanged: (date) {
+                    logger.d("Reminder Date: $date");
+                    _reminderTime = date;
+                  },
+                ),
               ),
               ElevatedButton(
                 onPressed: _saveTask,

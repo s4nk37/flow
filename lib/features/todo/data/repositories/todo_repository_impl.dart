@@ -23,7 +23,6 @@ class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<Either<Failure, List<Todo>>> getTodos() async {
-    logger.d('Offline');
     try {
       final localTodosResponse = await localDataSource.getTodos();
 
@@ -36,22 +35,27 @@ class TodoRepositoryImpl implements TodoRepository {
           logger.d('Remote: ${remoteTodosResponse.updatedAt}');
           if (remoteTodosResponse.updatedAt > localTodosResponse.updatedAt) {
             logger.d('Remote is newer');
-            await localDataSource.cacheTodos(remoteTodosResponse.todos);
-            return Right(remoteTodosResponse.todos);
+            if (remoteTodosResponse.todos == null ||
+                remoteTodosResponse.todos!.isEmpty) {
+              return const Right([]);
+            } else {
+              await localDataSource.cacheTodos(remoteTodosResponse.todos!);
+              return Right(remoteTodosResponse.todos!);
+            }
           } else {
-            await remoteDataSource.saveTodos(localTodosResponse.todos);
-            return Right(localTodosResponse.todos);
+            await remoteDataSource.saveTodos(localTodosResponse.todos!);
+            return Right(localTodosResponse.todos!);
           }
         } on Exception {
           return Left(ServerFailure());
         }
       }
-      logger.d('Offline');
-      if (localTodosResponse.todos.isEmpty) {
+
+      if (localTodosResponse.todos!.isEmpty) {
         // return Left(CacheFailure());
         return const Right([]);
       } else {
-        return Right(localTodosResponse.todos);
+        return Right(localTodosResponse.todos!);
       }
     } on CacheException {
       // return Left(CacheFailure());

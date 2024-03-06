@@ -8,8 +8,8 @@ part of 'todos_response.dart';
 
 TodosResponseModel _$TodosResponseModelFromJson(Map<String, dynamic> json) =>
     TodosResponseModel(
-      todos: (json['todos'] as List<dynamic>)
-          .map((e) => TodoModel.fromJson(e as Map<String, dynamic>))
+      todos: (json['todos'] as List<dynamic>?)
+          ?.map((e) => TodoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       updatedAt: json['updatedAt'] as int,
     );

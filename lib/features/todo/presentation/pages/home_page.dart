@@ -35,7 +35,6 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: BlocBuilder<TodoBloc, TodoState>(
-        bloc: BlocProvider.of<TodoBloc>(context),
         builder: (context, state) {
           if (state is Empty) {
             return Center(child: Text(context.t.no_tasks));
@@ -60,7 +59,7 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         elevation: 1.0,
         isExtended: true,
-        onPressed: () {
+        onPressed: () async {
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,

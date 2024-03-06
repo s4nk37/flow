@@ -6,7 +6,7 @@ part 'todos_response.g.dart';
 
 @JsonSerializable()
 class TodosResponseModel {
-  final List<TodoModel> todos;
+  final List<TodoModel>? todos;
   final int updatedAt;
 
   TodosResponseModel({required this.todos, required this.updatedAt});

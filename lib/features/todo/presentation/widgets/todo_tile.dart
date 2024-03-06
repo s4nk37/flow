@@ -14,7 +14,7 @@ class TodoTile extends StatelessWidget {
     final List<BoxShadow> outerShadows = [
       BoxShadow(
         color: Theme.of(context).brightness == Brightness.dark
-            ? Colors.black26
+            ? Colors.black54
             : Colors.grey.withOpacity(0.3),
         spreadRadius: 0.0,
         offset: const Offset(4, 4),
@@ -22,7 +22,7 @@ class TodoTile extends StatelessWidget {
       ),
       BoxShadow(
         color: Theme.of(context).brightness == Brightness.dark
-            ? const Color.fromARGB(255, 55, 55, 55)
+            ? const Color.fromARGB(255, 26, 26, 26)
             : Colors.white,
         offset: const Offset(-4, -4),
         spreadRadius: 0.0,

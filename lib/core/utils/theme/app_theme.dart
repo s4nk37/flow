@@ -24,7 +24,6 @@ final lightThemeData = ThemeData(
     elevation: 0.5,
     foregroundColor: AppColors.white,
   ),
-  
 );
 final darkThemeData = ThemeData(
   useMaterial3: true,
@@ -106,7 +105,7 @@ class LightTheme extends AppTheme {
   late Color secondaryText = const Color(0xFF57636C);
   late Color background = const Color(0xFFF1F2F6);
   late Color primaryBackground = const Color(0xFF3B60F1);
-  late Color secondaryBackground = const Color(0xFF312f2f);
+  late Color secondaryBackground = const Color(0xFF121212);
   late Color accent1 = const Color(0xFF0042CB);
   late Color accent2 = const Color(0xFF647AFF);
   late Color accent3 = const Color(0xFFCBD0FF);
@@ -136,7 +135,7 @@ class DarkTheme extends AppTheme {
   // late Color alternate = const Color(0xFFE8E8E8);
   late Color primaryText = const Color(0xFFFFFFFF);
   late Color secondaryText = const Color(0xFF95A1AC);
-  late Color background = const Color(0xFF312f2f);
+  late Color background = const Color(0xFF121212);
   late Color primaryBackground = const Color(0xFF8296E3);
   late Color secondaryBackground = const Color(0xFFF1F2F6);
   late Color accent1 = const Color(0xFFCBD0FF);
@@ -147,7 +146,7 @@ class DarkTheme extends AppTheme {
   late Color warning = const Color(0xFFFCDC0C);
   late Color error = const Color(0xFFE21C3D);
   late Color info = const Color(0xFF1C4494);
-  late Color disabled = const Color.fromARGB(255, 54, 54, 54);
+  late Color disabled = const Color.fromARGB(255, 31, 31, 31);
   // late Color primaryBtnText = const Color(0xFFFFFFFF);
   // late Color lineColor = const Color(0xFFE8E8E8);
   // late Color noaktive = const Color(0xFF757575);
