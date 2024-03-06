@@ -1,8 +1,8 @@
-import 'package:flow/core/configs/app_config.dart';
 import 'package:flow/core/usecases/usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../core/services/local_notification_service.dart';
 import '../../domain/entities/todo.dart';
 import '../../domain/usecases/get_todos.dart' as usecase;
 import '../../domain/usecases/save_todos.dart';
@@ -35,7 +35,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       (todos) {
         _todos.clear();
         _todos.addAll(todos);
-        if (todos.isEmpty) {
+        if (_todos.isEmpty) {
           return Empty();
         }
         _todos.sort((a, b) => a.isCompleted ? 1 : -1);
@@ -47,14 +47,31 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   void _addTodo(event, emit) async {
     emit(Loading());
     _todos.add(event.todo);
+    if (event.todo.reminderAt != null) {
+      LocalNotificationService.showScheduledNotification(
+        id: event.todo.id,
+        title: event.todo.title,
+        body: event.todo.description,
+        scheduledDate: event.todo.reminderAt!,
+      );
+    }
     await saveTodos(SaveTodosParams(_todos));
     emit(LoadedTodos(todos: _todos));
   }
 
   void _deleteTodoById(event, emit) async {
-    logger.d("Before ${event.id} Todos: $_todos");
-    _todos.removeWhere((todo) => todo.id == event.id);
-    logger.d(_todos);
+    _todos.removeWhere((todo) {
+      if (todo.id == event.id) {
+        if (todo.reminderAt != null) {
+          LocalNotificationService.cancelNotification(event.id);
+        }
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    if (_todos.isEmpty) emit(Empty());
     await saveTodos(SaveTodosParams(_todos));
   }
 
@@ -63,8 +80,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     DateTime? completedAt = DateTime.now().toUtc();
     _todos[index] =
         _todos[index].copyWith(isCompleted: true, completedAt: completedAt);
-
-    logger.d("Marked as completed: ${_todos[index]}");
 
     _todos.sort((a, b) => a.isCompleted ? 1 : -1);
     await saveTodos(SaveTodosParams(_todos));
