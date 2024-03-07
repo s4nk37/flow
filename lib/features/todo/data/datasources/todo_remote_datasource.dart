@@ -45,7 +45,7 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
     final time = DateTime.now().millisecondsSinceEpoch;
     final todosModel = todos
         .map((todo) => TodoModel(
-              newId: todo.id,
+              id: todo.id,
               title: todo.title,
               description: todo.description,
               isCompleted: todo.isCompleted,

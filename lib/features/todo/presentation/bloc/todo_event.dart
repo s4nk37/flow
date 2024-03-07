@@ -37,7 +37,7 @@ class UpdateTodo extends TodoEvent {
 }
 
 class DeleteTodoById extends TodoEvent {
-  final int id;
+  final String id;
 
   const DeleteTodoById({required this.id});
 
@@ -50,7 +50,7 @@ class DeleteAllTodos extends TodoEvent {}
 class DeleteCompletedTodos extends TodoEvent {}
 
 class MarkTodoAsCompleted extends TodoEvent {
-  final int id;
+  final String id;
 
   const MarkTodoAsCompleted({required this.id});
 
@@ -59,7 +59,7 @@ class MarkTodoAsCompleted extends TodoEvent {
 }
 
 class MarkTodoAsIncompleted extends TodoEvent {
-  final int id;
+  final String id;
 
   const MarkTodoAsIncompleted({required this.id});
 

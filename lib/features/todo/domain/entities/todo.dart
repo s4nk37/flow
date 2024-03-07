@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 //ignore: must_be_immutable.
 class Todo extends Equatable {
-  final int id;
+  final String id;
   final String title;
   final String description;
   final bool isCompleted;
@@ -23,7 +23,7 @@ class Todo extends Equatable {
   });
 
   Todo copyWith({
-    int? id,
+    String? id,
     String? title,
     String? description,
     bool? isCompleted,

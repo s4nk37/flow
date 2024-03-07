@@ -9,7 +9,7 @@ part 'todo_model.g.dart';
 
 class TodoModel extends Todo {
   const TodoModel({
-    required this.newId,
+    required super.id,
     required super.title,
     required super.description,
     required super.isCompleted,
@@ -17,15 +17,15 @@ class TodoModel extends Todo {
     super.updatedAt,
     super.completedAt,
     super.reminderAt,
-  }) : super(id: newId);
+  }) ;
 
-  @JsonKey(
-    fromJson: _fromJson,
-    name: "id",
-  )
-  final int newId;
+  // @JsonKey(
+  //   fromJson: _fromJson,
+  //   name: "id",
+  // )
+  // final String newId;
 
-  static int _fromJson(num value) => value.toInt();
+  // static  _fromJson(num value) => value.toInt();
 
   factory TodoModel.fromJson(Map<String, dynamic> json) =>
       _$TodoModelFromJson(json);
