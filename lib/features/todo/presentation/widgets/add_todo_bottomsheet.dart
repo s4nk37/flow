@@ -1,7 +1,6 @@
 import 'package:flow/core/utils/validations/form_validations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/widgets/date_time_picker.dart';
 import '../../../../core/configs/app_config.dart';
 import '../../../../core/i18n/strings.g.dart';
@@ -39,7 +38,7 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
       // Save the task logic here
       String task = _taskController.text;
       Todo newTodo = Todo(
-        id: DateTime.now().millisecondsSinceEpoch,
+        id: uuid.v4(),
         title: task,
         description: _descriptionController.text,
         isCompleted: false,

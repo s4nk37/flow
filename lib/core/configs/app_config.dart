@@ -1,4 +1,5 @@
 import 'package:logger/logger.dart';
+import 'package:uuid/uuid.dart';
 
 const String kAppName = 'Flow';
 const String kAppFont = 'Source Code Pro';
@@ -19,3 +20,7 @@ var logger = Logger(
 
 // Translations provider
 // late Translations t;
+
+///UUID
+
+const uuid = Uuid();
