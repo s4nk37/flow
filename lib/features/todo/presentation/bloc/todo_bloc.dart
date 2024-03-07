@@ -1,3 +1,4 @@
+import 'package:flow/core/configs/app_config.dart';
 import 'package:flow/core/usecases/usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -26,6 +27,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   final List<Todo> _todos = [];
+  final Map<String, int> _scheduledNotifications = {};
 
   void _getTodos(event, emit) async {
     emit(Loading());
@@ -46,14 +48,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   void _addTodo(event, emit) async {
     emit(Loading());
-    _todos.add(event.todo);
+    _todos.add(event.todo as Todo);
+    _scheduledNotifications[event.todo.id] = _todos.length - 1;
     if (event.todo.reminderAt != null) {
       LocalNotificationService.showScheduledNotification(
-        id: event.todo.id,
+        id: _scheduledNotifications[event.todo.id] ?? 0,
         title: event.todo.title,
         body: event.todo.description,
-        scheduledDate: event.todo.reminderAt!,
+        scheduledDate: event.todo.reminderAt!.toLocal(),
       );
+      logger.d(
+          'Scheduled notifications List ${LocalNotificationService.getPendingNotifications()}');
     }
     await saveTodos(SaveTodosParams(_todos));
     emit(LoadedTodos(todos: _todos));
@@ -63,7 +68,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     _todos.removeWhere((todo) {
       if (todo.id == event.id) {
         if (todo.reminderAt != null) {
-          LocalNotificationService.cancelNotification(event.id);
+          LocalNotificationService.cancelNotification(
+              _scheduledNotifications[event.todo.id]!);
         }
         return true;
       } else {
