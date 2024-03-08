@@ -57,8 +57,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         body: event.todo.description,
         scheduledDate: event.todo.reminderAt!.toLocal(),
       );
-      logger.d(
-          'Scheduled notifications List ${LocalNotificationService.getPendingNotifications()}');
+      final x = await LocalNotificationService.getPendingNotifications();
+      logger.d('Scheduled notifications List ${x.toString()}');
     }
     await saveTodos(SaveTodosParams(_todos));
     emit(LoadedTodos(todos: _todos));
