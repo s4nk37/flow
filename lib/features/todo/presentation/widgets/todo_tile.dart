@@ -1,5 +1,7 @@
+import 'package:flow/core/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/utils/theme/app_theme.dart';
 import '../../domain/entities/todo.dart';
@@ -52,50 +54,54 @@ class TodoTile extends StatelessWidget {
       onDismissed: (direction) {
         context.read<TodoBloc>().add(DeleteTodoById(id: todo.id));
       },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: todo.isCompleted ? null : outerShadows,
-          color: todo.isCompleted
-              ? AppTheme.of(context).disabled
-              : AppTheme.of(context).background,
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        margin: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Row(
-          children: [
-            Checkbox(
-              value: todo.isCompleted,
-              onChanged: (value) {
-                context.read<TodoBloc>().add(value!
-                    ? MarkTodoAsCompleted(id: todo.id)
-                    : MarkTodoAsIncompleted(id: todo.id));
-              },
-            ),
-            const SizedBox(width: 8.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    todo.title,
-                    style: TextStyle(
-                      color: AppTheme.of(context).primary,
-                    ),
-                  ),
-                  const SizedBox(height: 4.0),
-                  if (todo.description.isNotEmpty)
+      child: GestureDetector(
+        onTap: () => context.go("/edit-todo/:${todo.id}"),
+        //onTap: () => context.go('edit'),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: todo.isCompleted ? null : outerShadows,
+            color: todo.isCompleted
+                ? AppTheme.of(context).disabled
+                : AppTheme.of(context).background,
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          margin: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Row(
+            children: [
+              Checkbox(
+                value: todo.isCompleted,
+                onChanged: (value) {
+                  context.read<TodoBloc>().add(value!
+                      ? MarkTodoAsCompleted(id: todo.id)
+                      : MarkTodoAsIncompleted(id: todo.id));
+                },
+              ),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      todo.description,
+                      todo.title,
                       style: TextStyle(
-                        color: AppTheme.of(context).secondaryText,
+                        color: AppTheme.of(context).primary,
                       ),
                     ),
-                ],
+                    const SizedBox(height: 4.0),
+                    if (todo.description.isNotEmpty)
+                      Text(
+                        todo.description,
+                        style: TextStyle(
+                          color: AppTheme.of(context).secondaryText,
+                        ),
+                      ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 8.0),
-          ],
+              const SizedBox(width: 8.0),
+            ],
+          ),
         ),
       ),
     );
