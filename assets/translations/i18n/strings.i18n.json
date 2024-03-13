@@ -1,7 +1,7 @@
 {
     "tasks": "Tasks",
     "add_task": "Add task",
-    "edit_task": "Edit task",
+    "update_task": "Update task",
     "task_name": "Task name",
     "description": "Description",
     "status": "Status",

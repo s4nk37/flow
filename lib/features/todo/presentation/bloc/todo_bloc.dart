@@ -21,6 +21,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }) : super(Loading()) {
     on<GetTodos>(_getTodos);
     on<AddTodo>(_addTodo);
+    on<UpdateTodo>(_updateTodo);
     on<DeleteTodoById>(_deleteTodoById);
     on<MarkTodoAsCompleted>(_markTodoAsCompleted);
     on<MarkTodoAsIncompleted>(_markTodoAsIncompleted);
@@ -49,6 +50,30 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   void _addTodo(event, emit) async {
     emit(Loading());
     _todos.add(event.todo as Todo);
+    _scheduledNotifications[event.todo.id] = _todos.length - 1;
+    if (event.todo.reminderAt != null) {
+      LocalNotificationService.showScheduledNotification(
+        id: _scheduledNotifications[event.todo.id] ?? 0,
+        title: event.todo.title,
+        body: event.todo.description,
+        scheduledDate: event.todo.reminderAt!.toLocal(),
+      );
+      final x = await LocalNotificationService.getPendingNotifications();
+      logger.d('Scheduled notifications List ${x.toString()}');
+    }
+    await saveTodos(SaveTodosParams(_todos));
+    emit(LoadedTodos(todos: _todos));
+  }
+
+  void _updateTodo(event, emit) async {
+    emit(Loading());
+    _todos.where((element) => element.id == event.todo.id).first.copyWith(
+        title: event.todo.title,
+        description: event.todo.description,
+        reminderAt: event.todo.reminderAt,
+        isCompleted: event.todo.isCompleted,
+        completedAt: event.todo.completedAt);
+
     _scheduledNotifications[event.todo.id] = _todos.length - 1;
     if (event.todo.reminderAt != null) {
       LocalNotificationService.showScheduledNotification(

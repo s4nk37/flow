@@ -1,11 +1,11 @@
-import 'package:flow/core/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/constants/layout_constants.dart';
 import '../../../../core/utils/theme/app_theme.dart';
 import '../../domain/entities/todo.dart';
 import '../bloc/todo_bloc.dart';
+import 'todo_bottomsheet.dart';
 
 class TodoTile extends StatelessWidget {
   final Todo todo;
@@ -33,7 +33,7 @@ class TodoTile extends StatelessWidget {
     ];
 
     return Dismissible(
-      key: Key(todo.id.toString()),
+      key: UniqueKey(),
       direction: DismissDirection.endToStart,
       background: Container(
         alignment: Alignment.centerRight,
@@ -55,8 +55,24 @@ class TodoTile extends StatelessWidget {
         context.read<TodoBloc>().add(DeleteTodoById(id: todo.id));
       },
       child: GestureDetector(
-        onTap: () => context.go("/edit-todo/:${todo.id}"),
-        //onTap: () => context.go('edit'),
+        onTap: () async {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: AppTheme.of(context).disabled,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(RadiusConstant.commonRadius),
+                topRight: Radius.circular(RadiusConstant.commonRadius),
+              ),
+            ),
+            builder: (context) {
+              return TodoBottomSheet(
+                todo: todo,
+              );
+            },
+          );
+        },
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -100,6 +116,16 @@ class TodoTile extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8.0),
+              if (todo.reminderAt != null)
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                  child: Icon(
+                    Icons.notifications_active,
+                    size: 20.0,
+                    color: AppTheme.of(context).primary,
+                  ),
+                ),
             ],
           ),
         ),

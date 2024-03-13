@@ -6,7 +6,7 @@
 /// Locales: 3
 /// Strings: 198 (66 per locale)
 ///
-/// Built on 2024-03-07 at 09:03 UTC
+/// Built on 2024-03-08 at 19:57 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -151,7 +151,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	String get tasks => 'Tasks';
 	String get add_task => 'Add task';
-	String get edit_task => 'Edit task';
+	String get update_task => 'Update task';
 	String get task_name => 'Task name';
 	String get description => 'Description';
 	String get status => 'Status';
@@ -253,7 +253,7 @@ class _StringsGuIn implements Translations {
 	// Translations
 	@override String get tasks => 'કાર્યો';
 	@override String get add_task => 'કાર્ય ઉમેરો';
-	@override String get edit_task => 'કાર્ય સંપાદિત કરો';
+	@override String get update_task => 'કાર્ય અપડેટ કરો';
 	@override String get task_name => 'કાર્યનું નામ';
 	@override String get description => 'વર્ણન';
 	@override String get status => 'સ્થિતિ';
@@ -355,7 +355,7 @@ class _StringsHiIn implements Translations {
 	// Translations
 	@override String get tasks => 'कार्य';
 	@override String get add_task => 'कार्य जोड़ें';
-	@override String get edit_task => 'कार्य संपादित करें';
+	@override String get update_task => 'कार्य अपडेट करें';
 	@override String get task_name => 'कार्य का नाम';
 	@override String get description => 'विवरण';
 	@override String get status => 'स्थिति';
@@ -439,7 +439,7 @@ extension on Translations {
 		switch (path) {
 			case 'tasks': return 'Tasks';
 			case 'add_task': return 'Add task';
-			case 'edit_task': return 'Edit task';
+			case 'update_task': return 'Update task';
 			case 'task_name': return 'Task name';
 			case 'description': return 'Description';
 			case 'status': return 'Status';
@@ -513,7 +513,7 @@ extension on _StringsGuIn {
 		switch (path) {
 			case 'tasks': return 'કાર્યો';
 			case 'add_task': return 'કાર્ય ઉમેરો';
-			case 'edit_task': return 'કાર્ય સંપાદિત કરો';
+			case 'update_task': return 'કાર્ય અપડેટ કરો';
 			case 'task_name': return 'કાર્યનું નામ';
 			case 'description': return 'વર્ણન';
 			case 'status': return 'સ્થિતિ';
@@ -587,7 +587,7 @@ extension on _StringsHiIn {
 		switch (path) {
 			case 'tasks': return 'कार्य';
 			case 'add_task': return 'कार्य जोड़ें';
-			case 'edit_task': return 'कार्य संपादित करें';
+			case 'update_task': return 'कार्य अपडेट करें';
 			case 'task_name': return 'कार्य का नाम';
 			case 'description': return 'विवरण';
 			case 'status': return 'स्थिति';

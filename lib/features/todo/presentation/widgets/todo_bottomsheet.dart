@@ -11,20 +11,32 @@ import '../../../../core/widgets/base_textformfield.dart';
 import '../../domain/entities/todo.dart';
 import '../bloc/todo_bloc.dart';
 
-class AddTodoBottomSheet extends StatefulWidget {
-  const AddTodoBottomSheet({super.key});
+class TodoBottomSheet extends StatefulWidget {
+  final Todo? todo;
+  const TodoBottomSheet({super.key, this.todo});
 
   @override
-  State<AddTodoBottomSheet> createState() => _AddTodoBottomSheetState();
+  State<TodoBottomSheet> createState() => _TodoBottomSheetState();
 }
 
-class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
+class _TodoBottomSheetState extends State<TodoBottomSheet> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _taskController = TextEditingController();
   late final TextEditingController _descriptionController =
       TextEditingController();
   DateTime? _reminderTime;
   bool showDateTimePicker = false;
+
+  @override
+  void initState() {
+    if (widget.todo != null) {
+      _taskController.text = widget.todo!.title;
+      _descriptionController.text = widget.todo!.description;
+      _reminderTime = widget.todo!.reminderAt;
+      showDateTimePicker = widget.todo!.reminderAt != null;
+    }
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -46,8 +58,14 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
         reminderAt: showDateTimePicker ? _reminderTime?.toUtc() : null,
       );
 
-      BlocProvider.of<TodoBloc>(context).add(AddTodo(todo: newTodo));
-      logger.d('Saving task: $task');
+      if (widget.todo != null) {
+        newTodo = newTodo.copyWith(id: widget.todo!.id);
+        BlocProvider.of<TodoBloc>(context).add(UpdateTodo(todo: newTodo));
+        logger.d('Updating task: $task');
+      } else {
+        BlocProvider.of<TodoBloc>(context).add(AddTodo(todo: newTodo));
+        logger.d('Saving task: $task');
+      }
       Navigator.pop(context);
     }
   }
@@ -134,6 +152,10 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                 duration: const Duration(seconds: 1),
                 curve: Curves.ease,
                 child: DateTimePickerWidget(
+                  initialDateTime:
+                      _reminderTime?.toLocal().isBefore(DateTime.now()) ?? true
+                          ? null
+                          : _reminderTime?.toLocal(),
                   onDateTimeChanged: (date) {
                     logger.d("Reminder Date: $date");
                     _reminderTime = date;
@@ -151,7 +173,7 @@ class _AddTodoBottomSheetState extends State<AddTodoBottomSheet> {
                   ),
                 ),
                 child: Text(
-                  t.add_task,
+                  widget.todo == null ? t.add_task : t.update_task,
                   style: TextStyle(
                     color: AppTheme.of(context).background,
                   ),

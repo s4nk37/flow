@@ -1,7 +1,7 @@
 {
     "tasks": "કાર્યો",
     "add_task": "કાર્ય ઉમેરો",
-    "edit_task": "કાર્ય સંપાદિત કરો",
+    "update_task": "કાર્ય અપડેટ કરો",
     "task_name": "કાર્યનું નામ",
     "description": "વર્ણન",
     "status": "સ્થિતિ",

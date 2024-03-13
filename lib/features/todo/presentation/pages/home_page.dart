@@ -6,7 +6,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/constants/layout_constants.dart';
 import '../../../../core/utils/theme/app_theme.dart';
 import '../../../../core/i18n/strings.g.dart';
-import '../widgets/add_todo_bottomsheet.dart';
+import '../widgets/todo_bottomsheet.dart';
 import '../bloc/todo_bloc.dart';
 import '../widgets/todo_tile.dart';
 
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              context.go(AppRouter.settingsPath);
+              context.push(AppRouter.settingsPath);
             },
           ),
           const SizedBox(width: 10),
@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             builder: (context) {
-              return const AddTodoBottomSheet();
+              return const TodoBottomSheet();
             },
           );
         },

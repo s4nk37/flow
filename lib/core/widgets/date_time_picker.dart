@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 
 class DateTimePickerWidget extends StatelessWidget {
   final Function onDateTimeChanged;
+  final DateTime? initialDateTime;
 
-  const DateTimePickerWidget({super.key, required this.onDateTimeChanged});
+  const DateTimePickerWidget(
+      {super.key, required this.onDateTimeChanged, this.initialDateTime});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,8 @@ class DateTimePickerWidget extends StatelessWidget {
           ),
         ),
         child: CupertinoDatePicker(
-          initialDateTime: DateTime.now().add(const Duration(seconds: 1)),
+          initialDateTime:
+              initialDateTime ?? DateTime.now().add(const Duration(seconds: 1)),
           minimumDate: DateTime.now(),
           maximumDate: DateTime.now().add(const Duration(days: 3650)),
           mode: CupertinoDatePickerMode.dateAndTime,
