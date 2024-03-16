@@ -38,9 +38,15 @@ class SettingsPage extends StatelessWidget {
             trailing: const Icon(Icons.color_lens),
           ),
           BlocBuilder<ThemeCubit, ThemeMode>(builder: (context, state) {
-            return Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            return GridView(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              shrinkWrap: true,
+              // mainAxisSize: MainAxisSize.min,
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ThemeChip(
                   themeMode: ThemeMode.light,
