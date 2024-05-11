@@ -423,3 +423,4 @@ class BaseTextFormField extends StatelessWidget {
       blurRadius: 0,
       offset: const Offset(0, 0));
 }
+
