@@ -65,8 +65,8 @@ class DecoratedInputBorder extends InputBorder {
     return other is DecoratedInputBorder && other.borderSide == borderSide && other.child == child && other.shadow == shadow;
   }
 
-  @override
-  int get hashCode => hashValues(borderSide, child, shadow);
+  // @override
+  // int get hashCode => hashValues(borderSide, child, shadow);
 
   @override
   String toString() {

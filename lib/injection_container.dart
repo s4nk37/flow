@@ -45,6 +45,6 @@ Future<void> init() async {
       await SharedPreferences.getInstance();
   sl.registerSingleton(sharedPreferences);
   sl.registerLazySingleton(() => Dio());
-  sl.registerLazySingleton(() => InternetConnectionChecker());
+  sl.registerLazySingleton(() => InternetConnectionChecker.createInstance());
   await sl.registerSingleton(AppTheme.initialize(sl()));
 }

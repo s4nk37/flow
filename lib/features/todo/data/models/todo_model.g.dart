@@ -10,7 +10,7 @@ TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
       id: json['id'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      isCompleted: json['isCompleted'] as bool? ?? false,
+      isCompleted: json['isCompleted'] as bool,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null

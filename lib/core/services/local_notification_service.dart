@@ -94,7 +94,7 @@ class LocalNotificationService {
     //ios
     const DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
-            onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+            // onDidReceiveLocalNotification: onDidReceiveLocalNotification,
             requestAlertPermission: true,
             requestBadgePermission: true,
             requestSoundPermission: true);
@@ -145,8 +145,8 @@ class LocalNotificationService {
       _notificationDetails,
       // androidAllowWhileIdle: true,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
+      // uiLocalNotificationDateInterpretation:
+      //     UILocalNotificationDateInterpretation.absoluteTime,
       payload: payload,
     );
   }

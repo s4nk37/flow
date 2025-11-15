@@ -4,17 +4,13 @@ class AuthService {
   static final AuthService _instance = AuthService._internal();
   factory AuthService() => _instance;
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: <String>[
-      'email',
-    ],
-  );
+  final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
 
   AuthService._internal();
 
   Future<GoogleSignInAccount?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await _googleSignIn.authenticate();
       return googleUser;
     } catch (error) {
       print('Error signing in with Google: $error');
