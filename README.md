@@ -130,6 +130,28 @@ test
 -   Flutter
 -   Bloc
 
+## Code sanitization:
+- All commits should have `0` problems.
+```bash
+  # Check issues
+  dart fix --dry-run
+
+  # Fix automatically fixable issues
+  dart fix --apply
+
+  # Check remaining problems
+  dart analyze . --fatal-warnings
+```
+- All dart files should have proper formatting.
+```bash
+  # Auto format files
+   dart format --set-exit-if-changed .
+```
+
+## Script to ensure above checks:
+```bash
+  # via terminal
+  $ ./sanitizer.sh
 
 **Contributing:**
 
