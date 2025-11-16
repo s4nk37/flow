@@ -20,7 +20,7 @@ void main() {
 
   final tTodos = <Todo>[
     Todo(
-      id: "x",
+      id: 1,
       title: "Buy Veg",
       description: "a",
       isCompleted: false,
@@ -30,7 +30,7 @@ void main() {
       reminderAt: null,
     ),
     Todo(
-      id: "x",
+      id: 2,
       title: "Buy Veg",
       description: "a",
       isCompleted: false,

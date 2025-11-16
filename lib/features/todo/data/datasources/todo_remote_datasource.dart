@@ -22,7 +22,8 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
   Future<TodosResponseModel> getTodos() async {
     try {
       final response = await dio.get(
-          "https://flutter-chat-42d3a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json",
+          // "https://flutter-chat-42d3a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json",
+        "http://192.168.31.203:8000/todos/",
           options: Options(
             contentType: "application/json",
           ));
@@ -60,7 +61,7 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
     logger.d(data);
     try {
       final response = await dio.put(
-        "https://flutter-chat-42d3a-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json",
+        "http://192.168.31.203:8000/todos/",
         options: Options(
           contentType: "application/json",
         ),

@@ -38,45 +38,25 @@ import 'package:shared_preferences/shared_preferences.dart' as _i13;
 // ignore_for_file: invalid_use_of_internal_member
 
 class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
-  _FakeEither_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeEither_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeTodosResponseModel_1 extends _i1.SmartFake
     implements _i3.TodosResponseModel {
-  _FakeTodosResponseModel_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeTodosResponseModel_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeDuration_2 extends _i1.SmartFake implements Duration {
-  _FakeDuration_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeDuration_2(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeAddressCheckResult_3 extends _i1.SmartFake
     implements _i4.AddressCheckResult {
-  _FakeAddressCheckResult_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeAddressCheckResult_3(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [TodoRepository].
@@ -86,55 +66,46 @@ class MockTodoRepository extends _i1.Mock implements _i5.TodoRepository {
   @override
   _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>> getTodos() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getTodos,
-          [],
-        ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>>.value(
-            _FakeEither_0<_i7.Failure, List<_i8.Todo>>(
-          this,
-          Invocation.method(
-            #getTodos,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>>.value(
-                _FakeEither_0<_i7.Failure, List<_i8.Todo>>(
-          this,
-          Invocation.method(
-            #getTodos,
-            [],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>>);
+            Invocation.method(#getTodos, []),
+            returnValue:
+                _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>>.value(
+                  _FakeEither_0<_i7.Failure, List<_i8.Todo>>(
+                    this,
+                    Invocation.method(#getTodos, []),
+                  ),
+                ),
+            returnValueForMissingStub:
+                _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>>.value(
+                  _FakeEither_0<_i7.Failure, List<_i8.Todo>>(
+                    this,
+                    Invocation.method(#getTodos, []),
+                  ),
+                ),
+          )
+          as _i6.Future<_i2.Either<_i7.Failure, List<_i8.Todo>>>);
 
   @override
   _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>> saveTodos(
-          List<_i8.Todo>? todos) =>
+    List<_i8.Todo>? todos,
+  ) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #saveTodos,
-          [todos],
-        ),
-        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>.value(
-            _FakeEither_0<_i7.Failure, _i9.NoParams>(
-          this,
-          Invocation.method(
-            #saveTodos,
-            [todos],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>.value(
-                _FakeEither_0<_i7.Failure, _i9.NoParams>(
-          this,
-          Invocation.method(
-            #saveTodos,
-            [todos],
-          ),
-        )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>);
+            Invocation.method(#saveTodos, [todos]),
+            returnValue:
+                _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>.value(
+                  _FakeEither_0<_i7.Failure, _i9.NoParams>(
+                    this,
+                    Invocation.method(#saveTodos, [todos]),
+                  ),
+                ),
+            returnValueForMissingStub:
+                _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>.value(
+                  _FakeEither_0<_i7.Failure, _i9.NoParams>(
+                    this,
+                    Invocation.method(#saveTodos, [todos]),
+                  ),
+                ),
+          )
+          as _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>);
 }
 
 /// A class which mocks [TodoRemoteDataSource].
@@ -143,38 +114,26 @@ class MockTodoRepository extends _i1.Mock implements _i5.TodoRepository {
 class MockTodoRemoteDataSource extends _i1.Mock
     implements _i10.TodoRemoteDataSource {
   @override
-  _i6.Future<_i3.TodosResponseModel> getTodos() => (super.noSuchMethod(
-        Invocation.method(
-          #getTodos,
-          [],
-        ),
-        returnValue:
-            _i6.Future<_i3.TodosResponseModel>.value(_FakeTodosResponseModel_1(
-          this,
-          Invocation.method(
-            #getTodos,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i3.TodosResponseModel>.value(_FakeTodosResponseModel_1(
-          this,
-          Invocation.method(
-            #getTodos,
-            [],
-          ),
-        )),
-      ) as _i6.Future<_i3.TodosResponseModel>);
+  _i6.Future<_i3.TodosResponseModel> getTodos() =>
+      (super.noSuchMethod(
+            Invocation.method(#getTodos, []),
+            returnValue: _i6.Future<_i3.TodosResponseModel>.value(
+              _FakeTodosResponseModel_1(this, Invocation.method(#getTodos, [])),
+            ),
+            returnValueForMissingStub: _i6.Future<_i3.TodosResponseModel>.value(
+              _FakeTodosResponseModel_1(this, Invocation.method(#getTodos, [])),
+            ),
+          )
+          as _i6.Future<_i3.TodosResponseModel>);
 
   @override
-  _i6.Future<void> saveTodos(List<_i8.Todo>? todos) => (super.noSuchMethod(
-        Invocation.method(
-          #saveTodos,
-          [todos],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+  _i6.Future<void> saveTodos(List<_i8.Todo>? todos) =>
+      (super.noSuchMethod(
+            Invocation.method(#saveTodos, [todos]),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
 }
 
 /// A class which mocks [TodoLocalDataSource].
@@ -183,38 +142,26 @@ class MockTodoRemoteDataSource extends _i1.Mock
 class MockTodoLocalDataSource extends _i1.Mock
     implements _i11.TodoLocalDataSource {
   @override
-  _i6.Future<_i3.TodosResponseModel> getTodos() => (super.noSuchMethod(
-        Invocation.method(
-          #getTodos,
-          [],
-        ),
-        returnValue:
-            _i6.Future<_i3.TodosResponseModel>.value(_FakeTodosResponseModel_1(
-          this,
-          Invocation.method(
-            #getTodos,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i3.TodosResponseModel>.value(_FakeTodosResponseModel_1(
-          this,
-          Invocation.method(
-            #getTodos,
-            [],
-          ),
-        )),
-      ) as _i6.Future<_i3.TodosResponseModel>);
+  _i6.Future<_i3.TodosResponseModel> getTodos() =>
+      (super.noSuchMethod(
+            Invocation.method(#getTodos, []),
+            returnValue: _i6.Future<_i3.TodosResponseModel>.value(
+              _FakeTodosResponseModel_1(this, Invocation.method(#getTodos, [])),
+            ),
+            returnValueForMissingStub: _i6.Future<_i3.TodosResponseModel>.value(
+              _FakeTodosResponseModel_1(this, Invocation.method(#getTodos, [])),
+            ),
+          )
+          as _i6.Future<_i3.TodosResponseModel>);
 
   @override
-  _i6.Future<void> cacheTodos(List<_i8.Todo>? todos) => (super.noSuchMethod(
-        Invocation.method(
-          #cacheTodos,
-          [todos],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+  _i6.Future<void> cacheTodos(List<_i8.Todo>? todos) =>
+      (super.noSuchMethod(
+            Invocation.method(#cacheTodos, [todos]),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
 }
 
 /// A class which mocks [NetworkInfo].
@@ -222,11 +169,13 @@ class MockTodoLocalDataSource extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockNetworkInfo extends _i1.Mock implements _i12.NetworkInfo {
   @override
-  _i6.Future<bool> get isConnected => (super.noSuchMethod(
-        Invocation.getter(#isConnected),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+  _i6.Future<bool> get isConnected =>
+      (super.noSuchMethod(
+            Invocation.getter(#isConnected),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
 }
 
 /// A class which mocks [InternetConnectionChecker].
@@ -235,218 +184,207 @@ class MockNetworkInfo extends _i1.Mock implements _i12.NetworkInfo {
 class MockInternetConnectionChecker extends _i1.Mock
     implements _i4.InternetConnectionChecker {
   @override
-  bool get requireAllAddressesToRespond => (super.noSuchMethod(
-        Invocation.getter(#requireAllAddressesToRespond),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
+  bool get requireAllAddressesToRespond =>
+      (super.noSuchMethod(
+            Invocation.getter(#requireAllAddressesToRespond),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
 
   @override
-  bool get enableToCheckForSlowConnection => (super.noSuchMethod(
-        Invocation.getter(#enableToCheckForSlowConnection),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
+  bool get enableToCheckForSlowConnection =>
+      (super.noSuchMethod(
+            Invocation.getter(#enableToCheckForSlowConnection),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
 
   @override
-  Duration get slowConnectionThreshold => (super.noSuchMethod(
-        Invocation.getter(#slowConnectionThreshold),
-        returnValue: _FakeDuration_2(
-          this,
-          Invocation.getter(#slowConnectionThreshold),
-        ),
-        returnValueForMissingStub: _FakeDuration_2(
-          this,
-          Invocation.getter(#slowConnectionThreshold),
-        ),
-      ) as Duration);
+  Duration get slowConnectionThreshold =>
+      (super.noSuchMethod(
+            Invocation.getter(#slowConnectionThreshold),
+            returnValue: _FakeDuration_2(
+              this,
+              Invocation.getter(#slowConnectionThreshold),
+            ),
+            returnValueForMissingStub: _FakeDuration_2(
+              this,
+              Invocation.getter(#slowConnectionThreshold),
+            ),
+          )
+          as Duration);
 
   @override
-  Duration get checkTimeout => (super.noSuchMethod(
-        Invocation.getter(#checkTimeout),
-        returnValue: _FakeDuration_2(
-          this,
-          Invocation.getter(#checkTimeout),
-        ),
-        returnValueForMissingStub: _FakeDuration_2(
-          this,
-          Invocation.getter(#checkTimeout),
-        ),
-      ) as Duration);
+  Duration get checkTimeout =>
+      (super.noSuchMethod(
+            Invocation.getter(#checkTimeout),
+            returnValue: _FakeDuration_2(
+              this,
+              Invocation.getter(#checkTimeout),
+            ),
+            returnValueForMissingStub: _FakeDuration_2(
+              this,
+              Invocation.getter(#checkTimeout),
+            ),
+          )
+          as Duration);
 
   @override
-  Duration get checkInterval => (super.noSuchMethod(
-        Invocation.getter(#checkInterval),
-        returnValue: _FakeDuration_2(
-          this,
-          Invocation.getter(#checkInterval),
-        ),
-        returnValueForMissingStub: _FakeDuration_2(
-          this,
-          Invocation.getter(#checkInterval),
-        ),
-      ) as Duration);
+  Duration get checkInterval =>
+      (super.noSuchMethod(
+            Invocation.getter(#checkInterval),
+            returnValue: _FakeDuration_2(
+              this,
+              Invocation.getter(#checkInterval),
+            ),
+            returnValueForMissingStub: _FakeDuration_2(
+              this,
+              Invocation.getter(#checkInterval),
+            ),
+          )
+          as Duration);
 
   @override
-  List<_i4.AddressCheckOption> get addresses => (super.noSuchMethod(
-        Invocation.getter(#addresses),
-        returnValue: <_i4.AddressCheckOption>[],
-        returnValueForMissingStub: <_i4.AddressCheckOption>[],
-      ) as List<_i4.AddressCheckOption>);
+  List<_i4.AddressCheckOption> get addresses =>
+      (super.noSuchMethod(
+            Invocation.getter(#addresses),
+            returnValue: <_i4.AddressCheckOption>[],
+            returnValueForMissingStub: <_i4.AddressCheckOption>[],
+          )
+          as List<_i4.AddressCheckOption>);
 
   @override
   _i6.Stream<_i4.InternetConnectionStatus> get onStatusChange =>
       (super.noSuchMethod(
-        Invocation.getter(#onStatusChange),
-        returnValue: _i6.Stream<_i4.InternetConnectionStatus>.empty(),
-        returnValueForMissingStub:
-            _i6.Stream<_i4.InternetConnectionStatus>.empty(),
-      ) as _i6.Stream<_i4.InternetConnectionStatus>);
+            Invocation.getter(#onStatusChange),
+            returnValue: _i6.Stream<_i4.InternetConnectionStatus>.empty(),
+            returnValueForMissingStub:
+                _i6.Stream<_i4.InternetConnectionStatus>.empty(),
+          )
+          as _i6.Stream<_i4.InternetConnectionStatus>);
 
   @override
-  bool get hasListeners => (super.noSuchMethod(
-        Invocation.getter(#hasListeners),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
+  bool get hasListeners =>
+      (super.noSuchMethod(
+            Invocation.getter(#hasListeners),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
 
   @override
-  _i6.Future<bool> get hasConnection => (super.noSuchMethod(
-        Invocation.getter(#hasConnection),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+  _i6.Future<bool> get hasConnection =>
+      (super.noSuchMethod(
+            Invocation.getter(#hasConnection),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
 
   @override
   _i6.Future<_i4.InternetConnectionStatus> get connectionStatus =>
       (super.noSuchMethod(
-        Invocation.getter(#connectionStatus),
-        returnValue: _i6.Future<_i4.InternetConnectionStatus>.value(
-            _i4.InternetConnectionStatus.connected),
-        returnValueForMissingStub:
-            _i6.Future<_i4.InternetConnectionStatus>.value(
-                _i4.InternetConnectionStatus.connected),
-      ) as _i6.Future<_i4.InternetConnectionStatus>);
+            Invocation.getter(#connectionStatus),
+            returnValue: _i6.Future<_i4.InternetConnectionStatus>.value(
+              _i4.InternetConnectionStatus.connected,
+            ),
+            returnValueForMissingStub:
+                _i6.Future<_i4.InternetConnectionStatus>.value(
+                  _i4.InternetConnectionStatus.connected,
+                ),
+          )
+          as _i6.Future<_i4.InternetConnectionStatus>);
 
   @override
   set requireAllAddressesToRespond(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #requireAllAddressesToRespond,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#requireAllAddressesToRespond, value),
+    returnValueForMissingStub: null,
+  );
 
   @override
   set enableToCheckForSlowConnection(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #enableToCheckForSlowConnection,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#enableToCheckForSlowConnection, value),
+    returnValueForMissingStub: null,
+  );
 
   @override
   set slowConnectionThreshold(Duration? value) => super.noSuchMethod(
-        Invocation.setter(
-          #slowConnectionThreshold,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#slowConnectionThreshold, value),
+    returnValueForMissingStub: null,
+  );
 
   @override
   set checkTimeout(Duration? value) => super.noSuchMethod(
-        Invocation.setter(
-          #checkTimeout,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#checkTimeout, value),
+    returnValueForMissingStub: null,
+  );
 
   @override
   set checkInterval(Duration? value) => super.noSuchMethod(
-        Invocation.setter(
-          #checkInterval,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#checkInterval, value),
+    returnValueForMissingStub: null,
+  );
 
   @override
   set addresses(List<_i4.AddressCheckOption>? value) => super.noSuchMethod(
-        Invocation.setter(
-          #addresses,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#addresses, value),
+    returnValueForMissingStub: null,
+  );
 
   @override
   set setLastStatus(_i4.InternetConnectionStatus? status) => super.noSuchMethod(
-        Invocation.setter(
-          #setLastStatus,
-          status,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#setLastStatus, status),
+    returnValueForMissingStub: null,
+  );
 
   @override
   set setRequireAllAddressesToRespond(bool? value) => super.noSuchMethod(
-        Invocation.setter(
-          #setRequireAllAddressesToRespond,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#setRequireAllAddressesToRespond, value),
+    returnValueForMissingStub: null,
+  );
 
   @override
   Iterable<_i6.Future<_i4.AddressCheckResult>> createAddressCheckFutures(
-          List<_i4.AddressCheckOption>? addresses) =>
+    List<_i4.AddressCheckOption>? addresses,
+  ) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createAddressCheckFutures,
-          [addresses],
-        ),
-        returnValue: <_i6.Future<_i4.AddressCheckResult>>[],
-        returnValueForMissingStub: <_i6.Future<_i4.AddressCheckResult>>[],
-      ) as Iterable<_i6.Future<_i4.AddressCheckResult>>);
+            Invocation.method(#createAddressCheckFutures, [addresses]),
+            returnValue: <_i6.Future<_i4.AddressCheckResult>>[],
+            returnValueForMissingStub: <_i6.Future<_i4.AddressCheckResult>>[],
+          )
+          as Iterable<_i6.Future<_i4.AddressCheckResult>>);
 
   @override
-  _i6.Future<bool> checkConnectivity() => (super.noSuchMethod(
-        Invocation.method(
-          #checkConnectivity,
-          [],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+  _i6.Future<bool> checkConnectivity() =>
+      (super.noSuchMethod(
+            Invocation.method(#checkConnectivity, []),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
 
   @override
   _i6.Future<_i4.AddressCheckResult> isHostReachable(
-          _i4.AddressCheckOption? option) =>
+    _i4.AddressCheckOption? option,
+  ) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #isHostReachable,
-          [option],
-        ),
-        returnValue:
-            _i6.Future<_i4.AddressCheckResult>.value(_FakeAddressCheckResult_3(
-          this,
-          Invocation.method(
-            #isHostReachable,
-            [option],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i6.Future<_i4.AddressCheckResult>.value(_FakeAddressCheckResult_3(
-          this,
-          Invocation.method(
-            #isHostReachable,
-            [option],
-          ),
-        )),
-      ) as _i6.Future<_i4.AddressCheckResult>);
+            Invocation.method(#isHostReachable, [option]),
+            returnValue: _i6.Future<_i4.AddressCheckResult>.value(
+              _FakeAddressCheckResult_3(
+                this,
+                Invocation.method(#isHostReachable, [option]),
+              ),
+            ),
+            returnValueForMissingStub: _i6.Future<_i4.AddressCheckResult>.value(
+              _FakeAddressCheckResult_3(
+                this,
+                Invocation.method(#isHostReachable, [option]),
+              ),
+            ),
+          )
+          as _i6.Future<_i4.AddressCheckResult>);
 
   @override
   _i6.Future<void> maybeEmitStatusUpdate({
@@ -454,45 +392,33 @@ class MockInternetConnectionChecker extends _i1.Mock
     Function? cancelCallback,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #maybeEmitStatusUpdate,
-          [],
-          {
-            #timer: timer,
-            #cancelCallback: cancelCallback,
-          },
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+            Invocation.method(#maybeEmitStatusUpdate, [], {
+              #timer: timer,
+              #cancelCallback: cancelCallback,
+            }),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
 
   @override
   void emitStatus(_i4.InternetConnectionStatus? newStatus) =>
       super.noSuchMethod(
-        Invocation.method(
-          #emitStatus,
-          [newStatus],
-        ),
+        Invocation.method(#emitStatus, [newStatus]),
         returnValueForMissingStub: null,
       );
 
   @override
   void startMonitoring() => super.noSuchMethod(
-        Invocation.method(
-          #startMonitoring,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#startMonitoring, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void cancelStatusUpdate() => super.noSuchMethod(
-        Invocation.method(
-          #cancelStatusUpdate,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#cancelStatusUpdate, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void configure({
@@ -500,29 +426,21 @@ class MockInternetConnectionChecker extends _i1.Mock
     Duration? interval,
     List<_i4.AddressCheckOption>? addresses,
     _i4.SlowConnectionConfig? slowConnectionConfig,
-  }) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #configure,
-          [],
-          {
-            #timeout: timeout,
-            #interval: interval,
-            #addresses: addresses,
-            #slowConnectionConfig: slowConnectionConfig,
-          },
-        ),
-        returnValueForMissingStub: null,
-      );
+  }) => super.noSuchMethod(
+    Invocation.method(#configure, [], {
+      #timeout: timeout,
+      #interval: interval,
+      #addresses: addresses,
+      #slowConnectionConfig: slowConnectionConfig,
+    }),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#dispose, []),
+    returnValueForMissingStub: null,
+  );
 }
 
 /// A class which mocks [SharedPreferences].
@@ -530,201 +448,149 @@ class MockInternetConnectionChecker extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockSharedPreferences extends _i1.Mock implements _i13.SharedPreferences {
   @override
-  Set<String> getKeys() => (super.noSuchMethod(
-        Invocation.method(
-          #getKeys,
-          [],
-        ),
-        returnValue: <String>{},
-        returnValueForMissingStub: <String>{},
-      ) as Set<String>);
-
-  @override
-  Object? get(String? key) => (super.noSuchMethod(
-        Invocation.method(
-          #get,
-          [key],
-        ),
-        returnValueForMissingStub: null,
-      ) as Object?);
-
-  @override
-  bool? getBool(String? key) => (super.noSuchMethod(
-        Invocation.method(
-          #getBool,
-          [key],
-        ),
-        returnValueForMissingStub: null,
-      ) as bool?);
-
-  @override
-  int? getInt(String? key) => (super.noSuchMethod(
-        Invocation.method(
-          #getInt,
-          [key],
-        ),
-        returnValueForMissingStub: null,
-      ) as int?);
-
-  @override
-  double? getDouble(String? key) => (super.noSuchMethod(
-        Invocation.method(
-          #getDouble,
-          [key],
-        ),
-        returnValueForMissingStub: null,
-      ) as double?);
-
-  @override
-  String? getString(String? key) => (super.noSuchMethod(
-        Invocation.method(
-          #getString,
-          [key],
-        ),
-        returnValueForMissingStub: null,
-      ) as String?);
-
-  @override
-  bool containsKey(String? key) => (super.noSuchMethod(
-        Invocation.method(
-          #containsKey,
-          [key],
-        ),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-
-  @override
-  List<String>? getStringList(String? key) => (super.noSuchMethod(
-        Invocation.method(
-          #getStringList,
-          [key],
-        ),
-        returnValueForMissingStub: null,
-      ) as List<String>?);
-
-  @override
-  _i6.Future<bool> setBool(
-    String? key,
-    bool? value,
-  ) =>
+  Set<String> getKeys() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #setBool,
-          [
-            key,
-            value,
-          ],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+            Invocation.method(#getKeys, []),
+            returnValue: <String>{},
+            returnValueForMissingStub: <String>{},
+          )
+          as Set<String>);
 
   @override
-  _i6.Future<bool> setInt(
-    String? key,
-    int? value,
-  ) =>
+  Object? get(String? key) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #setInt,
-          [
-            key,
-            value,
-          ],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+            Invocation.method(#get, [key]),
+            returnValueForMissingStub: null,
+          )
+          as Object?);
 
   @override
-  _i6.Future<bool> setDouble(
-    String? key,
-    double? value,
-  ) =>
+  bool? getBool(String? key) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #setDouble,
-          [
-            key,
-            value,
-          ],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+            Invocation.method(#getBool, [key]),
+            returnValueForMissingStub: null,
+          )
+          as bool?);
 
   @override
-  _i6.Future<bool> setString(
-    String? key,
-    String? value,
-  ) =>
+  int? getInt(String? key) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #setString,
-          [
-            key,
-            value,
-          ],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+            Invocation.method(#getInt, [key]),
+            returnValueForMissingStub: null,
+          )
+          as int?);
 
   @override
-  _i6.Future<bool> setStringList(
-    String? key,
-    List<String>? value,
-  ) =>
+  double? getDouble(String? key) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #setStringList,
-          [
-            key,
-            value,
-          ],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+            Invocation.method(#getDouble, [key]),
+            returnValueForMissingStub: null,
+          )
+          as double?);
 
   @override
-  _i6.Future<bool> remove(String? key) => (super.noSuchMethod(
-        Invocation.method(
-          #remove,
-          [key],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+  String? getString(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#getString, [key]),
+            returnValueForMissingStub: null,
+          )
+          as String?);
 
   @override
-  _i6.Future<bool> commit() => (super.noSuchMethod(
-        Invocation.method(
-          #commit,
-          [],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+  bool containsKey(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#containsKey, [key]),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
 
   @override
-  _i6.Future<bool> clear() => (super.noSuchMethod(
-        Invocation.method(
-          #clear,
-          [],
-        ),
-        returnValue: _i6.Future<bool>.value(false),
-        returnValueForMissingStub: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+  List<String>? getStringList(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#getStringList, [key]),
+            returnValueForMissingStub: null,
+          )
+          as List<String>?);
 
   @override
-  _i6.Future<void> reload() => (super.noSuchMethod(
-        Invocation.method(
-          #reload,
-          [],
-        ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+  _i6.Future<bool> setBool(String? key, bool? value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setBool, [key, value]),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
+
+  @override
+  _i6.Future<bool> setInt(String? key, int? value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setInt, [key, value]),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
+
+  @override
+  _i6.Future<bool> setDouble(String? key, double? value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setDouble, [key, value]),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
+
+  @override
+  _i6.Future<bool> setString(String? key, String? value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setString, [key, value]),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
+
+  @override
+  _i6.Future<bool> setStringList(String? key, List<String>? value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setStringList, [key, value]),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
+
+  @override
+  _i6.Future<bool> remove(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#remove, [key]),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
+
+  @override
+  _i6.Future<bool> commit() =>
+      (super.noSuchMethod(
+            Invocation.method(#commit, []),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
+
+  @override
+  _i6.Future<bool> clear() =>
+      (super.noSuchMethod(
+            Invocation.method(#clear, []),
+            returnValue: _i6.Future<bool>.value(false),
+            returnValueForMissingStub: _i6.Future<bool>.value(false),
+          )
+          as _i6.Future<bool>);
+
+  @override
+  _i6.Future<void> reload() =>
+      (super.noSuchMethod(
+            Invocation.method(#reload, []),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
 }

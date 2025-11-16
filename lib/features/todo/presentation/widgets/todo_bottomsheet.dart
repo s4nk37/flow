@@ -50,7 +50,7 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
       // Save the task logic here
       String task = _taskController.text;
       Todo newTodo = Todo(
-        id: uuid.v4(),
+        id: DateTime.now().millisecondsSinceEpoch,
         title: task,
         description: _descriptionController.text,
         isCompleted: false,

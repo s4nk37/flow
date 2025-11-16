@@ -15,7 +15,4 @@ TodosResponseModel _$TodosResponseModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$TodosResponseModelToJson(TodosResponseModel instance) =>
-    <String, dynamic>{
-      'todos': instance.todos,
-      'updatedAt': instance.updatedAt,
-    };
+    <String, dynamic>{'todos': instance.todos, 'updatedAt': instance.updatedAt};

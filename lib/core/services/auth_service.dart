@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -13,7 +14,7 @@ class AuthService {
       final GoogleSignInAccount? googleUser = await _googleSignIn.authenticate();
       return googleUser;
     } catch (error) {
-      print('Error signing in with Google: $error');
+      debugPrint('Error signing in with Google: $error');
       return null;
     }
   }

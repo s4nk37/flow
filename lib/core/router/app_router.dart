@@ -20,7 +20,7 @@ class AppRouter {
 
   // GoRouter configuration
   static final _router = GoRouter(
-    initialLocation: loginPagePath,
+    initialLocation: homePagePath,
     routes: [
       GoRoute(
         name: loginPage,
