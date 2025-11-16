@@ -33,9 +33,10 @@ class AppRouter {
         builder: (context, state) => const HomePage(),
       ),
       GoRoute(
-          path: AppRouter.settingsPath,
-          name: AppRouter.settingsPage,
-          builder: (context, state) => const SettingsPage()),
+        path: AppRouter.settingsPath,
+        name: AppRouter.settingsPage,
+        builder: (context, state) => const SettingsPage(),
+      ),
     ],
   );
 }

@@ -12,18 +12,16 @@ final class Empty extends TodoState {}
 final class Loading extends TodoState {}
 
 class LoadedTodos extends TodoState {
-  final List<Todo> todos;
-
   const LoadedTodos({required this.todos});
+  final List<Todo> todos;
 
   @override
   List<Object> get props => [todos];
 }
 
 class Error extends TodoState {
-  final String message;
-
   const Error({required this.message});
+  final String message;
 
   @override
   List<Object> get props => [message];

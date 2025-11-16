@@ -11,7 +11,7 @@ extension DateTimeFormatter on String {
       var output = DateFormat('dd/MM/yyyy').format(timeStamp);
       return output;
     } catch (e) {
-      logger.d("Exception occurred on toDateFormat : $e");
+      logger.d('Exception occurred on toDateFormat : $e');
     }
     return '';
   }
@@ -23,7 +23,7 @@ extension DateTimeFormatter on String {
       var output = DateFormat('dd/MM/yyyy hh:mm a').format(timeStamp);
       return output;
     } catch (e) {
-      logger.d("Exception occurred on toDateTimeFormat : $e");
+      logger.d('Exception occurred on toDateTimeFormat : $e');
     }
     return '';
   }
@@ -35,7 +35,7 @@ extension DateTimeFormatter on String {
       var output = DateFormat('HH:mm').format(timeStamp);
       return output;
     } catch (e) {
-      logger.d("Exception occurred on to24HourTimeFormat : $e");
+      logger.d('Exception occurred on to24HourTimeFormat : $e');
     }
     return '';
   }
@@ -47,7 +47,7 @@ extension DateTimeFormatter on String {
       var output = DateFormat('hh:mm a').format(timeStamp);
       return output;
     } catch (e) {
-      logger.d("Exception occurred on to12HourTimeFormat : $e");
+      logger.d('Exception occurred on to12HourTimeFormat : $e');
     }
     return '';
   }
@@ -60,7 +60,7 @@ extension DateTimeFormatter on String {
       var output = DateFormat('dd/MM/yyyy hh:mm a').format(timeStamp);
       return output;
     } catch (e) {
-      logger.d("Exception occurred on toUTCDateTimeFormat : $e");
+      logger.d('Exception occurred on toUTCDateTimeFormat : $e');
     }
     return '';
   }
@@ -75,7 +75,7 @@ extension DateTimeFormatter on String {
       var output = DateFormat('dd/MM/yyyy hh:mm a').format(timeStamp);
       return output;
     } catch (e) {
-      logger.d("Exception occurred on toLocalDateTimeFormat : $e");
+      logger.d('Exception occurred on toLocalDateTimeFormat : $e');
     }
     return '';
   }

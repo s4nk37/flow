@@ -31,9 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ThemeCubit>(
-          create: (context) => di.sl<ThemeCubit>(),
-        ),
+        BlocProvider<ThemeCubit>(create: (context) => di.sl<ThemeCubit>()),
         BlocProvider<TodoBloc>(
           create: (context) => di.sl<TodoBloc>()..add(GetTodos()),
         ),

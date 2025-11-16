@@ -1,14 +1,77 @@
-import 'package:flow/core/utils/extensions/sizebox_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../utils/constants/layout_constants.dart';
 import '../utils/constants/regex_constants.dart';
+import '../utils/extensions/sizebox_extension.dart';
 import '../utils/theme/app_theme.dart';
 import 'base_text.dart';
 import 'decorated_input_border.dart';
 
 class BaseTextFormField extends StatelessWidget {
+  const BaseTextFormField({
+    this.textFormFieldKey,
+    this.controller,
+    this.textInputType,
+    this.decoration,
+    this.isReadOnly,
+    this.textInputAction,
+    this.focusNode,
+    this.fillColor,
+    this.validator,
+    this.inputFormatters,
+    this.hintText,
+    this.hintTextColor,
+    this.textAlign,
+    this.suffixIcon,
+    this.maxLines,
+    this.contentPadding,
+    this.minLines,
+    this.onFieldSubmitted,
+    this.fontWeight,
+    this.onChanged,
+    this.autofillHints,
+    this.textStyle,
+    this.hintStyle,
+    this.enabledBorderColor,
+    this.focusedBorderColor,
+    this.errorBorderColor,
+    this.focusedErrorBorderColor,
+    this.onTap,
+    this.expands,
+    this.keyboardAppearance,
+    this.maxLength,
+    this.obscureText,
+    this.onEditingComplete,
+    this.onSaved,
+    this.restorationId,
+    this.showCursor,
+    this.smartDashesType,
+    this.smartQuotesType,
+    this.strutStyle,
+    this.textAlignVertical,
+    this.textCapitalization,
+    this.textDirection,
+    this.toolbarOptions,
+    this.autofocus,
+    this.buildCounter,
+    this.border,
+    this.borderRadius,
+    this.borderWidth,
+    this.errorText,
+    this.errorLines,
+    this.prefixWidget,
+    this.prefixIconWidget,
+    this.shadowColor,
+    this.enable,
+    this.width,
+    this.fontFamily,
+    this.prefixIconWidgetConstraints,
+    this.suffixIconWidgetConstraints,
+    this.labelText,
+    this.borderColor,
+    this.denyEmoji = true,
+  }) : super(key: textFormFieldKey);
   final Key? textFormFieldKey;
 
   /// A controller for an editable text field.
@@ -178,70 +241,6 @@ class BaseTextFormField extends StatelessWidget {
 
   final bool denyEmoji;
 
-  const BaseTextFormField(
-      {this.textFormFieldKey,
-      this.controller,
-      this.textInputType,
-      this.decoration,
-      this.isReadOnly,
-      this.textInputAction,
-      this.focusNode,
-      this.fillColor,
-      this.validator,
-      this.inputFormatters,
-      this.hintText,
-      this.hintTextColor,
-      this.textAlign,
-      this.suffixIcon,
-      this.maxLines,
-      this.contentPadding,
-      this.minLines,
-      this.onFieldSubmitted,
-      this.fontWeight,
-      this.onChanged,
-      this.autofillHints,
-      this.textStyle,
-      this.hintStyle,
-      this.enabledBorderColor,
-      this.focusedBorderColor,
-      this.errorBorderColor,
-      this.focusedErrorBorderColor,
-      this.onTap,
-      this.expands,
-      this.keyboardAppearance,
-      this.maxLength,
-      this.obscureText,
-      this.onEditingComplete,
-      this.onSaved,
-      this.restorationId,
-      this.showCursor,
-      this.smartDashesType,
-      this.smartQuotesType,
-      this.strutStyle,
-      this.textAlignVertical,
-      this.textCapitalization,
-      this.textDirection,
-      this.toolbarOptions,
-      this.autofocus,
-      this.buildCounter,
-      this.border,
-      this.borderRadius,
-      this.borderWidth,
-      this.errorText,
-      this.errorLines,
-      this.prefixWidget,
-      this.prefixIconWidget,
-      this.shadowColor,
-      this.enable,
-      this.width,
-      this.fontFamily,
-      this.prefixIconWidgetConstraints,
-      this.suffixIconWidgetConstraints,
-      this.labelText,
-      this.borderColor,
-      this.denyEmoji = true})
-      : super(key: textFormFieldKey);
-
   @override
   Widget build(BuildContext context) {
     final double scaleFactor = MediaQuery.of(context).textScaleFactor;
@@ -264,10 +263,11 @@ class BaseTextFormField extends StatelessWidget {
             textAlign: textAlign ?? TextAlign.left,
             inputFormatters: [
               ...?inputFormatters,
-              FilteringTextInputFormatter.deny(RegExp(r"^\s*")),
+              FilteringTextInputFormatter.deny(RegExp(r'^\s*')),
               if (denyEmoji)
                 FilteringTextInputFormatter.deny(
-                    RegExp(RegexConstants.emojiRegex)),
+                  RegExp(RegexConstants.emojiRegex),
+                ),
             ],
             validator: validator,
             focusNode: focusNode,
@@ -276,14 +276,17 @@ class BaseTextFormField extends StatelessWidget {
             maxLength: maxLength,
             textInputAction: textInputAction ?? TextInputAction.next,
             readOnly: isReadOnly ?? false,
-            style: textStyle ??
+            style:
+                textStyle ??
                 TextStyle(
-                    color: AppTheme.of(context).primary,
-                    fontSize: 14 / scaleFactor,
-                    fontWeight: FontWeight.w600),
+                  color: AppTheme.of(context).primary,
+                  fontSize: 14 / scaleFactor,
+                  fontWeight: FontWeight.w600,
+                ),
             keyboardType: textInputType ?? TextInputType.text,
             controller: controller,
-            decoration: decoration ??
+            decoration:
+                decoration ??
                 InputDecoration(
                   counterText: '',
                   prefixIconConstraints: prefixIconWidgetConstraints,
@@ -292,25 +295,29 @@ class BaseTextFormField extends StatelessWidget {
                   prefix: prefixWidget ?? const SizedBox.shrink(),
                   errorText:
                       errorText != null && (errorText?.isNotEmpty ?? false)
-                          ? errorText
-                          : null,
+                      ? errorText
+                      : null,
                   suffixIcon: suffixIcon,
-                  hintStyle: hintStyle ??
+                  hintStyle:
+                      hintStyle ??
                       TextStyle(
-                          color: AppTheme.of(context).secondaryText,
-                          fontSize: 14 / scaleFactor,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: fontFamily),
+                        color: AppTheme.of(context).secondaryText,
+                        fontSize: 14 / scaleFactor,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: fontFamily,
+                      ),
                   hintText: hintText ?? '',
                   border: border ?? InputBorder.none,
-                  contentPadding: contentPadding ??
+                  contentPadding:
+                      contentPadding ??
                       const EdgeInsets.symmetric(vertical: 17, horizontal: 16),
                   fillColor: fillColor ?? AppTheme.of(context).background,
                   filled: true,
                   errorStyle: TextStyle(
-                      color: AppTheme.of(context).error,
-                      fontSize: 12 / scaleFactor,
-                      fontWeight: FontWeight.w600),
+                    color: AppTheme.of(context).error,
+                    fontSize: 12 / scaleFactor,
+                    fontWeight: FontWeight.w600,
+                  ),
 
                   ///textfield without text field
                   // enabledBorder: OutlineInputBorder(
@@ -320,36 +327,43 @@ class BaseTextFormField extends StatelessWidget {
                   ///text field with shadow
                   enabledBorder: DecoratedInputBorder(
                     child: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppTheme.of(context).background),
-                      borderRadius:
-                          BorderRadius.circular(RadiusConstant.commonRadius),
+                      borderSide: BorderSide(
+                        color: AppTheme.of(context).background,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        RadiusConstant.commonRadius,
+                      ),
                     ),
                     shadow: buildBoxShadow(context),
                   ),
                   focusedBorder: DecoratedInputBorder(
                     child: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppTheme.of(context).primary),
-                      borderRadius:
-                          BorderRadius.circular(RadiusConstant.commonRadius),
+                      borderSide: BorderSide(
+                        color: AppTheme.of(context).primary,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        RadiusConstant.commonRadius,
+                      ),
                     ),
                     shadow: buildBoxShadow(context),
                   ),
                   errorBorder: DecoratedInputBorder(
                     child: OutlineInputBorder(
                       borderSide: BorderSide(color: AppTheme.of(context).error),
-                      borderRadius:
-                          BorderRadius.circular(RadiusConstant.commonRadius),
+                      borderRadius: BorderRadius.circular(
+                        RadiusConstant.commonRadius,
+                      ),
                     ),
                     shadow: buildBoxShadow(context),
                   ),
                   focusedErrorBorder: DecoratedInputBorder(
                     child: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppTheme.of(context).primary),
-                      borderRadius:
-                          BorderRadius.circular(RadiusConstant.commonRadius),
+                      borderSide: BorderSide(
+                        color: AppTheme.of(context).primary,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        RadiusConstant.commonRadius,
+                      ),
                     ),
                     shadow: buildBoxShadow(context),
                   ),
@@ -383,29 +397,37 @@ class BaseTextFormField extends StatelessWidget {
               ///https://docs.flutter.dev/release/breaking-changes/context-menus
               final List<ContextMenuButtonItem> buttonItems = [
                 ContextMenuButtonItem(
-                    onPressed: () {
-                      editableTextState
-                          .cutSelection(SelectionChangedCause.longPress);
-                    },
-                    type: ContextMenuButtonType.cut),
+                  onPressed: () {
+                    editableTextState.cutSelection(
+                      SelectionChangedCause.longPress,
+                    );
+                  },
+                  type: ContextMenuButtonType.cut,
+                ),
                 ContextMenuButtonItem(
-                    onPressed: () {
-                      editableTextState
-                          .pasteText(SelectionChangedCause.longPress);
-                    },
-                    type: ContextMenuButtonType.paste),
+                  onPressed: () {
+                    editableTextState.pasteText(
+                      SelectionChangedCause.longPress,
+                    );
+                  },
+                  type: ContextMenuButtonType.paste,
+                ),
                 ContextMenuButtonItem(
-                    onPressed: () {
-                      editableTextState
-                          .copySelection(SelectionChangedCause.longPress);
-                    },
-                    type: ContextMenuButtonType.copy),
+                  onPressed: () {
+                    editableTextState.copySelection(
+                      SelectionChangedCause.longPress,
+                    );
+                  },
+                  type: ContextMenuButtonType.copy,
+                ),
                 ContextMenuButtonItem(
-                    onPressed: () {
-                      editableTextState
-                          .selectAll(SelectionChangedCause.longPress);
-                    },
-                    type: ContextMenuButtonType.selectAll),
+                  onPressed: () {
+                    editableTextState.selectAll(
+                      SelectionChangedCause.longPress,
+                    );
+                  },
+                  type: ContextMenuButtonType.selectAll,
+                ),
               ];
               return AdaptiveTextSelectionToolbar.buttonItems(
                 anchors: editableTextState.contextMenuAnchors,
@@ -419,8 +441,8 @@ class BaseTextFormField extends StatelessWidget {
   }
 
   BoxShadow buildBoxShadow(context) => BoxShadow(
-      color: AppTheme.of(context).primary.withOpacity(0.1),
-      blurRadius: 0,
-      offset: const Offset(0, 0));
+    color: AppTheme.of(context).primary.withOpacity(0.1),
+    blurRadius: 0,
+    offset: const Offset(0, 0),
+  );
 }
-

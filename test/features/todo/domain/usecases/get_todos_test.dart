@@ -1,11 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:mockito/mockito.dart';
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:flow/core/usecases/usecase.dart';
 import 'package:flow/features/todo/domain/entities/todo.dart';
-
 import 'package:flow/features/todo/domain/usecases/get_todos.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../../../helpers/test_mock.mocks.dart';
 
@@ -21,8 +19,8 @@ void main() {
   final tTodos = <Todo>[
     Todo(
       id: 1,
-      title: "Buy Veg",
-      description: "a",
+      title: 'Buy Veg',
+      description: 'a',
       isCompleted: false,
       createdAt: DateTime(2024, 2, 10, 17, 30),
       updatedAt: null,
@@ -31,8 +29,8 @@ void main() {
     ),
     Todo(
       id: 2,
-      title: "Buy Veg",
-      description: "a",
+      title: 'Buy Veg',
+      description: 'a',
       isCompleted: false,
       createdAt: DateTime(2024, 2, 10, 17, 30),
       updatedAt: null,

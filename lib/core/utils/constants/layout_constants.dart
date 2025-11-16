@@ -6,12 +6,18 @@ class RadiusConstant {
 }
 
 class PaddingConstant {
-  static const EdgeInsets scaffoldPadding =
-      EdgeInsets.symmetric(horizontal: 16);
-  static const EdgeInsets scaffoldPaddingWithTop =
-      EdgeInsets.only(left: 16, right: 16, top: 16);
-  static const EdgeInsets bottomNavPadding =
-      EdgeInsets.symmetric(horizontal: 16, vertical: 24);
+  static const EdgeInsets scaffoldPadding = EdgeInsets.symmetric(
+    horizontal: 16,
+  );
+  static const EdgeInsets scaffoldPaddingWithTop = EdgeInsets.only(
+    left: 16,
+    right: 16,
+    top: 16,
+  );
+  static const EdgeInsets bottomNavPadding = EdgeInsets.symmetric(
+    horizontal: 16,
+    vertical: 24,
+  );
   static const EdgeInsets alertDialogPadding = EdgeInsets.all(24);
   static const EdgeInsets bottomSheetPadding = EdgeInsets.all(16);
   static const EdgeInsets containerPadding10 = EdgeInsets.all(10);

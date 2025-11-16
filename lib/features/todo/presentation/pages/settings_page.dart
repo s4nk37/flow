@@ -1,7 +1,7 @@
-import 'package:flow/core/configs/app_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/configs/app_config.dart';
 import '../../../../core/i18n/strings.g.dart';
 import '../../../../core/utils/theme/app_theme.dart';
 import '../../../../core/utils/theme/cubit/theme_cubit.dart';
@@ -12,9 +12,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.settings),
-      ),
+      appBar: AppBar(title: Text(t.settings)),
       body: ListView(
         padding: const EdgeInsets.all(15),
         children: [
@@ -27,42 +25,35 @@ class SettingsPage extends StatelessWidget {
             children: AppLocale.values.map((locale) {
               AppLocale activeLocale = LocaleSettings.currentLocale;
               bool active = activeLocale == locale;
-              return LanguageChip(
-                active: active,
-                locale: locale,
-              );
+              return LanguageChip(active: active, locale: locale);
             }).toList(),
           ),
           ListTile(
             title: Text(context.t.change_theme),
             trailing: const Icon(Icons.color_lens),
           ),
-          BlocBuilder<ThemeCubit, ThemeMode>(builder: (context, state) {
-            return GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              shrinkWrap: true,
-              // mainAxisSize: MainAxisSize.min,
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ThemeChip(
-                  themeMode: ThemeMode.light,
-                  activeThemeMode: state,
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, state) {
+              return GridView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
-                ThemeChip(
-                  themeMode: ThemeMode.dark,
-                  activeThemeMode: state,
-                ),
-                ThemeChip(
-                  themeMode: ThemeMode.system,
-                  activeThemeMode: state,
-                ),
-              ],
-            );
-          }),
+                shrinkWrap: true,
+                // mainAxisSize: MainAxisSize.min,
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ThemeChip(themeMode: ThemeMode.light, activeThemeMode: state),
+                  ThemeChip(themeMode: ThemeMode.dark, activeThemeMode: state),
+                  ThemeChip(
+                    themeMode: ThemeMode.system,
+                    activeThemeMode: state,
+                  ),
+                ],
+              );
+            },
+          ),
         ],
       ),
     );
@@ -70,11 +61,7 @@ class SettingsPage extends StatelessWidget {
 }
 
 class LanguageChip extends StatelessWidget {
-  const LanguageChip({
-    super.key,
-    required this.active,
-    required this.locale,
-  });
+  const LanguageChip({super.key, required this.active, required this.locale});
 
   final bool active;
   final AppLocale locale;
@@ -100,8 +87,8 @@ class LanguageChip extends StatelessWidget {
           locale.name == kLocaleEnglish
               ? t.English
               : locale.name == kLocaleGujarati
-                  ? t.Gujarati
-                  : t.Hindi,
+              ? t.Gujarati
+              : t.Hindi,
         ),
       ),
     );
@@ -109,13 +96,13 @@ class LanguageChip extends StatelessWidget {
 }
 
 class ThemeChip extends StatelessWidget {
-  final ThemeMode themeMode;
-  final ThemeMode activeThemeMode;
   const ThemeChip({
     super.key,
     required this.themeMode,
     required this.activeThemeMode,
   });
+  final ThemeMode themeMode;
+  final ThemeMode activeThemeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -134,18 +121,20 @@ class ThemeChip extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(themeMode == ThemeMode.dark
-                ? Icons.nightlight_round
-                : themeMode == ThemeMode.light
-                    ? Icons.wb_sunny
-                    : Icons.brightness_auto_sharp),
+            Icon(
+              themeMode == ThemeMode.dark
+                  ? Icons.nightlight_round
+                  : themeMode == ThemeMode.light
+                  ? Icons.wb_sunny
+                  : Icons.brightness_auto_sharp,
+            ),
             const SizedBox(width: 10),
             Text(
               themeMode == ThemeMode.dark
                   ? 'Dark'
                   : themeMode == ThemeMode.light
-                      ? 'Light'
-                      : 'System',
+                  ? 'Light'
+                  : 'System',
             ),
           ],
         ),

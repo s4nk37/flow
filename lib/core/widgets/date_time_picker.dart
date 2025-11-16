@@ -1,12 +1,15 @@
-import '../utils/theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../utils/theme/app_theme.dart';
+
 class DateTimePickerWidget extends StatelessWidget {
+  const DateTimePickerWidget({
+    super.key,
+    required this.onDateTimeChanged,
+    this.initialDateTime,
+  });
   final Function onDateTimeChanged;
   final DateTime? initialDateTime;
-
-  const DateTimePickerWidget(
-      {super.key, required this.onDateTimeChanged, this.initialDateTime});
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +39,8 @@ class DateTimePickerWidget extends StatelessWidget {
 }
 
 class TimePickerWidget extends StatelessWidget {
-  final Function onDateTimeChanged;
-
   const TimePickerWidget({super.key, required this.onDateTimeChanged});
+  final Function onDateTimeChanged;
 
   @override
   Widget build(BuildContext context) {
