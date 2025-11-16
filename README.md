@@ -11,6 +11,14 @@ Boost your productivity and achieve your flow with our simple yet powerful task 
 -   Set due dates and reminders (optional)
 -   Simple and intuitive user interface
 
+**Technology Stack:**
+
+
+-   Flutter
+-   Bloc
+
+
+
 **Folder Structure:**
 ```
 assets
@@ -125,11 +133,6 @@ test
 3.  Run following command to generate required files: `dart run build_runner build`
 4.  Run the app:  `flutter run`
 
-**Technology Stack:**
-
--   Flutter
--   Bloc
-
 ## Code sanitization:
 - All commits should have `0` problems.
 ```bash
@@ -152,6 +155,7 @@ test
 ```bash
   # via terminal
   $ ./sanitizer.sh
+```
 
 **Contributing:**
 
