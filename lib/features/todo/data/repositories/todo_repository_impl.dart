@@ -11,15 +11,14 @@ import '../datasources/todo_local_datasource.dart';
 import '../datasources/todo_remote_datasource.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
-  final TodoLocalDataSource localDataSource;
-  final TodoRemoteDataSource remoteDataSource;
-  final NetworkInfo networkInfo;
-
   TodoRepositoryImpl({
     required this.localDataSource,
     required this.remoteDataSource,
     required this.networkInfo,
   });
+  final TodoLocalDataSource localDataSource;
+  final TodoRemoteDataSource remoteDataSource;
+  final NetworkInfo networkInfo;
 
   @override
   Future<Either<Failure, List<Todo>>> getTodos() async {

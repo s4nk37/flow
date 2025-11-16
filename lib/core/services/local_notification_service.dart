@@ -1,8 +1,8 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-import '../errors/exceptions.dart';
 import '../configs/app_config.dart';
+import '../errors/exceptions.dart';
 import '../utils/theme/app_colors.dart';
 
 const AndroidNotificationChannel _channel = AndroidNotificationChannel(
@@ -29,8 +29,9 @@ final _notificationDetails = NotificationDetails(
   ),
 );
 
-void onDidReceiveNotificationResponse(
-    NotificationResponse notificationResponse) async {
+Future<void> onDidReceiveNotificationResponse(
+  NotificationResponse notificationResponse,
+) async {
   final String? payload = notificationResponse.payload;
   if (notificationResponse.payload != null) {
     logger.d('notification payload: $payload');
@@ -41,8 +42,12 @@ void onDidReceiveNotificationResponse(
   // );
 }
 
-void onDidReceiveLocalNotification(
-    int id, String? title, String? body, String? payload) async {
+Future<void> onDidReceiveLocalNotification(
+  int id,
+  String? title,
+  String? body,
+  String? payload,
+) async {
   // display a dialog with the notification details, tap ok to go to another page
   // showDialog(
   //   context: context,
@@ -79,7 +84,8 @@ class LocalNotificationService {
     try {
       return await _notificationsPlugin
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
+            AndroidFlutterLocalNotificationsPlugin
+          >()
           ?.requestNotificationsPermission();
     } on Exception {
       throw PermissionException();
@@ -94,10 +100,11 @@ class LocalNotificationService {
     //ios
     const DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
-            // onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-            requestAlertPermission: true,
-            requestBadgePermission: true,
-            requestSoundPermission: true);
+          // onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+          requestAlertPermission: true,
+          requestBadgePermission: true,
+          requestSoundPermission: true,
+        );
 
     //linux
     const LinuxInitializationSettings initializationSettingsLinux =
@@ -106,12 +113,15 @@ class LocalNotificationService {
     //initialization settings
     const InitializationSettings initializationSettings =
         InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsDarwin,
-            macOS: initializationSettingsDarwin,
-            linux: initializationSettingsLinux);
-    await _notificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsDarwin,
+          macOS: initializationSettingsDarwin,
+          linux: initializationSettingsLinux,
+        );
+    await _notificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+    );
   }
 
   ///Show a notification
@@ -176,8 +186,8 @@ class LocalNotificationService {
 
   //Retrieve the list of scheduled/pending notifications
   static Future<List<PendingNotificationRequest>>
-      getPendingNotifications() async =>
-          await _notificationsPlugin.pendingNotificationRequests();
+  getPendingNotifications() async =>
+      await _notificationsPlugin.pendingNotificationRequests();
 
   // Cancel a notification
   static Future<void> cancelNotification(int id) async {
@@ -191,6 +201,6 @@ class LocalNotificationService {
 
   //Getting details on if the app was launched via a notification created by this plugin
   static Future<NotificationAppLaunchDetails?>
-      getNotificationAppLaunchDetails() async =>
-          await _notificationsPlugin.getNotificationAppLaunchDetails();
+  getNotificationAppLaunchDetails() async =>
+      await _notificationsPlugin.getNotificationAppLaunchDetails();
 }

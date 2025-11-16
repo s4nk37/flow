@@ -20,7 +20,7 @@ class AppRouter {
 
   // GoRouter configuration
   static final _router = GoRouter(
-    initialLocation: loginPagePath,
+    initialLocation: homePagePath,
     routes: [
       GoRoute(
         name: loginPage,
@@ -33,9 +33,10 @@ class AppRouter {
         builder: (context, state) => const HomePage(),
       ),
       GoRoute(
-          path: AppRouter.settingsPath,
-          name: AppRouter.settingsPage,
-          builder: (context, state) => const SettingsPage()),
+        path: AppRouter.settingsPath,
+        name: AppRouter.settingsPage,
+        builder: (context, state) => const SettingsPage(),
+      ),
     ],
   );
 }

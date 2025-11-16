@@ -2,15 +2,6 @@ import 'package:equatable/equatable.dart';
 
 //ignore: must_be_immutable.
 class Todo extends Equatable {
-  final String id;
-  final String title;
-  final String description;
-  final bool isCompleted;
-  final DateTime createdAt;
-  final DateTime? updatedAt;
-  final DateTime? completedAt;
-  final DateTime? reminderAt;
-
   const Todo({
     required this.id,
     required this.title,
@@ -21,9 +12,17 @@ class Todo extends Equatable {
     this.completedAt,
     this.reminderAt,
   });
+  final int id;
+  final String title;
+  final String description;
+  final bool isCompleted;
+  final DateTime createdAt;
+  final DateTime? updatedAt;
+  final DateTime? completedAt;
+  final DateTime? reminderAt;
 
   Todo copyWith({
-    String? id,
+    int? id,
     String? title,
     String? description,
     bool? isCompleted,
@@ -52,13 +51,13 @@ class Todo extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        title,
-        description,
-        isCompleted,
-        createdAt,
-        updatedAt,
-        completedAt,
-        reminderAt
-      ];
+    id,
+    title,
+    description,
+    isCompleted,
+    createdAt,
+    updatedAt,
+    completedAt,
+    reminderAt,
+  ];
 }

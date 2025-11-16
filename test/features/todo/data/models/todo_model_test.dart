@@ -8,7 +8,7 @@ import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   final tTodoModel = TodoModel(
-    id: "x",
+    id: 2,
     title: 'Prepare for meeting',
     description: 'Gather presentation slides and notes',
     isCompleted: false,
@@ -50,14 +50,14 @@ void main() {
       final result = tTodoModel.toJson();
       // act
       final expectedMap = {
-        "id": 1,
-        "title": "Prepare for meeting",
-        "description": "Gather presentation slides and notes",
-        "isCompleted": false,
-        "createdAt": "2017-09-06T18:30:00.000Z",
-        "updatedAt": null,
-        "completedAt": null,
-        "reminderAt": null
+        'id': 1,
+        'title': 'Prepare for meeting',
+        'description': 'Gather presentation slides and notes',
+        'isCompleted': false,
+        'createdAt': '2017-09-06T18:30:00.000Z',
+        'updatedAt': null,
+        'completedAt': null,
+        'reminderAt': null,
       };
       // assert
       expect(expectedMap, equals(result));

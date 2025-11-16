@@ -1,19 +1,20 @@
-import 'package:flow/core/utils/validations/form_validations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/widgets/date_time_picker.dart';
+
 import '../../../../core/configs/app_config.dart';
 import '../../../../core/i18n/strings.g.dart';
 import '../../../../core/utils/constants/layout_constants.dart';
 import '../../../../core/utils/extensions/sizebox_extension.dart';
 import '../../../../core/utils/theme/app_theme.dart';
+import '../../../../core/utils/validations/form_validations.dart';
 import '../../../../core/widgets/base_textformfield.dart';
+import '../../../../core/widgets/date_time_picker.dart';
 import '../../domain/entities/todo.dart';
 import '../bloc/todo_bloc.dart';
 
 class TodoBottomSheet extends StatefulWidget {
-  final Todo? todo;
   const TodoBottomSheet({super.key, this.todo});
+  final Todo? todo;
 
   @override
   State<TodoBottomSheet> createState() => _TodoBottomSheetState();
@@ -50,7 +51,7 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
       // Save the task logic here
       String task = _taskController.text;
       Todo newTodo = Todo(
-        id: uuid.v4(),
+        id: DateTime.now().millisecondsSinceEpoch,
         title: task,
         description: _descriptionController.text,
         isCompleted: false,
@@ -73,8 +74,9 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Form(
@@ -90,7 +92,9 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
                 denyEmoji: false,
                 validator: (value) {
                   return FormValidations.validateRequired(
-                      value, t.please_enter_task_name);
+                    value,
+                    t.please_enter_task_name,
+                  );
                 },
               ),
               const SizedBox(height: 16),
@@ -109,13 +113,16 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
                     flex: 2,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 16, horizontal: 16),
+                        vertical: 16,
+                        horizontal: 16,
+                      ),
                       decoration: BoxDecoration(
                         color: showDateTimePicker
                             ? AppTheme.of(context).primary
                             : AppTheme.of(context).disabled,
-                        borderRadius:
-                            BorderRadius.circular(RadiusConstant.commonRadius),
+                        borderRadius: BorderRadius.circular(
+                          RadiusConstant.commonRadius,
+                        ),
                       ),
                       child: GestureDetector(
                         onTap: () async {
@@ -142,11 +149,13 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
               ),
               AnimatedContainer(
                 margin: EdgeInsets.symmetric(
-                    vertical: showDateTimePicker ? 15.0 : 7.5),
+                  vertical: showDateTimePicker ? 15.0 : 7.5,
+                ),
                 decoration: BoxDecoration(
                   color: AppTheme.of(context).background,
-                  borderRadius:
-                      BorderRadius.circular(RadiusConstant.commonRadius),
+                  borderRadius: BorderRadius.circular(
+                    RadiusConstant.commonRadius,
+                  ),
                 ),
                 height: showDateTimePicker ? 150.0 : 0.001,
                 duration: const Duration(seconds: 1),
@@ -154,10 +163,10 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
                 child: DateTimePickerWidget(
                   initialDateTime:
                       _reminderTime?.toLocal().isBefore(DateTime.now()) ?? true
-                          ? null
-                          : _reminderTime?.toLocal(),
+                      ? null
+                      : _reminderTime?.toLocal(),
                   onDateTimeChanged: (date) {
-                    logger.d("Reminder Date: $date");
+                    logger.d('Reminder Date: $date');
                     _reminderTime = date;
                   },
                 ),
@@ -168,15 +177,14 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
                   backgroundColor: AppTheme.of(context).primary,
                   minimumSize: const Size(double.infinity, 48),
                   shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(RadiusConstant.commonRadius),
+                    borderRadius: BorderRadius.circular(
+                      RadiusConstant.commonRadius,
+                    ),
                   ),
                 ),
                 child: Text(
                   widget.todo == null ? t.add_task : t.update_task,
-                  style: TextStyle(
-                    color: AppTheme.of(context).background,
-                  ),
+                  style: TextStyle(color: AppTheme.of(context).background),
                 ),
               ),
             ],

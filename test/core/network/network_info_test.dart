@@ -1,6 +1,6 @@
 import 'package:flow/core/network/network_info.dart';
-import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../helpers/test_mock.mocks.dart';
 
@@ -14,17 +14,20 @@ void main() {
   });
 
   group('is Connected', () {
-    test('should forward the call to InternetConnectionChecker.hasConnection',
-        () {
-      // arrange
-      final tHasConnectionFuture = Future.value(true);
-      when(mockInternetConnectionChecker.hasConnection)
-          .thenAnswer((_) => tHasConnectionFuture);
-      // act
-      final result = networkInfoImpl.isConnected;
-      // assert
-      expect(result, tHasConnectionFuture);
-      verify(mockInternetConnectionChecker.hasConnection);
-    });
+    test(
+      'should forward the call to InternetConnectionChecker.hasConnection',
+      () {
+        // arrange
+        final tHasConnectionFuture = Future.value(true);
+        when(
+          mockInternetConnectionChecker.hasConnection,
+        ).thenAnswer((_) => tHasConnectionFuture);
+        // act
+        final result = networkInfoImpl.isConnected;
+        // assert
+        expect(result, tHasConnectionFuture);
+        verify(mockInternetConnectionChecker.hasConnection);
+      },
+    );
   });
 }

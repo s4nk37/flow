@@ -18,20 +18,21 @@ import 'package:flutter/material.dart';
 
 /// labelSmall - Font Size - 11
 class LabelSmallText extends StatelessWidget {
-  const LabelSmallText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const LabelSmallText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -52,11 +53,11 @@ class LabelSmallText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.labelSmall?.copyWith(
-            color: titleColor ?? Theme.of(context).textTheme.labelSmall?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.labelSmall?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -67,20 +68,21 @@ class LabelSmallText extends StatelessWidget {
 
 /// labelMedium - Font Size - 12
 class LabelMediumText extends StatelessWidget {
-  const LabelMediumText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const LabelMediumText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -101,11 +103,11 @@ class LabelMediumText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-            color: titleColor ?? Theme.of(context).textTheme.labelMedium?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.labelMedium?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -116,20 +118,21 @@ class LabelMediumText extends StatelessWidget {
 
 /// labelLarge - Font Size - 14
 class LabelLargeText extends StatelessWidget {
-  const LabelLargeText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const LabelLargeText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -150,11 +153,11 @@ class LabelLargeText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: titleColor ?? Theme.of(context).textTheme.labelLarge?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.labelLarge?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -165,20 +168,21 @@ class LabelLargeText extends StatelessWidget {
 
 /// bodySmall - Font Size - 12
 class BodySmallText extends StatelessWidget {
-  const BodySmallText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const BodySmallText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -199,11 +203,11 @@ class BodySmallText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: titleColor ?? Theme.of(context).textTheme.bodySmall?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.bodySmall?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -214,20 +218,21 @@ class BodySmallText extends StatelessWidget {
 
 /// bodyMedium - Font Size - 14
 class BodyMediumText extends StatelessWidget {
-  const BodyMediumText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const BodyMediumText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -248,11 +253,11 @@ class BodyMediumText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: titleColor ?? Theme.of(context).textTheme.bodyMedium?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.bodyMedium?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -263,20 +268,21 @@ class BodyMediumText extends StatelessWidget {
 
 /// bodyLarge - Font Size - 16
 class BodyLargeText extends StatelessWidget {
-  const BodyLargeText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const BodyLargeText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -297,11 +303,11 @@ class BodyLargeText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-            color: titleColor ?? Theme.of(context).textTheme.bodyLarge?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.bodyLarge?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -312,20 +318,21 @@ class BodyLargeText extends StatelessWidget {
 
 /// titleSmall - Font Size - 14
 class TitleSmallText extends StatelessWidget {
-  const TitleSmallText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const TitleSmallText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -346,11 +353,11 @@ class TitleSmallText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: titleColor ?? Theme.of(context).textTheme.titleSmall?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.titleSmall?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -361,20 +368,21 @@ class TitleSmallText extends StatelessWidget {
 
 /// titleMedium - Font Size - 16
 class TitleMediumText extends StatelessWidget {
-  const TitleMediumText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const TitleMediumText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -395,11 +403,11 @@ class TitleMediumText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: titleColor ?? Theme.of(context).textTheme.titleMedium?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.titleMedium?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -410,20 +418,21 @@ class TitleMediumText extends StatelessWidget {
 
 /// titleLarge - Font Size - 22
 class TitleLargeText extends StatelessWidget {
-  const TitleLargeText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const TitleLargeText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -444,11 +453,11 @@ class TitleLargeText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: titleColor ?? Theme.of(context).textTheme.titleLarge?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.titleLarge?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -459,20 +468,21 @@ class TitleLargeText extends StatelessWidget {
 
 /// headlineSmall - Font Size - 24
 class HeadlineSmallText extends StatelessWidget {
-  const HeadlineSmallText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const HeadlineSmallText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -493,12 +503,11 @@ class HeadlineSmallText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            color:
-                titleColor ?? Theme.of(context).textTheme.headlineSmall?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.headlineSmall?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -509,20 +518,21 @@ class HeadlineSmallText extends StatelessWidget {
 
 /// headlineMedium - Font Size - 28
 class HeadlineMediumText extends StatelessWidget {
-  const HeadlineMediumText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const HeadlineMediumText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -543,12 +553,11 @@ class HeadlineMediumText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color:
-                titleColor ?? Theme.of(context).textTheme.headlineMedium?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.headlineMedium?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -559,20 +568,21 @@ class HeadlineMediumText extends StatelessWidget {
 
 /// headlineLarge - Font Size - 32
 class HeadlineLargeText extends StatelessWidget {
-  const HeadlineLargeText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const HeadlineLargeText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -593,12 +603,11 @@ class HeadlineLargeText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-            color:
-                titleColor ?? Theme.of(context).textTheme.headlineLarge?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.headlineLarge?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -609,20 +618,21 @@ class HeadlineLargeText extends StatelessWidget {
 
 /// displaySmall - Font Size - 36
 class DisplaySmallText extends StatelessWidget {
-  const DisplaySmallText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const DisplaySmallText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
   final String title;
   final double? fontSize;
   final Color? titleColor;
@@ -642,12 +652,11 @@ class DisplaySmallText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.displaySmall?.copyWith(
-            color:
-                titleColor ?? Theme.of(context).textTheme.displaySmall?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.displaySmall?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -658,20 +667,21 @@ class DisplaySmallText extends StatelessWidget {
 
 /// displayMedium - Font Size - 45
 class DisplayMediumText extends StatelessWidget {
-  const DisplayMediumText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const DisplayMediumText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
   final String title;
   final double? fontSize;
   final Color? titleColor;
@@ -691,12 +701,11 @@ class DisplayMediumText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.displayMedium?.copyWith(
-            color:
-                titleColor ?? Theme.of(context).textTheme.displayMedium?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.displayMedium?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,
@@ -707,20 +716,21 @@ class DisplayMediumText extends StatelessWidget {
 
 /// displayLarge - Font Size - 57
 class DisplayLargeText extends StatelessWidget {
-  const DisplayLargeText(
-      {super.key,
-      required this.title,
-      this.titleColor,
-      this.titleTextAlign = TextAlign.left,
-      this.maxLine,
-      this.fontWeight,
-      this.softWrap,
-      this.fontStyle,
-      this.textScaleFactor,
-      this.fontSize,
-      this.fontHeight,
-      this.lineHeight,
-      this.isUnderline = false});
+  const DisplayLargeText({
+    super.key,
+    required this.title,
+    this.titleColor,
+    this.titleTextAlign = TextAlign.left,
+    this.maxLine,
+    this.fontWeight,
+    this.softWrap,
+    this.fontStyle,
+    this.textScaleFactor,
+    this.fontSize,
+    this.fontHeight,
+    this.lineHeight,
+    this.isUnderline = false,
+  });
 
   final String title;
   final double? fontSize;
@@ -741,12 +751,11 @@ class DisplayLargeText extends StatelessWidget {
       title,
       textScaler: null,
       style: Theme.of(context).textTheme.displayLarge?.copyWith(
-            color:
-                titleColor ?? Theme.of(context).textTheme.displayLarge?.color,
-            fontWeight: fontWeight,
-            decoration: isUnderline == true ? TextDecoration.underline : null,
-            height: lineHeight,
-          ),
+        color: titleColor ?? Theme.of(context).textTheme.displayLarge?.color,
+        fontWeight: fontWeight,
+        decoration: isUnderline == true ? TextDecoration.underline : null,
+        height: lineHeight,
+      ),
       textAlign: titleTextAlign,
       maxLines: maxLine,
       overflow: TextOverflow.ellipsis,

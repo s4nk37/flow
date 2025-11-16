@@ -8,8 +8,8 @@ import '../bloc/todo_bloc.dart';
 import 'todo_bottomsheet.dart';
 
 class TodoTile extends StatelessWidget {
-  final Todo todo;
   const TodoTile({super.key, required this.todo});
+  final Todo todo;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +46,7 @@ class TodoTile extends StatelessWidget {
           ),
           color: AppTheme.of(context).error,
         ),
-        child: const Icon(
-          Icons.delete,
-          color: Colors.white70,
-        ),
+        child: const Icon(Icons.delete, color: Colors.white70),
       ),
       onDismissed: (direction) {
         context.read<TodoBloc>().add(DeleteTodoById(id: todo.id));
@@ -67,9 +64,7 @@ class TodoTile extends StatelessWidget {
               ),
             ),
             builder: (context) {
-              return TodoBottomSheet(
-                todo: todo,
-              );
+              return TodoBottomSheet(todo: todo);
             },
           );
         },
@@ -88,9 +83,11 @@ class TodoTile extends StatelessWidget {
               Checkbox(
                 value: todo.isCompleted,
                 onChanged: (value) {
-                  context.read<TodoBloc>().add(value!
-                      ? MarkTodoAsCompleted(id: todo.id)
-                      : MarkTodoAsIncompleted(id: todo.id));
+                  context.read<TodoBloc>().add(
+                    value!
+                        ? MarkTodoAsCompleted(id: todo.id)
+                        : MarkTodoAsIncompleted(id: todo.id),
+                  );
                 },
               ),
               const SizedBox(width: 8.0),
@@ -100,9 +97,7 @@ class TodoTile extends StatelessWidget {
                   children: [
                     Text(
                       todo.title,
-                      style: TextStyle(
-                        color: AppTheme.of(context).primary,
-                      ),
+                      style: TextStyle(color: AppTheme.of(context).primary),
                     ),
                     const SizedBox(height: 4.0),
                     if (todo.description.isNotEmpty)
@@ -118,8 +113,10 @@ class TodoTile extends StatelessWidget {
               const SizedBox(width: 8.0),
               if (todo.reminderAt != null)
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 20,
+                  ),
                   child: Icon(
                     Icons.notifications_active,
                     size: 20.0,

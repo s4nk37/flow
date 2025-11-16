@@ -4,9 +4,7 @@ import '../../domain/entities/todo.dart';
 part 'todo_model.g.dart';
 
 @JsonSerializable()
-
 //ignore: must_be_immutable.
-
 class TodoModel extends Todo {
   const TodoModel({
     required super.id,
@@ -17,7 +15,7 @@ class TodoModel extends Todo {
     super.updatedAt,
     super.completedAt,
     super.reminderAt,
-  }) ;
+  });
 
   // @JsonKey(
   //   fromJson: _fromJson,

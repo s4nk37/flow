@@ -6,13 +6,12 @@ part 'todos_response.g.dart';
 
 @JsonSerializable()
 class TodosResponseModel {
-  final List<TodoModel>? todos;
-  final int updatedAt;
-
   TodosResponseModel({required this.todos, required this.updatedAt});
 
   factory TodosResponseModel.fromJson(Map<String, dynamic> json) =>
       _$TodosResponseModelFromJson(json);
+  final List<TodoModel>? todos;
+  final int updatedAt;
 
   Map<String, dynamic> toJson() => _$TodosResponseModelToJson(this);
 }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/i18n/strings.g.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/constants/layout_constants.dart';
 import '../../../../core/utils/theme/app_theme.dart';
-import '../../../../core/i18n/strings.g.dart';
-import '../widgets/todo_bottomsheet.dart';
 import '../bloc/todo_bloc.dart';
+import '../widgets/todo_bottomsheet.dart';
 import '../widgets/todo_tile.dart';
 
 class HomePage extends StatelessWidget {
@@ -43,7 +43,11 @@ class HomePage extends StatelessWidget {
               padding:
                   // const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
                   const EdgeInsets.only(
-                      left: 25.0, right: 25.0, top: 15.0, bottom: 100),
+                    left: 25.0,
+                    right: 25.0,
+                    top: 15.0,
+                    bottom: 100,
+                  ),
               itemBuilder: (context, i) {
                 return TodoTile(todo: state.todos[i]);
               },

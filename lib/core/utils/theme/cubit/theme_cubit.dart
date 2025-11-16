@@ -1,8 +1,8 @@
-import 'package:flow/core/utils/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../configs/app_config.dart';
+import '../app_theme.dart';
 
 class ThemeCubit extends Cubit<ThemeMode> {
   ThemeCubit() : super(AppTheme.themeMode);
@@ -27,7 +27,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
 
   @override
   void onChange(Change<ThemeMode> change) {
-    logger.e("Theme changed to ${change.nextState.name}");
+    logger.e('Theme changed to ${change.nextState.name}');
     super.onChange(change);
   }
 }

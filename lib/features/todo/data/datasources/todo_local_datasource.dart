@@ -18,9 +18,8 @@ abstract class TodoLocalDataSource {
 }
 
 class TodoLocalDataSourceImpl implements TodoLocalDataSource {
-  final SharedPreferences sharedPreferences;
-
   TodoLocalDataSourceImpl({required this.sharedPreferences});
+  final SharedPreferences sharedPreferences;
 
   @override
   Future<TodosResponseModel> getTodos() async {
@@ -42,23 +41,22 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   Future<void> cacheTodos(List<Todo> todos) {
     final time = DateTime.now().millisecondsSinceEpoch;
     final todosModel = todos
-        .map((todo) => TodoModel(
-              id: todo.id,
-              title: todo.title,
-              description: todo.description,
-              isCompleted: todo.isCompleted,
-              createdAt: todo.createdAt,
-              reminderAt: todo.reminderAt,
-              updatedAt: todo.updatedAt,
-              completedAt: todo.completedAt,
-            ))
+        .map(
+          (todo) => TodoModel(
+            id: todo.id,
+            title: todo.title,
+            description: todo.description,
+            isCompleted: todo.isCompleted,
+            createdAt: todo.createdAt,
+            reminderAt: todo.reminderAt,
+            updatedAt: todo.updatedAt,
+            completedAt: todo.completedAt,
+          ),
+        )
         .toList();
     final data = TodosResponseModel(todos: todosModel, updatedAt: time);
     sharedPreferences.remove(kCachedTodosKey);
-    sharedPreferences.setString(
-      kCachedTodosKey,
-      jsonEncode(data.toJson()),
-    );
+    sharedPreferences.setString(kCachedTodosKey, jsonEncode(data.toJson()));
     return Future.value();
   }
 }

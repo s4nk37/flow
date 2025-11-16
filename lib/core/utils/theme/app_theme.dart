@@ -16,7 +16,7 @@ final lightThemeData = ThemeData(
   primaryColor: AppColors.indigo,
   appBarTheme: const AppBarTheme(
     elevation: 0.0,
-    color: AppColors.white,
+    backgroundColor: AppColors.white,
     //systemOverlayStyle: SystemUiOverlayStyle.dark,
   ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -33,7 +33,7 @@ final darkThemeData = ThemeData(
   scaffoldBackgroundColor: AppColors.black,
   appBarTheme: const AppBarTheme(
     elevation: 0.0,
-    color: AppColors.black,
+    backgroundColor: AppColors.black,
     // systemOverlayStyle: SystemUiOverlayStyle.light,
   ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -51,8 +51,8 @@ abstract class AppTheme {
     return darkMode == null
         ? ThemeMode.system
         : darkMode
-            ? ThemeMode.dark
-            : ThemeMode.light;
+        ? ThemeMode.dark
+        : ThemeMode.light;
   }
 
   static void saveThemeMode(ThemeMode mode) => mode == ThemeMode.system
