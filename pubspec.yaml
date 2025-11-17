@@ -53,13 +53,13 @@ dependencies:
   dartz: ^0.10.1
   intl: any
   internet_connection_checker: ^3.0.1
-  hive: ^2.2.3
   flutter_localizations:
     sdk: flutter
   flutter_local_notifications: ^19.5.0
   timezone: ^0.10.1
   uuid: ^4.3.3
   google_sign_in: ^7.2.0
+  flutter_dotenv: ^6.0.0
   # freezed_annotation: ^2.4.1
 
 dev_dependencies:
@@ -73,7 +73,6 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   build_runner: ^2.4.8
-  slang_build_runner: ^4.10.0
   json_serializable: ^6.8.0
   mockito: ^5.4.4
 
@@ -92,6 +91,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  assets:
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
