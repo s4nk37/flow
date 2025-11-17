@@ -31,7 +31,3 @@ var logger = Logger(printer: PrettyPrinter(methodCount: 0));
 ///UUID
 
 const uuid = Uuid();
-
-
-
-

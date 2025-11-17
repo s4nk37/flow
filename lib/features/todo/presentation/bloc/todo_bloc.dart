@@ -1,12 +1,12 @@
+import 'dart:math';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/configs/app_config.dart';
 import '../../../../core/services/local_notification_service.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../domain/entities/todo.dart';
 import '../../domain/usecases/get_todos.dart' as usecase;
-import '../../domain/usecases/save_todos.dart';
+import '../../domain/usecases/save_todo.dart';
 
 part 'todo_event.dart';
 part 'todo_state.dart';
@@ -21,127 +21,167 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<MarkTodoAsCompleted>(_markTodoAsCompleted);
     on<MarkTodoAsIncompleted>(_markTodoAsIncompleted);
   }
+
   final usecase.GetTodos getTodos;
-  final SaveTodos saveTodos;
+  final SaveTodo saveTodos;
 
   final List<Todo> _todos = [];
-  final Map<String, int> _scheduledNotifications = {};
+  final Map<int, int> _scheduledNotifications = {}; // FIX: int keys
 
-  Future<void> _getTodos(event, emit) async {
+  // ------------------------------------------------------------------------
+  // GET TODOS
+  // ------------------------------------------------------------------------
+  Future<void> _getTodos(GetTodos event, Emitter<TodoState> emit) async {
     emit(Loading());
-    final todos = await getTodos(NoParams());
+
+    final result = await getTodos(NoParams());
+
     emit(
-      todos.fold((failure) => Error(message: failure.toString()), (todos) {
-        _todos.clear();
-        _todos.addAll(todos);
-        if (_todos.isEmpty) {
-          return Empty();
-        }
+      result.fold((failure) => Error(message: failure.toString()), (todos) {
+        _todos
+          ..clear()
+          ..addAll(todos);
+
+        if (_todos.isEmpty) return Empty();
+
         _todos.sort((a, b) => a.isCompleted ? 1 : -1);
-        return LoadedTodos(todos: _todos);
+        return LoadedTodos(todos: List.from(_todos));
       }),
     );
   }
 
-  Future<void> _addTodo(event, emit) async {
-    emit(Loading());
-    _todos.add(event.todo as Todo);
-    _scheduledNotifications[event.todo.id] = _todos.length - 1;
-    if (event.todo.reminderAt != null) {
+  // ------------------------------------------------------------------------
+  // ADD TODO
+  // ------------------------------------------------------------------------
+  Future<void> _addTodo(AddTodo event, Emitter<TodoState> emit) async {
+    final todo = event.todo;
+
+    // schedule notification
+    if (todo.reminderAt != null) {
+      final notifId = Random().nextInt(999999);
+      _scheduledNotifications[todo.id] = notifId;
+
       LocalNotificationService.showScheduledNotification(
-        id: _scheduledNotifications[event.todo.id] ?? 0,
+        id: notifId,
+        title: todo.title,
+        body: todo.description,
+        scheduledDate: todo.reminderAt!.toLocal(),
+      );
+    }
+
+    await saveTodos(SaveTodoParams(todo));
+
+    _todos.add(todo);
+    _todos.sort((a, b) => a.isCompleted ? 1 : -1);
+
+    emit(LoadedTodos(todos: List.from(_todos)));
+  }
+
+  // ------------------------------------------------------------------------
+  // UPDATE TODO
+  // ------------------------------------------------------------------------
+  Future<void> _updateTodo(UpdateTodo event, Emitter<TodoState> emit) async {
+    final index = _todos.indexWhere((t) => t.id == event.todo.id);
+    if (index == -1) return;
+
+    // replace the updated todo in list
+    _todos[index] = event.todo;
+
+    // schedule new notification
+    if (event.todo.reminderAt != null) {
+      final notifId = Random().nextInt(999999);
+      _scheduledNotifications[event.todo.id] = notifId;
+
+      LocalNotificationService.showScheduledNotification(
+        id: notifId,
         title: event.todo.title,
         body: event.todo.description,
         scheduledDate: event.todo.reminderAt!.toLocal(),
       );
-      final x = await LocalNotificationService.getPendingNotifications();
-      logger.d('Scheduled notifications List ${x.toString()}');
     }
-    await saveTodos(SaveTodosParams(_todos));
-    emit(LoadedTodos(todos: _todos));
+
+    await saveTodos(SaveTodoParams(event.todo));
+
+    _todos.sort((a, b) => a.isCompleted ? 1 : -1);
+    emit(LoadedTodos(todos: List.from(_todos)));
   }
 
-  Future<void> _updateTodo(event, emit) async {
-    emit(Loading());
-    _todos
-        .where((element) => element.id == event.todo.id)
-        .first
-        .copyWith(
-          title: event.todo.title,
-          description: event.todo.description,
-          reminderAt: event.todo.reminderAt,
-          isCompleted: event.todo.isCompleted,
-          completedAt: event.todo.completedAt,
-        );
-
-    _scheduledNotifications[event.todo.id] = _todos.length - 1;
-    if (event.todo.reminderAt != null) {
-      LocalNotificationService.showScheduledNotification(
-        id: _scheduledNotifications[event.todo.id] ?? 0,
-        title: event.todo.title,
-        body: event.todo.description,
-        scheduledDate: event.todo.reminderAt!.toLocal(),
-      );
-      final x = await LocalNotificationService.getPendingNotifications();
-      logger.d('Scheduled notifications List ${x.toString()}');
-    }
-    await saveTodos(SaveTodosParams(_todos));
-    emit(LoadedTodos(todos: _todos));
-  }
-
-  Future<void> _deleteTodoById(event, emit) async {
-    _todos.removeWhere((todo) {
-      if (todo.id == event.id) {
-        if (todo.reminderAt != null) {
-          LocalNotificationService.cancelNotification(
-            _scheduledNotifications[event.todo.id]!,
-          );
-        }
-        return true;
-      } else {
-        return false;
-      }
-    });
-
-    if (_todos.isEmpty) emit(Empty());
-    await saveTodos(SaveTodosParams(_todos));
-  }
-
-  Future<void> _markTodoAsCompleted(event, emit) async {
+  // ------------------------------------------------------------------------
+  // DELETE TODO
+  // ------------------------------------------------------------------------
+  Future<void> _deleteTodoById(
+    DeleteTodoById event,
+    Emitter<TodoState> emit,
+  ) async {
     final index = _todos.indexWhere((todo) => todo.id == event.id);
-    DateTime? completedAt = DateTime.now().toUtc();
-    _todos[index] = _todos[index].copyWith(
+    if (index == -1) return;
+
+    final todo = _todos[index];
+
+    // cancel notification
+    final notifId = _scheduledNotifications[todo.id];
+    if (notifId != null) {
+      LocalNotificationService.cancelNotification(notifId);
+      _scheduledNotifications.remove(todo.id);
+    }
+
+    // remove from list
+    _todos.removeAt(index);
+
+    if (_todos.isEmpty) {
+      emit(Empty());
+    } else {
+      emit(LoadedTodos(todos: List.from(_todos)));
+    }
+  }
+
+  // ------------------------------------------------------------------------
+  // MARK AS COMPLETED
+  // ------------------------------------------------------------------------
+  Future<void> _markTodoAsCompleted(
+    MarkTodoAsCompleted event,
+    Emitter<TodoState> emit,
+  ) async {
+    final index = _todos.indexWhere((todo) => todo.id == event.id);
+    if (index == -1) return;
+
+    final completedAt = DateTime.now().toUtc();
+
+    final updatedTodo = _todos[index].copyWith(
       isCompleted: true,
       completedAt: completedAt,
     );
 
+    _todos[index] = updatedTodo;
     _todos.sort((a, b) => a.isCompleted ? 1 : -1);
-    await saveTodos(SaveTodosParams(_todos));
-    emit(Loading());
-    emit(LoadedTodos(todos: _todos));
+
+    await saveTodos(SaveTodoParams(updatedTodo));
+
+    emit(LoadedTodos(todos: List.from(_todos)));
   }
 
-  Future<void> _markTodoAsIncompleted(event, emit) async {
+  // ------------------------------------------------------------------------
+  // MARK AS INCOMPLETED
+  // ------------------------------------------------------------------------
+  Future<void> _markTodoAsIncompleted(
+    MarkTodoAsIncompleted event,
+    Emitter<TodoState> emit,
+  ) async {
     final index = _todos.indexWhere((todo) => todo.id == event.id);
-    _todos[index] = _todos[index].copyWith(
+    if (index == -1) {
+      return;
+    }
+
+    final updatedTodo = _todos[index].copyWith(
       isCompleted: false,
       completedAt: null,
     );
+
+    _todos[index] = updatedTodo;
     _todos.sort((a, b) => a.isCompleted ? 1 : -1);
-    await saveTodos(SaveTodosParams(_todos));
-    emit(Loading());
-    emit(LoadedTodos(todos: _todos));
+
+    await saveTodos(SaveTodoParams(updatedTodo));
+
+    emit(LoadedTodos(todos: List.from(_todos)));
   }
-
-  // void _deleteAllTodos(event, emit) async {
-  //   _todos.clear();
-  //   await saveTodos(SaveTodosParams(_todos));
-  //   emit(Empty());
-  // }
-
-  // void _deleteCompletedTodos(event, emit) async {
-  //   _todos.removeWhere((todo) => todo.isCompleted);
-  //   await saveTodos(SaveTodosParams(_todos));
-  //   emit(LoadedTodos(todos: _todos));
-  // }
 }

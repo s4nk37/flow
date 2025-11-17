@@ -2,25 +2,22 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../configs/app_config.dart';
-class ApiClient {
 
+class ApiClient {
   ApiClient()
-      : dio = Dio(
-    BaseOptions(
-      baseUrl: AppConfig.baseUrl,
-      connectTimeout: const Duration(seconds: 12),
-      receiveTimeout: const Duration(seconds: 12),
-      sendTimeout: const Duration(seconds: 12),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    ),
-  ) {
-    dio.interceptors.addAll([
-      AuthInterceptor(),
-      ErrorInterceptor(),
-    ]);
+    : dio = Dio(
+        BaseOptions(
+          baseUrl: AppConfig.baseUrl,
+          connectTimeout: const Duration(seconds: 12),
+          receiveTimeout: const Duration(seconds: 12),
+          sendTimeout: const Duration(seconds: 12),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      ) {
+    dio.interceptors.addAll([AuthInterceptor(), ErrorInterceptor()]);
   }
   final Dio dio;
 }
@@ -67,14 +64,10 @@ class ErrorInterceptor extends Interceptor {
     if (err.response != null) {
       final message = err.response?.data['message'] ?? 'Something went wrong';
 
-      return handler.reject(
-        _customError(err, message),
-      );
+      return handler.reject(_customError(err, message));
     }
 
-    return handler.reject(
-      _customError(err, 'Unexpected error occurred'),
-    );
+    return handler.reject(_customError(err, 'Unexpected error occurred'));
   }
 
   DioException _customError(DioException err, String message) {
@@ -87,7 +80,6 @@ class ErrorInterceptor extends Interceptor {
 }
 
 class CustomException implements Exception {
-
   CustomException(this.message);
   final String message;
 

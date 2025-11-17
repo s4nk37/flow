@@ -21,7 +21,8 @@ class SettingsPage extends StatelessWidget {
             trailing: const Icon(Icons.language),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
             children: AppLocale.values.map((locale) {
               AppLocale activeLocale = LocaleSettings.currentLocale;
               bool active = activeLocale == locale;
@@ -37,12 +38,11 @@ class SettingsPage extends StatelessWidget {
               return GridView(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  mainAxisExtent: 40,
                 ),
                 shrinkWrap: true,
-                // mainAxisSize: MainAxisSize.min,
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ThemeChip(themeMode: ThemeMode.light, activeThemeMode: state),
                   ThemeChip(themeMode: ThemeMode.dark, activeThemeMode: state),
@@ -109,7 +109,7 @@ class ThemeChip extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.read<ThemeCubit>().changeTheme(themeMode),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           border: Border.all(
             width: activeThemeMode == themeMode ? 2 : 1,
@@ -120,6 +120,7 @@ class ThemeChip extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               themeMode == ThemeMode.dark
@@ -128,7 +129,7 @@ class ThemeChip extends StatelessWidget {
                   ? Icons.wb_sunny
                   : Icons.brightness_auto_sharp,
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 8),
             Text(
               themeMode == ThemeMode.dark
                   ? 'Dark'

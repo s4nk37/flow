@@ -11,7 +11,10 @@ class Todo extends Equatable {
     this.updatedAt,
     this.completedAt,
     this.reminderAt,
+    this.isDeleted = false,
+    this.isSynced = false,
   });
+
   final int id;
   final String title;
   final String description;
@@ -20,6 +23,8 @@ class Todo extends Equatable {
   final DateTime? updatedAt;
   final DateTime? completedAt;
   final DateTime? reminderAt;
+  final bool isDeleted;
+  final bool isSynced;
 
   Todo copyWith({
     int? id,
@@ -30,6 +35,8 @@ class Todo extends Equatable {
     DateTime? updatedAt,
     DateTime? completedAt,
     DateTime? reminderAt,
+    bool? isDeleted,
+    bool? isSynced,
   }) {
     return Todo(
       id: id ?? this.id,
@@ -38,15 +45,17 @@ class Todo extends Equatable {
       isCompleted: isCompleted ?? this.isCompleted,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      //completedAt: completedAt ?? this.completedAt,
       completedAt: isCompleted == true ? completedAt ?? this.completedAt : null,
       reminderAt: reminderAt ?? this.reminderAt,
+      isDeleted: isDeleted ?? this.isDeleted,
+      isSynced: isSynced ?? this.isSynced,
     );
   }
 
   @override
   String toString() {
-    return 'Todo(id: $id, title: "$title", description: "$description", isCompleted: $isCompleted, createdAt: $createdAt, updatedAt: $updatedAt, completedAt: $completedAt, reminderAt: $reminderAt)';
+    return 'Todo(id: $id, title: "$title", description: "$description", isCompleted: $isCompleted, createdAt: $createdAt, updatedAt: $updatedAt, completedAt: $completedAt, reminderAt: $reminderAt, '
+        'isDeleted: $isDeleted, isSynced: $isSynced)';
   }
 
   @override
@@ -59,5 +68,7 @@ class Todo extends Equatable {
     updatedAt,
     completedAt,
     reminderAt,
+    isDeleted,
+    isSynced,
   ];
 }

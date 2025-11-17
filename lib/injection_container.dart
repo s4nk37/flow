@@ -48,20 +48,19 @@ Future<void> init() async {
 
   /// External
   final SharedPreferences sharedPreferences =
-  await SharedPreferences.getInstance();
+      await SharedPreferences.getInstance();
 
   sl.registerSingleton(sharedPreferences);
 
-// Register ApiClient
+  // Register ApiClient
   sl.registerLazySingleton<ApiClient>(() => ApiClient());
 
-// Expose Dio from ApiClient for data sources
+  // Expose Dio from ApiClient for data sources
   sl.registerLazySingleton<Dio>(() => sl<ApiClient>().dio);
 
-// Internet checker
+  // Internet checker
   sl.registerLazySingleton(() => InternetConnectionChecker.createInstance());
 
-// Theme
+  // Theme
   await sl.registerSingleton(AppTheme.initialize(sl()));
-
 }

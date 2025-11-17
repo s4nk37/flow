@@ -13,8 +13,14 @@ abstract class TodoLocalDataSource {
   /// the user had an internet connection
   ///
   /// Throws [CacheException] if no cached data is present
-  Future<TodosResponseModel> getTodos();
-  Future<void> cacheTodos(List<Todo> todos);
+  Future<TodosResponseModel> getLocalTodos();
+  Future<void> savePendingTodos(List<TodoModel> todos);
+  Future<TodosResponseModel> getPendingTodos();
+  Future<void> cacheTodos(List<TodoModel> todos);
+  Future<void> saveTodo(TodoModel todo);
+  Future<void> clearPendingTodos();
+  Future<void> clearTodos();
+  Future<void> deleteTodo(int id);
 }
 
 class TodoLocalDataSourceImpl implements TodoLocalDataSource {
@@ -22,7 +28,7 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   final SharedPreferences sharedPreferences;
 
   @override
-  Future<TodosResponseModel> getTodos() async {
+  Future<TodosResponseModel> getLocalTodos() async {
     final jsonString = sharedPreferences.getString(kCachedTodosKey);
     if (jsonString != null) {
       try {
@@ -38,7 +44,73 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   }
 
   @override
-  Future<void> cacheTodos(List<Todo> todos) {
+  Future<void> cacheTodos(List<TodoModel> todos) {
+    try {
+      final time = DateTime.now().millisecondsSinceEpoch;
+      final todosModel = todos
+          .map(
+            (todo) => TodoModel(
+              id: todo.id,
+              title: todo.title,
+              description: todo.description,
+              isCompleted: todo.isCompleted,
+              createdAt: todo.createdAt,
+              reminderAt: todo.reminderAt,
+              updatedAt: todo.updatedAt,
+              completedAt: todo.completedAt,
+              isDeleted: todo.isDeleted,
+              isSynced: todo.isSynced,
+            ),
+          )
+          .toList();
+      final data = TodosResponseModel(todos: todosModel, updatedAt: time);
+      sharedPreferences.remove(kCachedTodosKey);
+      sharedPreferences.setString(kCachedTodosKey, jsonEncode(data.toJson()));
+      return Future.value();
+    } catch (e) {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> clearPendingTodos() {
+    try {
+      sharedPreferences.remove(kPendingTodosKey);
+      return Future.value();
+    } catch (e) {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> clearTodos() {
+    try {
+      sharedPreferences.remove(kCachedTodosKey);
+      sharedPreferences.remove(kPendingTodosKey);
+      return Future.value();
+    } catch (e) {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<TodosResponseModel> getPendingTodos() async {
+    final jsonString = sharedPreferences.getString(kPendingTodosKey);
+    if (jsonString != null) {
+      try {
+        final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
+        final todosResponse = TodosResponseModel.fromJson(jsonMap);
+        return Future.value(todosResponse);
+      } on Exception {
+        throw CacheException();
+      }
+    } else {
+      return TodosResponseModel(todos: [], updatedAt: 1);
+    }
+  }
+
+  @override
+  Future<void> savePendingTodos(List<Todo> todos) async {
     final time = DateTime.now().millisecondsSinceEpoch;
     final todosModel = todos
         .map(
@@ -51,12 +123,26 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
             reminderAt: todo.reminderAt,
             updatedAt: todo.updatedAt,
             completedAt: todo.completedAt,
+            isDeleted: todo.isDeleted,
+            isSynced: todo.isSynced,
           ),
         )
         .toList();
     final data = TodosResponseModel(todos: todosModel, updatedAt: time);
-    sharedPreferences.remove(kCachedTodosKey);
-    sharedPreferences.setString(kCachedTodosKey, jsonEncode(data.toJson()));
+    sharedPreferences.remove(kPendingTodosKey);
+    sharedPreferences.setString(kPendingTodosKey, jsonEncode(data.toJson()));
     return Future.value();
+  }
+
+  @override
+  Future<void> saveTodo(TodoModel todo) {
+    // TODO: implement saveTodo
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteTodo(int id) {
+    // TODO: implement deleteTodo
+    throw UnimplementedError();
   }
 }

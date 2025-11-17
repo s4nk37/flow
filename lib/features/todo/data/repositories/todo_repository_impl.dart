@@ -9,6 +9,7 @@ import '../../domain/entities/todo.dart';
 import '../../domain/repositories/todo_repository.dart';
 import '../datasources/todo_local_datasource.dart';
 import '../datasources/todo_remote_datasource.dart';
+import '../models/todo_model.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
   TodoRepositoryImpl({
@@ -21,63 +22,84 @@ class TodoRepositoryImpl implements TodoRepository {
   final NetworkInfo networkInfo;
 
   @override
-  Future<Either<Failure, List<Todo>>> getTodos() async {
+  Future<Either<Failure, NoParams>> clearTodos() {
+    logger.e('Clearing todos');
     try {
-      final localTodosResponse = await localDataSource.getTodos();
-
-      if (await networkInfo.isConnected) {
-        // Fetching remote and comapring latest versions
-        logger.d('Online');
-        try {
-          final remoteTodosResponse = await remoteDataSource.getTodos();
-          logger.d('Local: ${localTodosResponse.updatedAt}');
-          logger.d('Remote: ${remoteTodosResponse.updatedAt}');
-          if (remoteTodosResponse.updatedAt > localTodosResponse.updatedAt) {
-            logger.d('Remote is newer');
-            if (remoteTodosResponse.todos == null ||
-                remoteTodosResponse.todos!.isEmpty) {
-              return const Right([]);
-            } else {
-              await localDataSource.cacheTodos(remoteTodosResponse.todos!);
-              return Right(remoteTodosResponse.todos!);
-            }
-          } else {
-            await remoteDataSource.saveTodos(localTodosResponse.todos!);
-            return Right(localTodosResponse.todos!);
-          }
-        } on Exception {
-          return Left(ServerFailure());
-        }
-      }
-
-      if (localTodosResponse.todos!.isEmpty) {
-        // return Left(CacheFailure());
-        return const Right([]);
-      } else {
-        return Right(localTodosResponse.todos!);
-      }
+      localDataSource.clearTodos();
+      remoteDataSource.clearTodos();
+      return Future.value(Right(NoParams()));
     } on CacheException {
-      // return Left(CacheFailure());
-      return const Right([]);
+      return Future.value(Left(CacheFailure()));
     }
   }
 
   @override
-  Future<Either<Failure, NoParams>> saveTodos(List<Todo> todos) async {
-    logger.d('Saving todos:  $todos');
+  Future<Either<Failure, NoParams>> deleteTodo(int id) async {
+    logger.e('Deleting todo with id: $id');
     try {
-      localDataSource.cacheTodos(todos);
+      await localDataSource.deleteTodo(id);
       if (await networkInfo.isConnected) {
         try {
-          remoteDataSource.saveTodos(todos);
-          return Right(NoParams());
-        } on ServerException {
-          return Left(ServerFailure());
+          await remoteDataSource.deleteTodo(id);
+          return Future.value(Right(NoParams()));
+        } on Exception {
+          return Future.value(Left(ServerFailure()));
         }
       }
-      return Right(NoParams());
+      return Future.value(Right(NoParams()));
     } on CacheException {
-      return Left(CacheFailure());
+      return Future.value(Left(CacheFailure()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Todo>>> getTodos() async {
+    logger.d('Getting todos from repository');
+    try {
+      final res = await localDataSource.getLocalTodos();
+      if (res.todos == null || res.todos!.isEmpty) {
+        return Future.value(const Right([]));
+      } else {
+        return Future.value(Right(res.todos!));
+      }
+    } on CacheException {
+      return Future.value(Left(CacheFailure()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, NoParams>> saveTodo(Todo todo) async {
+    logger.d('Saving todo:  $todo');
+    try {
+      final todoModel = TodoModel.fromEntity(todo);
+      await localDataSource.saveTodo(todoModel);
+      if (await networkInfo.isConnected) {
+        try {
+          await remoteDataSource.saveTodo(todoModel);
+          return Future.value(Right(NoParams()));
+        } on Exception {
+          return Future.value(Left(ServerFailure()));
+        }
+      }
+      return Future.value(Right(NoParams()));
+    } on CacheException {
+      return Future.value(Left(CacheFailure()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Todo>>> syncTodos() async {
+    try {
+      final pendingTodos = await localDataSource.getPendingTodos();
+      if (pendingTodos.todos != null && pendingTodos.todos!.isNotEmpty) {
+        await remoteDataSource.uploadPendingTodos(pendingTodos.todos ?? []);
+        await localDataSource.clearPendingTodos();
+      }
+      final remoteTodosResponse = await remoteDataSource.getTodos();
+      await localDataSource.cacheTodos(remoteTodosResponse.todos ?? []);
+      return Future.value(Right(remoteTodosResponse.todos ?? []));
+    } on Exception {
+      return Future.value(Left(ServerFailure()));
     }
   }
 }

@@ -21,6 +21,8 @@ TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
   reminderAt: json['reminderAt'] == null
       ? null
       : DateTime.parse(json['reminderAt'] as String),
+  isDeleted: json['isDeleted'] as bool,
+  isSynced: json['isSynced'] as bool,
 );
 
 Map<String, dynamic> _$TodoModelToJson(TodoModel instance) => <String, dynamic>{
@@ -32,4 +34,6 @@ Map<String, dynamic> _$TodoModelToJson(TodoModel instance) => <String, dynamic>{
   'updatedAt': instance.updatedAt?.toIso8601String(),
   'completedAt': instance.completedAt?.toIso8601String(),
   'reminderAt': instance.reminderAt?.toIso8601String(),
+  'isDeleted': instance.isDeleted,
+  'isSynced': instance.isSynced,
 };

@@ -6,20 +6,20 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/todo.dart';
 import '../repositories/todo_repository.dart';
 
-class SaveTodos implements Usecase<NoParams, SaveTodosParams> {
-  SaveTodos(this.repository);
+class SaveTodo implements Usecase<NoParams, SaveTodoParams> {
+  SaveTodo(this.repository);
   final TodoRepository repository;
 
   @override
   Future<Either<Failure, NoParams>> call(params) async {
-    return await repository.saveTodos(params.todos);
+    return await repository.saveTodo(params.todo);
   }
 }
 
-class SaveTodosParams extends Equatable {
-  const SaveTodosParams(this.todos);
-  final List<Todo> todos;
+class SaveTodoParams extends Equatable {
+  const SaveTodoParams(this.todo);
+  final Todo todo;
 
   @override
-  List<Object?> get props => [todos];
+  List<Object?> get props => [todo];
 }
