@@ -18,13 +18,13 @@ class Todo extends Equatable {
   final int id;
   final String title;
   final String description;
-  final bool isCompleted;
+  final bool? isCompleted;
   final DateTime createdAt;
   final DateTime? updatedAt;
   final DateTime? completedAt;
   final DateTime? reminderAt;
-  final bool isDeleted;
-  final bool isSynced;
+  final bool? isDeleted;
+  final bool? isSynced;
 
   Todo copyWith({
     int? id,

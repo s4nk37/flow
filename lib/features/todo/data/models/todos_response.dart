@@ -11,7 +11,7 @@ class TodosResponseModel {
   factory TodosResponseModel.fromJson(Map<String, dynamic> json) =>
       _$TodosResponseModelFromJson(json);
   final List<TodoModel>? todos;
-  final int updatedAt;
+  final dynamic updatedAt;
 
   Map<String, dynamic> toJson() => _$TodosResponseModelToJson(this);
 }

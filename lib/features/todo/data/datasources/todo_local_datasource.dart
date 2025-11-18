@@ -13,7 +13,7 @@ abstract class TodoLocalDataSource {
   /// the user had an internet connection
   ///
   /// Throws [CacheException] if no cached data is present
-  Future<TodosResponseModel> getLocalTodos();
+  Future<TodosResponseModel> getTodos();
   Future<void> savePendingTodos(List<TodoModel> todos);
   Future<TodosResponseModel> getPendingTodos();
   Future<void> cacheTodos(List<TodoModel> todos);
@@ -28,7 +28,7 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   final SharedPreferences sharedPreferences;
 
   @override
-  Future<TodosResponseModel> getLocalTodos() async {
+  Future<TodosResponseModel> getTodos() async {
     final jsonString = sharedPreferences.getString(kCachedTodosKey);
     if (jsonString != null) {
       try {
@@ -135,9 +135,21 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   }
 
   @override
-  Future<void> saveTodo(TodoModel todo) {
-    // TODO: implement saveTodo
-    throw UnimplementedError();
+  Future<void> saveTodo(TodoModel todo) async{
+    try {
+      final todosResponse = await getTodos();
+      final todos = todosResponse.todos ?? [];
+      final index = todos.indexWhere((t) => t.id == todo.id);
+      if (index != -1) {
+        todos[index] = todo;
+      } else {
+        todos.add(todo);
+      }
+      await cacheTodos(todos);
+      return Future.value();
+    } catch (e) {
+      throw CacheException();
+    }
   }
 
   @override

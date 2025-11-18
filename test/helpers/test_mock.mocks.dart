@@ -198,9 +198,36 @@ class MockTodoRemoteDataSource extends _i1.Mock
           as _i6.Future<void>);
 
   @override
+  _i6.Future<void> saveTodo(_i11.TodoModel? todo) =>
+      (super.noSuchMethod(
+            Invocation.method(#saveTodo, [todo]),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
+
+  @override
   _i6.Future<void> uploadPendingTodos(List<_i11.TodoModel>? todos) =>
       (super.noSuchMethod(
             Invocation.method(#uploadPendingTodos, [todos]),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
+
+  @override
+  _i6.Future<void> clearTodos() =>
+      (super.noSuchMethod(
+            Invocation.method(#clearTodos, []),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
+
+  @override
+  _i6.Future<void> deleteTodo(int? id) =>
+      (super.noSuchMethod(
+            Invocation.method(#deleteTodo, [id]),
             returnValue: _i6.Future<void>.value(),
             returnValueForMissingStub: _i6.Future<void>.value(),
           )
@@ -213,20 +240,14 @@ class MockTodoRemoteDataSource extends _i1.Mock
 class MockTodoLocalDataSource extends _i1.Mock
     implements _i12.TodoLocalDataSource {
   @override
-  _i6.Future<_i3.TodosResponseModel> getLocalTodos() =>
+  _i6.Future<_i3.TodosResponseModel> getTodos() =>
       (super.noSuchMethod(
-            Invocation.method(#getLocalTodos, []),
+            Invocation.method(#getTodos, []),
             returnValue: _i6.Future<_i3.TodosResponseModel>.value(
-              _FakeTodosResponseModel_1(
-                this,
-                Invocation.method(#getLocalTodos, []),
-              ),
+              _FakeTodosResponseModel_1(this, Invocation.method(#getTodos, [])),
             ),
             returnValueForMissingStub: _i6.Future<_i3.TodosResponseModel>.value(
-              _FakeTodosResponseModel_1(
-                this,
-                Invocation.method(#getLocalTodos, []),
-              ),
+              _FakeTodosResponseModel_1(this, Invocation.method(#getTodos, [])),
             ),
           )
           as _i6.Future<_i3.TodosResponseModel>);
@@ -269,6 +290,15 @@ class MockTodoLocalDataSource extends _i1.Mock
           as _i6.Future<void>);
 
   @override
+  _i6.Future<void> saveTodo(_i11.TodoModel? todo) =>
+      (super.noSuchMethod(
+            Invocation.method(#saveTodo, [todo]),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
+
+  @override
   _i6.Future<void> clearPendingTodos() =>
       (super.noSuchMethod(
             Invocation.method(#clearPendingTodos, []),
@@ -281,6 +311,15 @@ class MockTodoLocalDataSource extends _i1.Mock
   _i6.Future<void> clearTodos() =>
       (super.noSuchMethod(
             Invocation.method(#clearTodos, []),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
+
+  @override
+  _i6.Future<void> deleteTodo(int? id) =>
+      (super.noSuchMethod(
+            Invocation.method(#deleteTodo, [id]),
             returnValue: _i6.Future<void>.value(),
             returnValueForMissingStub: _i6.Future<void>.value(),
           )

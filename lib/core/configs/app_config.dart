@@ -7,7 +7,7 @@ import 'package:uuid/uuid.dart';
 abstract class AppConfig {
   static String get baseUrl {
     // Returns the value of BASE_URL from the loaded .env file
-    return dotenv.env['API_BASE_URL'] ?? 'http://192.168.31.203:8000';
+    return dotenv.env['API_BASE_URL'] ?? 'http://192.168.31.203:8000/api/v1';
   }
 }
 

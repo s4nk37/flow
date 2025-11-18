@@ -17,7 +17,7 @@ class TodoTile extends StatelessWidget {
       BoxShadow(
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.black54
-            : Colors.grey.withOpacity(0.3),
+            :Colors.grey.withAlpha(77),
         spreadRadius: 0.0,
         offset: const Offset(4, 4),
         blurRadius: 8.0,
@@ -71,8 +71,8 @@ class TodoTile extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            boxShadow: todo.isCompleted ? null : outerShadows,
-            color: todo.isCompleted
+            boxShadow: todo.isCompleted==true ? null : outerShadows,
+            color: todo.isCompleted==true
                 ? AppTheme.of(context).disabled
                 : AppTheme.of(context).background,
           ),

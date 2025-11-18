@@ -55,8 +55,8 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Either<Failure, List<Todo>>> getTodos() async {
     logger.d('Getting todos from repository');
-    try {
-      final res = await localDataSource.getLocalTodos();
+    try {/**/
+      final res = await remoteDataSource.getTodos();
       if (res.todos == null || res.todos!.isEmpty) {
         return Future.value(const Right([]));
       } else {

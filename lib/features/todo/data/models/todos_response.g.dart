@@ -11,7 +11,7 @@ TodosResponseModel _$TodosResponseModelFromJson(Map<String, dynamic> json) =>
       todos: (json['todos'] as List<dynamic>?)
           ?.map((e) => TodoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      updatedAt: (json['updatedAt'] as num).toInt(),
+      updatedAt: json['updatedAt'],
     );
 
 Map<String, dynamic> _$TodosResponseModelToJson(TodosResponseModel instance) =>

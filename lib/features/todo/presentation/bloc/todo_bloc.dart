@@ -42,9 +42,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
           ..clear()
           ..addAll(todos);
 
-        if (_todos.isEmpty) return Empty();
+        if (_todos.isEmpty) {
+          return Empty();
+        }
 
-        _todos.sort((a, b) => a.isCompleted ? 1 : -1);
+        _todos.sort((a, b) => a.isCompleted==true ? 1 : -1);
         return LoadedTodos(todos: List.from(_todos));
       }),
     );
@@ -69,12 +71,13 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       );
     }
 
+    _todos.add(todo);
+    _todos.sort((a, b) => a.isCompleted==true ? 1 : -1);
+    emit(LoadedTodos(todos: List.from(_todos)));
     await saveTodos(SaveTodoParams(todo));
 
-    _todos.add(todo);
-    _todos.sort((a, b) => a.isCompleted ? 1 : -1);
 
-    emit(LoadedTodos(todos: List.from(_todos)));
+
   }
 
   // ------------------------------------------------------------------------
@@ -102,7 +105,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     await saveTodos(SaveTodoParams(event.todo));
 
-    _todos.sort((a, b) => a.isCompleted ? 1 : -1);
+    _todos.sort((a, b) => a.isCompleted==true ? 1 : -1);
     emit(LoadedTodos(todos: List.from(_todos)));
   }
 
@@ -143,7 +146,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     Emitter<TodoState> emit,
   ) async {
     final index = _todos.indexWhere((todo) => todo.id == event.id);
-    if (index == -1) return;
+    if (index == -1) {
+      return;
+    }
 
     final completedAt = DateTime.now().toUtc();
 
@@ -153,7 +158,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     );
 
     _todos[index] = updatedTodo;
-    _todos.sort((a, b) => a.isCompleted ? 1 : -1);
+    _todos.sort((a, b) => a.isCompleted==true ? 1 : -1);
 
     await saveTodos(SaveTodoParams(updatedTodo));
 
@@ -178,7 +183,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     );
 
     _todos[index] = updatedTodo;
-    _todos.sort((a, b) => a.isCompleted ? 1 : -1);
+    _todos.sort((a, b) => a.isCompleted==true ? 1 : -1);
 
     await saveTodos(SaveTodoParams(updatedTodo));
 

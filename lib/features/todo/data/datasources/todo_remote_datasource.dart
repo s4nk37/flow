@@ -47,7 +47,7 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
     );
     logger.d(data);
     try {
-      final response = await dio.put(ApiEndpoints.todos, data: data);
+      final response = await dio.post(ApiEndpoints.todos, data: data);
       if (response.statusCode != 200) {
         throw ServerException();
       }
@@ -76,14 +76,35 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
 
   @override
   Future<void> saveTodo(TodoModel todo) async {
-    try {} catch (e) {
+    try {
+      // Convert your TodoModel to JSON
+      final data = todo.toJson();
+
+      logger.d(data);
+
+      final response = await dio.post(
+        ApiEndpoints.todos,
+        data: data, // Dio handles encoding
+      );
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw ServerException();
+      }
+    } on Exception {
       throw ServerException();
     }
   }
 
+
   @override
-  Future<void> deleteTodo(int id) {
-    // TODO: implement deleteTodo
-    throw UnimplementedError();
+  Future<void> deleteTodo(int id) async{
+    try {
+      final response = await dio.delete('${ApiEndpoints.todos}/$id');
+      if (response.statusCode != 200) {
+        throw ServerException();
+      }
+    } on Exception {
+      throw ServerException();
+    }
   }
 }
