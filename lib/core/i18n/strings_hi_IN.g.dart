@@ -56,6 +56,7 @@ class TranslationsHiIn implements Translations {
 	@override String get theme => 'थीम';
 	@override String get light => 'प्रकाश';
 	@override String get dark => 'अंधेरा';
+	@override String get system => 'सिस्टम';
 	@override String get save => 'सहेजें';
 	@override String get no_tasks => 'अभी तक कोई कार्य नहीं';
 	@override String get no_internet => 'कोई इंटरनेट कनेक्शन नहीं';
@@ -70,6 +71,8 @@ class TranslationsHiIn implements Translations {
 	@override String get edit_task_success => 'कार्य सफलतापूर्वक संपादित किया गया';
 	@override String get edit_task_fail => 'कार्य संपादित करने में विफल';
 	@override String get logout => 'लॉगआउट';
+	@override String get logout_confirmation => 'क्या आप वाकई लॉगआउट करना चाहते हैं?';
+	@override String get account => 'खाता';
 	@override String get email => 'ईमेल';
 	@override String get password => 'पासवर्ड';
 	@override String get login_fail => 'लॉगिन विफल';
@@ -146,6 +149,7 @@ extension on TranslationsHiIn {
 			'theme' => 'थीम',
 			'light' => 'प्रकाश',
 			'dark' => 'अंधेरा',
+			'system' => 'सिस्टम',
 			'save' => 'सहेजें',
 			'no_tasks' => 'अभी तक कोई कार्य नहीं',
 			'no_internet' => 'कोई इंटरनेट कनेक्शन नहीं',
@@ -160,6 +164,8 @@ extension on TranslationsHiIn {
 			'edit_task_success' => 'कार्य सफलतापूर्वक संपादित किया गया',
 			'edit_task_fail' => 'कार्य संपादित करने में विफल',
 			'logout' => 'लॉगआउट',
+			'logout_confirmation' => 'क्या आप वाकई लॉगआउट करना चाहते हैं?',
+			'account' => 'खाता',
 			'email' => 'ईमेल',
 			'password' => 'पासवर्ड',
 			'login_fail' => 'लॉगिन विफल',

@@ -56,11 +56,12 @@ class TranslationsGuIn implements Translations {
 	@override String get theme => 'થીમ';
 	@override String get light => 'પ્રકાશ';
 	@override String get dark => 'અંધકાર';
+	@override String get system => 'સિસ્ટમ';
 	@override String get save => 'સાચવો';
 	@override String get no_tasks => 'હજી સુધી કોઈ કાર્યો નથી';
-	@override String get unknown_error => 'અજ્ઞાત ભૂલ';
 	@override String get no_internet => 'કોઈ ઇન્ટરનેટ કનેક્શન નથી';
 	@override String get please_enter_task_name => 'કૃપા કરીને કાર્યનું નામ દાખલ કરો';
+	@override String get unknown_error => 'અજ્ઞાત ભૂલ';
 	@override String get delete_task => 'કાર્ય કાઢી નાખો';
 	@override String get delete_task_confirm => 'શું તમે આ કાર્યને કાઢી નાખવા માંગો છો?';
 	@override String get delete_task_success => 'કાર્ય સફળતાપૂર્વક કાઢી નાખવામાં આવ્યું';
@@ -70,6 +71,8 @@ class TranslationsGuIn implements Translations {
 	@override String get edit_task_success => 'કાર્ય સફળતાપૂર્વક સંપાદિત થયું';
 	@override String get edit_task_fail => 'કાર્ય સંપાદિત કરવામાં નિષ્ફળ';
 	@override String get logout => 'લૉગ આઉટ';
+	@override String get logout_confirmation => 'શું તમે ખરેખર લોગઆઉટ કરવા માંગો છો?';
+	@override String get account => 'ખાતું';
 	@override String get email => 'ઇમેઇલ';
 	@override String get password => 'પાસવર્ડ';
 	@override String get login_fail => 'લૉગિન નિષ્ફળ';
@@ -146,11 +149,12 @@ extension on TranslationsGuIn {
 			'theme' => 'થીમ',
 			'light' => 'પ્રકાશ',
 			'dark' => 'અંધકાર',
+			'system' => 'સિસ્ટમ',
 			'save' => 'સાચવો',
 			'no_tasks' => 'હજી સુધી કોઈ કાર્યો નથી',
-			'unknown_error' => 'અજ્ઞાત ભૂલ',
 			'no_internet' => 'કોઈ ઇન્ટરનેટ કનેક્શન નથી',
 			'please_enter_task_name' => 'કૃપા કરીને કાર્યનું નામ દાખલ કરો',
+			'unknown_error' => 'અજ્ઞાત ભૂલ',
 			'delete_task' => 'કાર્ય કાઢી નાખો',
 			'delete_task_confirm' => 'શું તમે આ કાર્યને કાઢી નાખવા માંગો છો?',
 			'delete_task_success' => 'કાર્ય સફળતાપૂર્વક કાઢી નાખવામાં આવ્યું',
@@ -160,6 +164,8 @@ extension on TranslationsGuIn {
 			'edit_task_success' => 'કાર્ય સફળતાપૂર્વક સંપાદિત થયું',
 			'edit_task_fail' => 'કાર્ય સંપાદિત કરવામાં નિષ્ફળ',
 			'logout' => 'લૉગ આઉટ',
+			'logout_confirmation' => 'શું તમે ખરેખર લોગઆઉટ કરવા માંગો છો?',
+			'account' => 'ખાતું',
 			'email' => 'ઇમેઇલ',
 			'password' => 'પાસવર્ડ',
 			'login_fail' => 'લૉગિન નિષ્ફળ',

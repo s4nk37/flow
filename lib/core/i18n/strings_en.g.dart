@@ -98,6 +98,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Dark'
 	String get dark => 'Dark';
 
+	/// en: 'System'
+	String get system => 'System';
+
 	/// en: 'Save'
 	String get save => 'Save';
 
@@ -139,6 +142,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Logout'
 	String get logout => 'Logout';
+
+	/// en: 'Are you sure you want to logout?'
+	String get logout_confirmation => 'Are you sure you want to logout?';
+
+	/// en: 'Account'
+	String get account => 'Account';
 
 	/// en: 'Email'
 	String get email => 'Email';
@@ -226,11 +235,11 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'English'
 	String get English => 'English';
 
-	/// en: 'ગુજરાતી'
-	String get Gujarati => 'ગુજરાતી';
+	/// en: 'Gujarati'
+	String get Gujarati => 'Gujarati';
 
-	/// en: 'हिंदी'
-	String get Hindi => 'हिंदी';
+	/// en: 'Hindi'
+	String get Hindi => 'Hindi';
 }
 
 // Path: login
@@ -282,6 +291,7 @@ extension on Translations {
 			'theme' => 'Theme',
 			'light' => 'Light',
 			'dark' => 'Dark',
+			'system' => 'System',
 			'save' => 'Save',
 			'no_tasks' => 'No tasks yet',
 			'no_internet' => 'No internet connection',
@@ -296,6 +306,8 @@ extension on Translations {
 			'edit_task_success' => 'Task edited successfully',
 			'edit_task_fail' => 'Task edited failed',
 			'logout' => 'Logout',
+			'logout_confirmation' => 'Are you sure you want to logout?',
+			'account' => 'Account',
 			'email' => 'Email',
 			'password' => 'Password',
 			'login_fail' => 'Login failed',
@@ -327,8 +339,8 @@ extension on Translations {
 			'change_language' => 'Change language',
 			'change_theme' => 'Change theme',
 			'English' => 'English',
-			'Gujarati' => 'ગુજરાતી',
-			'Hindi' => 'हिंदी',
+			'Gujarati' => 'Gujarati',
+			'Hindi' => 'Hindi',
 			_ => null,
 		};
 	}
