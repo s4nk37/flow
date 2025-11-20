@@ -1,166 +1,105 @@
+# 🌊 Flow
 
-# Flow
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
+![Bloc](https://img.shields.io/badge/bloc-8B0000.svg?style=for-the-badge&logo=bloc&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)
 
-Boost your productivity and achieve your flow with our simple yet powerful task management app.
+> **Boost your productivity and achieve your flow with our simple yet powerful task management app.**
 
-**Features:**
+---
 
--   Add, edit, and delete tasks
--   Mark tasks as complete
--   Organize tasks with categories (optional)
--   Set due dates and reminders (optional)
--   Simple and intuitive user interface
+## ✨ Features
 
-**Technology Stack:**
+*   ✅ **Task Management:** Add, edit, and delete tasks with ease.
+*   🎯 **Organization:** Organize tasks with optional categories.
+*   ⏰ **Reminders:** Set due dates and never miss a deadline.
+*   🎨 **Intuitive UI:** A clean, modern interface designed for focus.
+*   🌙 **Dark Mode:** Easy on the eyes, perfect for night owls.
 
+## 🛠️ Technology Stack
 
--   Flutter
--   Bloc
+Built with a robust and scalable architecture:
 
+*   **Framework:** [Flutter](https://flutter.dev/)
+*   **Language:** [Dart](https://dart.dev/)
+*   **State Management:** [Bloc / Cubit](https://bloclibrary.dev/)
+*   **Architecture:** Clean Architecture (Data, Domain, Presentation)
+*   **DI:** [GetIt](https://pub.dev/packages/get_it) & [Injectable](https://pub.dev/packages/injectable)
+*   **Localization:** [Slang](https://pub.dev/packages/slang)
 
+## 📂 Project Structure
 
-**Folder Structure:**
+We follow a strict **Clean Architecture** pattern to ensure scalability and maintainability.
+
 ```
-assets
-├── animations
-├── fonts
-│   └── SourceCodePro
-│       ├── SourceCodePro-Bold.ttf
-│       ├── SourceCodePro-Light.ttf
-│       ├── SourceCodePro-Medium.ttf
-│       ├── SourceCodePro-Regular.ttf
-│       └── SourceCodePro-SemiBold.ttf
-├── icons
-│   └── logo.png
-├── images
-└── translations
 lib
-├── core
-│   ├── configs
-│   │   └── app_config.dart
-│   ├── errors
-│   │   ├── exceptions.dart
-│   │   └── failures.dart
-│   ├── network
-│   │   └── network_info.dart
-│   ├── router
-│   ├── services
-│   ├── usecases
-│   │   └── usecase.dart
-│   ├── utils
-│   │   ├── constants
-│   │   │   └── enums
-│   │   ├── extensions
-│   │   ├── responsive.dart
-│   │   ├── theme
-│   │   │   ├── app_theme.dart
-│   │   │   └── cubit
-│   │   │       └── theme_cubit.dart
-│   │   └── validations
-│   │       └── input_converter.dart
-│   └── widgets
-├── features
+├── core            # Shared utilities, configs, and base classes
+├── features        # Feature-based modules (Auth, Todo, etc.)
 │   └── todo
-│       ├── data
-│       │   ├── datasources
-│       │   │   ├── todo_local_datasource.dart
-│       │   │   └── todo_remote_datasource.dart
-│       │   ├── models
-│       │   │   ├── todo_model.dart
-│       │   │   ├── todo_model.g.dart
-│       │   │   ├── todos_response.dart
-│       │   │   └── todos_response.g.dart
-│       │   └── repositories
-│       │       └── todo_repository_impl.dart
-│       ├── domain
-│       │   ├── entities
-│       │   │   └── todo.dart
-│       │   ├── repositories
-│       │   │   └── todo_repository.dart
-│       │   └── usecases
-│       │       ├── get_todos.dart
-│       │       └── save_todos.dart
-│       └── presentation
-│           ├── bloc
-│           │   ├── todo_bloc.dart
-│           │   ├── todo_event.dart
-│           │   └── todo_state.dart
-│           ├── pages
-│           │   └── home_page.dart
-│           └── widgets
-├── injection_container.dart
-└── main.dart
-test
-├── core
-├── features
-│   └── todo
-│       ├── data
-│       │   ├── datasources
-│       │   ├── models
-│       │   │   └── todo_model_test.dart
-│       │   └── repositories
-│       │       └── todo_repository_impl_test.dart
-│       ├── domain
-│       │   ├── entities
-│       │   ├── repositories
-│       │   └── usecases
-│       │       ├── add_todo_test.dart
-│       │       ├── delete_all_todos_test.dart
-│       │       ├── delete_completed_todos_test.dart
-│       │       ├── delete_todo_by_id_test.dart
-│       │       ├── get_todo_by_id_test.dart
-│       │       ├── get_todos_test.dart
-│       │       ├── mark_todo_as_completed_test.dart
-│       │       ├── mark_todo_as_incompleted_test.dart
-│       │       └── update_todo_test.dart
-│       └── presentation
-│           ├── bloc
-│           ├── pages
-│           └── widgets
-├── fixtures
-│   ├── fixture_reader.dart
-│   ├── todo.json
-│   ├── todos.json
-│   └── todos_double.json
-└── helpers
-    ├── test_mock.dart
-    └── test_mock.mocks.dart
+│       ├── data        # API calls, models, repositories implementation
+│       ├── domain      # Entities, usecases, repository interfaces
+│       └── presentation # BLoCs, pages, widgets
+├── injection_container.dart # Dependency Injection setup
+└── main.dart       # App entry point
 ```
-**Getting Started:**
 
-1.  Clone the repository:  `git clone https://github.com/s4nk37/flow`
-2.  Install dependencies:  `flutter pub get`
-3.  Run following command to generate required files: `dart run build_runner build`
-4.  Run the app:  `flutter run`
+## 🚀 Getting Started
 
-## Code sanitization:
-- All commits should have `0` problems.
+Follow these steps to get the project running on your local machine.
+
+### Prerequisites
+
+*   [Flutter SDK](https://flutter.dev/docs/get-started/install)
+*   [Dart SDK](https://dart.dev/get-dart)
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/s4nk37/flow.git
+    cd flow
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    flutter pub get
+    ```
+
+3.  **Generate code (JSON serialization, DI, etc.):**
+    ```bash
+    dart run build_runner build --delete-conflicting-outputs
+    ```
+
+4.  **Run the app:**
+    ```bash
+    flutter run
+    ```
+
+## 🧰 Developer Toolkit
+
+We have a powerful CLI assistant to help you with common tasks.
+
+**Usage:**
 ```bash
-  # Check issues
-  dart fix --dry-run
-
-  # Fix automatically fixable issues
-  dart fix --apply
-
-  # Check remaining problems
-  dart analyze . --fatal-warnings
-```
-- All dart files should have proper formatting.
-```bash
-  # Auto format files
-   dart format --set-exit-if-changed .
+./flutter_toolkit.sh
 ```
 
-## Script to ensure above checks:
-```bash
-  # via terminal
-  $ ./sanitizer.sh
-```
+**Menu Options:**
+*   🚑 **Analyze & Fix:** Auto-format and fix lint issues.
+*   🧹 **Deep Clean:** Remove build artifacts and cache.
+*   🏭 **Code Generation:** Run `build_runner` and `slang`.
+*   📦 **Build:** Generate APKs and IPAs.
+*   🧪 **Test:** Run unit and widget tests.
 
-**Contributing:**
+> **Note:** Always run `./flutter_toolkit.sh` and choose option **1 (Analyze & Fix)** before pushing your code to ensure it meets our quality standards.
 
-We welcome contributions to this project! Feel free to fork the repository, make changes, and submit a pull request.
+## 🤝 Contributing
 
-**License:**
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+Please read our [CONTRIBUTING.md](CONTRIBUTING.MD) for details on our code of conduct and the process for submitting pull requests.
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
