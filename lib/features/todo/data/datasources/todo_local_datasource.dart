@@ -20,7 +20,7 @@ abstract class TodoLocalDataSource {
   Future<void> saveTodo(TodoModel todo);
   Future<void> clearPendingTodos();
   Future<void> clearTodos();
-  Future<void> deleteTodo(int id);
+  Future<void> deleteTodo(String id);
 }
 
 class TodoLocalDataSourceImpl implements TodoLocalDataSource {
@@ -153,7 +153,7 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   }
 
   @override
-  Future<void> deleteTodo(int id) {
+  Future<void> deleteTodo(String id) {
     // TODO: implement deleteTodo
     throw UnimplementedError();
   }

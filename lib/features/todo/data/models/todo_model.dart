@@ -3,21 +3,53 @@ import '../../domain/entities/todo.dart';
 
 part 'todo_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 //ignore: must_be_immutable.
 class TodoModel extends Todo {
   const TodoModel({
-    required super.id,
-    required super.title,
-    required super.description,
-    required super.isCompleted,
-    required super.createdAt,
-    super.updatedAt,
-    super.completedAt,
-    super.reminderAt,
-    required super.isDeleted,
-    required super.isSynced,
-  });
+    required this.id,
+    required this.title,
+    required this.description,
+    this.isCompleted = false,
+    required this.createdAt,
+    this.updatedAt,
+    this.completedAt,
+    this.reminderAt,
+    this.isDeleted = false,
+    this.isSynced = false,
+  }) : super(
+          id: id,
+          title: title,
+          description: description,
+          isCompleted: isCompleted,
+          createdAt: createdAt,
+          updatedAt: updatedAt,
+          completedAt: completedAt,
+          reminderAt: reminderAt,
+          isDeleted: isDeleted,
+          isSynced: isSynced,
+        );
+
+  @override
+  final String id;
+  @override
+  final String title;
+  @override
+  final String description;
+  @override
+  final bool? isCompleted;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime? updatedAt;
+  @override
+  final DateTime? completedAt;
+  @override
+  final DateTime? reminderAt;
+  @override
+  final bool? isDeleted;
+  @override
+  final bool? isSynced;
 
   factory TodoModel.fromJson(Map<String, dynamic> json) =>
       _$TodoModelFromJson(json);

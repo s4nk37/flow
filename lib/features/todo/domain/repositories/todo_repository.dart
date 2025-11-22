@@ -12,7 +12,7 @@ abstract class TodoRepository {
   Future<Either<Failure, NoParams>> saveTodo(Todo todo);
 
   /// Delete a todo by ID (soft delete if offline-first)
-  Future<Either<Failure, NoParams>> deleteTodo(int id);
+  Future<Either<Failure, NoParams>> deleteTodo(String id);
 
   /// Clear all todos locally (not normally used)
   Future<Either<Failure, NoParams>> clearTodos();

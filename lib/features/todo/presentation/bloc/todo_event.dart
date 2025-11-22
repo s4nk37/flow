@@ -11,7 +11,7 @@ class GetTodos extends TodoEvent {}
 
 class GetTodoById extends TodoEvent {
   const GetTodoById({required this.id});
-  final int id;
+  final String id;
 
   @override
   List<Object> get props => [id];
@@ -35,7 +35,7 @@ class UpdateTodo extends TodoEvent {
 
 class DeleteTodoById extends TodoEvent {
   const DeleteTodoById({required this.id});
-  final int id;
+  final String id;
 
   @override
   List<Object> get props => [id];
@@ -47,7 +47,7 @@ class DeleteCompletedTodos extends TodoEvent {}
 
 class MarkTodoAsCompleted extends TodoEvent {
   const MarkTodoAsCompleted({required this.id});
-  final int id;
+  final String id;
 
   @override
   List<Object> get props => [id];
@@ -55,7 +55,7 @@ class MarkTodoAsCompleted extends TodoEvent {
 
 class MarkTodoAsIncompleted extends TodoEvent {
   const MarkTodoAsIncompleted({required this.id});
-  final int id;
+  final String id;
 
   @override
   List<Object> get props => [id];
@@ -63,7 +63,7 @@ class MarkTodoAsIncompleted extends TodoEvent {
 
 class SetTodoReminder extends TodoEvent {
   const SetTodoReminder({required this.id, required this.reminderAt});
-  final int id;
+  final String id;
   final DateTime reminderAt;
 
   @override
@@ -72,8 +72,10 @@ class SetTodoReminder extends TodoEvent {
 
 class RemoveTodoReminder extends TodoEvent {
   const RemoveTodoReminder({required this.id});
-  final int id;
+  final String id;
 
   @override
   List<Object> get props => [id];
 }
+
+class SyncTodos extends TodoEvent {}

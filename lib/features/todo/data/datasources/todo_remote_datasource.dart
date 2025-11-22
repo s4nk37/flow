@@ -14,7 +14,7 @@ abstract class TodoRemoteDataSource {
   Future<void> saveTodo(TodoModel todo);
   Future<void> uploadPendingTodos(List<TodoModel> todos);
   Future<void> clearTodos();
-  Future<void> deleteTodo(int id);
+  Future<void> deleteTodo(String id);
 }
 
 class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
@@ -30,10 +30,27 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
         if (response.data == null) {
           return TodosResponseModel(todos: [], updatedAt: 1);
         }
-        return TodosResponseModel.fromJson(response.data);
+        // Extract 'data' field from the standardized response
+        final responseData = response.data['data'];
+        if (responseData is List) {
+          final todos = responseData
+              .map((e) => TodoModel.fromJson(e as Map<String, dynamic>))
+              .toList();
+          return TodosResponseModel(todos: todos, updatedAt: DateTime.now().millisecondsSinceEpoch);
+        }
+        return TodosResponseModel.fromJson(responseData);
       } else {
         throw ServerException();
       }
+    } on DioException catch (e) {
+      logger.e(e);
+      if (e.response != null && e.response?.data != null) {
+        final data = e.response?.data;
+        if (data is Map<String, dynamic> && data.containsKey('message')) {
+           throw ServerException(message: data['message']);
+        }
+      }
+      throw ServerException();
     } on Exception {
       throw ServerException();
     }
@@ -57,9 +74,21 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
   }
 
   @override
-  Future<void> uploadPendingTodos(List<TodoModel> todos) {
-    // TODO: implement uploadPendingTodos
-    throw UnimplementedError();
+  Future<void> uploadPendingTodos(List<TodoModel> todos) async {
+    try {
+      for (final todo in todos) {
+        await dio.post(
+          ApiEndpoints.todos,
+          data: todo.toJson(),
+        );
+      }
+    } on DioException catch (e) {
+      logger.e('Failed to upload pending todos: $e');
+      throw ServerException();
+    } on Exception catch (e) {
+      logger.e('Failed to upload pending todos: $e');
+      throw ServerException();
+    }
   }
 
   @override
@@ -97,7 +126,7 @@ class TodoRemoteDataSourceImpl implements TodoRemoteDataSource {
 
 
   @override
-  Future<void> deleteTodo(int id) async{
+  Future<void> deleteTodo(String id) async{
     try {
       final response = await dio.delete('${ApiEndpoints.todos}/$id');
       if (response.statusCode != 200) {

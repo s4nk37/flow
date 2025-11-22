@@ -10,6 +10,7 @@ import 'core/router/app_router.dart';
 import 'core/services/local_notification_service.dart';
 import 'core/utils/theme/app_theme.dart';
 import 'core/utils/theme/cubit/theme_cubit.dart';
+import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/todo/presentation/bloc/todo_bloc.dart';
 import 'injection_container.dart' as di;
 
@@ -34,23 +35,31 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ThemeCubit>(create: (context) => di.sl<ThemeCubit>()),
+        BlocProvider<AuthBloc>(
+          create: (context) => di.sl<AuthBloc>()..add(AuthCheckRequested()),
+        ),
         BlocProvider<TodoBloc>(
-          create: (context) => di.sl<TodoBloc>()..add(GetTodos()),
+          create: (context) => di.sl<TodoBloc>(),
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
-          return MaterialApp.router(
-            title: kAppName,
-            debugShowCheckedModeBanner: false,
-            theme: lightThemeData,
-            darkTheme: darkThemeData,
-            themeMode: themeMode,
-            locale: TranslationProvider.of(context).flutterLocale,
-            supportedLocales: AppLocaleUtils.supportedLocales,
-            localizationsDelegates: GlobalMaterialLocalizations.delegates,
-            routerConfig: AppRouter.router,
-            themeAnimationDuration: Duration.zero,
+          return BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              // Trigger router refresh when auth state changes
+            },
+            child: MaterialApp.router(
+              title: kAppName,
+              debugShowCheckedModeBanner: false,
+              theme: lightThemeData,
+              darkTheme: darkThemeData,
+              themeMode: themeMode,
+              locale: TranslationProvider.of(context).flutterLocale,
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              localizationsDelegates: GlobalMaterialLocalizations.delegates,
+              routerConfig: AppRouter.router(context.read<AuthBloc>()),
+              themeAnimationDuration: Duration.zero,
+            ),
           );
         },
       ),

@@ -5,6 +5,7 @@ import '../../../../core/configs/app_config.dart';
 import '../../../../core/i18n/strings.g.dart';
 import '../../../../core/utils/theme/app_theme.dart';
 import '../../../../core/utils/theme/cubit/theme_cubit.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -82,25 +83,70 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 10),
+          const SizedBox(height: 16),
 
-          ListTile(
-            leading: const Icon(Icons.logout, color: Colors.red),
-            title: Text(
-              t.logout,
-              style: const TextStyle(color: Colors.red),
-            ),
+          // Logout Button
+          InkWell(
             onTap: () => _confirmLogout(context),
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.red.shade200),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.logout, color: Colors.red.shade700),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      t.logout,
+                      style: TextStyle(
+                        color: Colors.red.shade700,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Icon(Icons.arrow_forward_ios, size: 16, color: Colors.red.shade400),
+                ],
+              ),
+            ),
           ),
 
-          // Uncomment if you want delete account:
-          ListTile(
-            leading: const Icon(Icons.delete_forever, color: Colors.red),
-            title: const Text(
-              'Delete Account',
-              style: TextStyle(color: Colors.red),
+          const SizedBox(height: 12),
+
+          // Delete Account Button
+          InkWell(
+            onTap: () => _confirmDeleteAccount(context),
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.red.shade200),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.delete_forever, color: Colors.red.shade700),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      'Delete Account',
+                      style: TextStyle(
+                        color: Colors.red.shade700,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Icon(Icons.arrow_forward_ios, size: 16, color: Colors.red.shade400),
+                ],
+              ),
             ),
-            onTap: () => {},
           ),
         ],
       ),
@@ -121,9 +167,54 @@ class SettingsPage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
-              // TODO: add logout logic here
+              context.read<AuthBloc>().add(AuthLogout());
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('You have been logged out successfully'),
+                  backgroundColor: Colors.green.shade600,
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
             },
             child: Text(t.logout),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _confirmDeleteAccount(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Delete Account'),
+        content: const Text(
+          'Are you sure you want to delete your account? This action cannot be undone.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(t.cancel),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(ctx);
+              // TODO: Implement delete account logic
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Delete account feature coming soon'),
+                ),
+              );
+            },
+            child: const Text('Delete'),
           ),
         ],
       ),

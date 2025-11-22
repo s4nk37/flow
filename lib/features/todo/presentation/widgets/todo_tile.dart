@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/constants/layout_constants.dart';
+import '../../../../core/constants/layout_constants.dart';
 import '../../../../core/utils/theme/app_theme.dart';
 import '../../domain/entities/todo.dart';
 import '../bloc/todo_bloc.dart';

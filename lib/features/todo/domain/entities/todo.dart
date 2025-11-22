@@ -15,7 +15,7 @@ class Todo extends Equatable {
     this.isSynced = false,
   });
 
-  final int id;
+  final String id;
   final String title;
   final String description;
   final bool? isCompleted;
@@ -27,7 +27,7 @@ class Todo extends Equatable {
   final bool? isSynced;
 
   Todo copyWith({
-    int? id,
+    String? id,
     String? title,
     String? description,
     bool? isCompleted,

@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 
+import 'go_router_refresh_stream.dart';
+import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/email_input_page.dart';
 import '../../features/auth/presentation/pages/password_login_page.dart';
@@ -29,10 +31,29 @@ class AppRouter {
   static const String homePath = '/home';
   static const String settingsPath = '/settings';
 
-  static GoRouter get router => _router;
+  static GoRouter router(AuthBloc authBloc) => GoRouter(
+    initialLocation: AppRouter.loginPath,
+    refreshListenable: GoRouterRefreshStream(authBloc.stream),
+    redirect: (context, state) {
+      final authState = authBloc.state;
+      final isAuthenticated = authState is AuthAuthenticated;
+      final isOnAuthPage = state.matchedLocation == loginPath ||
+          state.matchedLocation == emailInputPath ||
+          state.matchedLocation == passwordLoginPath ||
+          state.matchedLocation == signupPath;
 
-  static final _router = GoRouter(
-    initialLocation: AppRouter.homePath,
+      // If authenticated and on auth page, redirect to home
+      if (isAuthenticated && isOnAuthPage) {
+        return homePath;
+      }
+
+      // If not authenticated and not on auth page, redirect to login
+      if (!isAuthenticated && !isOnAuthPage) {
+        return loginPath;
+      }
+
+      return null; // No redirect needed
+    },
     routes: [
 
       /// LOGIN PAGE

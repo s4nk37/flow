@@ -33,8 +33,7 @@ class TodoRepositoryImpl implements TodoRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, NoParams>> deleteTodo(int id) async {
+  Future<Either<Failure, NoParams>> deleteTodo(String id) async {
     logger.e('Deleting todo with id: $id');
     try {
       await localDataSource.deleteTodo(id);
@@ -62,8 +61,10 @@ class TodoRepositoryImpl implements TodoRepository {
       } else {
         return Future.value(Right(res.todos!));
       }
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message));
     } on CacheException {
-      return Future.value(Left(CacheFailure()));
+      return Left(CacheFailure());
     }
   }
 
@@ -73,15 +74,28 @@ class TodoRepositoryImpl implements TodoRepository {
     try {
       final todoModel = TodoModel.fromEntity(todo);
       await localDataSource.saveTodo(todoModel);
+      
       if (await networkInfo.isConnected) {
         try {
           await remoteDataSource.saveTodo(todoModel);
           return Future.value(Right(NoParams()));
         } on Exception {
-          return Future.value(Left(ServerFailure()));
+          // Remote save failed, add to pending list
+          final pendingResponse = await localDataSource.getPendingTodos();
+          final pendingList = pendingResponse.todos?.toList() ?? [];
+          // Avoid duplicates if possible, though simple add is safer for now
+          pendingList.add(todoModel);
+          await localDataSource.savePendingTodos(pendingList);
+          return Future.value(Right(NoParams()));
         }
+      } else {
+        // Offline, add to pending list
+        final pendingResponse = await localDataSource.getPendingTodos();
+        final pendingList = pendingResponse.todos?.toList() ?? [];
+        pendingList.add(todoModel);
+        await localDataSource.savePendingTodos(pendingList);
+        return Future.value(Right(NoParams()));
       }
-      return Future.value(Right(NoParams()));
     } on CacheException {
       return Future.value(Left(CacheFailure()));
     }
@@ -103,3 +117,4 @@ class TodoRepositoryImpl implements TodoRepository {
     }
   }
 }
+

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/configs/app_config.dart';
 import '../../../../core/i18n/strings.g.dart';
-import '../../../../core/utils/constants/layout_constants.dart';
+import '../../../../core/constants/layout_constants.dart';
 import '../../../../core/utils/extensions/sizebox_extension.dart';
 import '../../../../core/utils/theme/app_theme.dart';
 import '../../../../core/utils/validations/form_validations.dart';
@@ -51,7 +51,7 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
       // Save the task logic here
       String task = _taskController.text;
       Todo newTodo = Todo(
-        id: DateTime.now().millisecondsSinceEpoch,
+        id: '',
         title: task,
         description: _descriptionController.text,
         isCompleted: false,

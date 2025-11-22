@@ -7,33 +7,33 @@ part of 'todo_model.dart';
 // **************************************************************************
 
 TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
-  id: (json['id'] as num).toInt(),
+  id: json['id'] as String,
   title: json['title'] as String,
   description: json['description'] as String,
-  isCompleted: json['isCompleted'] as bool?,
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: json['updatedAt'] == null
+  isCompleted: json['is_completed'] as bool? ?? false,
+  createdAt: DateTime.parse(json['created_at'] as String),
+  updatedAt: json['updated_at'] == null
       ? null
-      : DateTime.parse(json['updatedAt'] as String),
-  completedAt: json['completedAt'] == null
+      : DateTime.parse(json['updated_at'] as String),
+  completedAt: json['completed_at'] == null
       ? null
-      : DateTime.parse(json['completedAt'] as String),
-  reminderAt: json['reminderAt'] == null
+      : DateTime.parse(json['completed_at'] as String),
+  reminderAt: json['reminder_at'] == null
       ? null
-      : DateTime.parse(json['reminderAt'] as String),
-  isDeleted: json['isDeleted'] as bool?,
-  isSynced: json['isSynced'] as bool?,
+      : DateTime.parse(json['reminder_at'] as String),
+  isDeleted: json['is_deleted'] as bool? ?? false,
+  isSynced: json['is_synced'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$TodoModelToJson(TodoModel instance) => <String, dynamic>{
   'id': instance.id,
   'title': instance.title,
   'description': instance.description,
-  'isCompleted': instance.isCompleted,
-  'createdAt': instance.createdAt.toIso8601String(),
-  'updatedAt': instance.updatedAt?.toIso8601String(),
-  'completedAt': instance.completedAt?.toIso8601String(),
-  'reminderAt': instance.reminderAt?.toIso8601String(),
-  'isDeleted': instance.isDeleted,
-  'isSynced': instance.isSynced,
+  'is_completed': instance.isCompleted,
+  'created_at': instance.createdAt.toIso8601String(),
+  'updated_at': instance.updatedAt?.toIso8601String(),
+  'completed_at': instance.completedAt?.toIso8601String(),
+  'reminder_at': instance.reminderAt?.toIso8601String(),
+  'is_deleted': instance.isDeleted,
+  'is_synced': instance.isSynced,
 };

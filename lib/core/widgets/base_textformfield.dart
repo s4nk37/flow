@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../utils/constants/layout_constants.dart';
-import '../utils/constants/regex_constants.dart';
+import '../constants/layout_constants.dart';
+import '../constants/regex_constants.dart';
 import '../utils/extensions/sizebox_extension.dart';
 import '../utils/theme/app_theme.dart';
 import 'base_text.dart';

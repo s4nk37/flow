@@ -28,6 +28,7 @@ class AuthInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     debugPrint('➡️ ${options.method} ${options.baseUrl}${options.path}');
+    debugPrint('Headers: ${options.headers}');
     debugPrint('Body: ${options.data}');
 
     if (_accessToken?.isNotEmpty ?? false) {
@@ -62,6 +63,7 @@ class ErrorInterceptor extends Interceptor {
     }
 
     if (err.response != null) {
+      // New error format: { "success": false, "message": "...", "error_code": "...", ... }
       final message = err.response?.data['message'] ?? 'Something went wrong';
 
       return handler.reject(_customError(err, message));

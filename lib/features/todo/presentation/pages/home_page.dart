@@ -1,21 +1,87 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../../../core/i18n/strings.g.dart';
 import '../../../../core/router/app_router.dart';
-import '../../../../core/utils/constants/layout_constants.dart';
+import '../../../../core/constants/layout_constants.dart';
 import '../../../../core/utils/theme/app_theme.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../bloc/todo_bloc.dart';
 import '../widgets/todo_bottomsheet.dart';
 import '../widgets/todo_tile.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  StreamSubscription<InternetConnectionStatus>? _connectivitySubscription;
+  bool _wasOffline = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch todos when authenticated
+    final authState = context.read<AuthBloc>().state;
+    if (authState is AuthAuthenticated) {
+      context.read<TodoBloc>().add(GetTodos());
+    }
+
+    // Listen to connectivity changes
+    _connectivitySubscription = InternetConnectionChecker.instance.onStatusChange.listen(
+      (InternetConnectionStatus status) {
+        final isOnline = status == InternetConnectionStatus.connected;
+        
+        if (isOnline && _wasOffline) {
+          // Device came back online - trigger sync
+          final authState = context.read<AuthBloc>().state;
+          if (authState is AuthAuthenticated) {
+            context.read<TodoBloc>().add(SyncTodos());
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Syncing todos...'),
+                backgroundColor: Colors.blue.shade600,
+                behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
+        }
+        
+        _wasOffline = !isOnline;
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _connectivitySubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, authState) {
+        if (authState is AuthAuthenticated) {
+          // Fetch todos when user logs in
+          context.read<TodoBloc>().add(GetTodos());
+        } else if (authState is AuthUnauthenticated) {
+          // Clear todos when user logs out
+          // Optionally navigate to login page
+        }
+      },
+      child: Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(context.t.tasks),
@@ -80,6 +146,7 @@ class HomePage extends StatelessWidget {
         },
         label: Text(context.t.add_task),
         icon: const Icon(Icons.add),
+      ),
       ),
     );
   }

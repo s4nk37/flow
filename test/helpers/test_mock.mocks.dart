@@ -107,7 +107,7 @@ class MockTodoRepository extends _i1.Mock implements _i5.TodoRepository {
           as _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>>);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>> deleteTodo(int? id) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i9.NoParams>> deleteTodo(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#deleteTodo, [id]),
             returnValue:
@@ -225,7 +225,7 @@ class MockTodoRemoteDataSource extends _i1.Mock
           as _i6.Future<void>);
 
   @override
-  _i6.Future<void> deleteTodo(int? id) =>
+  _i6.Future<void> deleteTodo(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#deleteTodo, [id]),
             returnValue: _i6.Future<void>.value(),
@@ -317,7 +317,7 @@ class MockTodoLocalDataSource extends _i1.Mock
           as _i6.Future<void>);
 
   @override
-  _i6.Future<void> deleteTodo(int? id) =>
+  _i6.Future<void> deleteTodo(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#deleteTodo, [id]),
             returnValue: _i6.Future<void>.value(),

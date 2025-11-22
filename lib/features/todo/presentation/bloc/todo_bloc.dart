@@ -1,32 +1,39 @@
 import 'dart:math';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../core/services/local_notification_service.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../domain/entities/todo.dart';
 import '../../domain/usecases/get_todos.dart' as usecase;
 import '../../domain/usecases/save_todo.dart';
+import '../../domain/usecases/sync_todos.dart' as usecase;
 
 part 'todo_event.dart';
 part 'todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
-  TodoBloc({required this.getTodos, required this.saveTodos})
-    : super(Loading()) {
+  TodoBloc({
+    required this.getTodos,
+    required this.saveTodos,
+    required this.syncTodos,
+  }) : super(Loading()) {
     on<GetTodos>(_getTodos);
     on<AddTodo>(_addTodo);
     on<UpdateTodo>(_updateTodo);
     on<DeleteTodoById>(_deleteTodoById);
     on<MarkTodoAsCompleted>(_markTodoAsCompleted);
     on<MarkTodoAsIncompleted>(_markTodoAsIncompleted);
+    on<SyncTodos>(_syncTodos);
   }
 
   final usecase.GetTodos getTodos;
   final SaveTodo saveTodos;
+  final usecase.SyncTodos syncTodos;
 
   final List<Todo> _todos = [];
-  final Map<int, int> _scheduledNotifications = {}; // FIX: int keys
+  final Map<String, int> _scheduledNotifications = {}; // notification id per todo id
 
   // ------------------------------------------------------------------------
   // GET TODOS
@@ -56,7 +63,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   // ADD TODO
   // ------------------------------------------------------------------------
   Future<void> _addTodo(AddTodo event, Emitter<TodoState> emit) async {
-    final todo = event.todo;
+    var todo = event.todo;
+    // Ensure the todo has a UUID id
+    if (todo.id.isEmpty) {
+      final uuid = Uuid();
+      todo = todo.copyWith(id: uuid.v4());
+    }
 
     // schedule notification
     if (todo.reminderAt != null) {
@@ -72,12 +84,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
 
     _todos.add(todo);
-    _todos.sort((a, b) => a.isCompleted==true ? 1 : -1);
+    _todos.sort((a, b) => a.isCompleted == true ? 1 : -1);
     emit(LoadedTodos(todos: List.from(_todos)));
     await saveTodos(SaveTodoParams(todo));
-
-
-
   }
 
   // ------------------------------------------------------------------------
@@ -188,5 +197,31 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     await saveTodos(SaveTodoParams(updatedTodo));
 
     emit(LoadedTodos(todos: List.from(_todos)));
+  }
+
+  // ------------------------------------------------------------------------
+  // SYNC TODOS
+  // ------------------------------------------------------------------------
+  Future<void> _syncTodos(SyncTodos event, Emitter<TodoState> emit) async {
+    // Don't show loading state during sync to avoid UI disruption
+    final result = await syncTodos(NoParams());
+    
+    result.fold(
+      (failure) {
+        // Silently fail - sync will be retried later
+      },
+      (todos) {
+        _todos
+          ..clear()
+          ..addAll(todos);
+        
+        if (_todos.isEmpty) {
+          emit(Empty());
+        } else {
+          _todos.sort((a, b) => a.isCompleted == true ? 1 : -1);
+          emit(LoadedTodos(todos: List.from(_todos)));
+        }
+      },
+    );
   }
 }
