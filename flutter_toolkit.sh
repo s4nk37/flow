@@ -45,12 +45,39 @@ confirm() {
   esac
 }
 
+check_project_root() {
+  if [ ! -f "pubspec.yaml" ]; then
+    echo -e "${RED}❌ Error: pubspec.yaml not found!${RESET}"
+    echo -e "${YELLOW}Please run this script from the root of your Flutter project.${RESET}"
+    exit 1
+  fi
+}
+
 header() {
   clear
   echo -e "${CYAN}${BOLD}==========================================================${RESET}"
   echo -e "${CYAN}${BOLD}               🧰 FLUTTER TOOLKIT v3.0               ${RESET}"
   echo -e "${CYAN}${BOLD}==========================================================${RESET}"
   echo ""
+}
+
+show_help() {
+  echo -e "${BOLD}Usage:${RESET} ./flutter_toolkit.sh [OPTION]"
+  echo -e "${BOLD}Options:${RESET}"
+  echo -e "  ${CYAN}--analyze${RESET}       Run analysis and fix"
+  echo -e "  ${CYAN}--clean${RESET}         Deep clean project"
+  echo -e "  ${CYAN}--pub-repair${RESET}    Repair pub cache"
+  echo -e "  ${CYAN}--upgrade${RESET}       Upgrade dependencies"
+  echo -e "  ${CYAN}--build-runner${RESET}  Run build_runner"
+  echo -e "  ${CYAN}--watch${RESET}         Watch build_runner"
+  echo -e "  ${CYAN}--slang${RESET}         Generate translations"
+  echo -e "  ${CYAN}--gradle-clean${RESET}  Clean Gradle"
+  echo -e "  ${CYAN}--assemble${RESET}      Assemble Release APK"
+  echo -e "  ${CYAN}--pod-install${RESET}   Install Pods"
+  echo -e "  ${CYAN}--pod-update${RESET}    Update Pods"
+  echo -e "  ${CYAN}--test${RESET}          Run tests"
+  echo -e "  ${CYAN}--doctor${RESET}        Run Flutter Doctor"
+  echo -e "  ${CYAN}--help${RESET}          Show this help message"
 }
 
 pause() {
@@ -93,6 +120,7 @@ show_menu() {
   echo -e "  ${CYAN}19)${RESET} 🩺 Flutter Doctor"
   echo -e "  ${CYAN}20)${RESET} 📂 Show Output Paths"
   echo -e "  ${CYAN}21)${RESET} 🔄 Full Project Refresh (The 'Nuclear' Option)"
+  echo -e "  ${CYAN}22)${RESET} ❓ Help"
 
   echo -e "\n${CYAN}0)${RESET} 🚪 Exit"
   echo -e "${CYAN}==========================================================${RESET}"
@@ -158,11 +186,19 @@ generate_translations() {
 }
 
 gradle_clean() {
-  echo -e "${YELLOW}� Running Gradle Clean...${RESET}"
+  if [ ! -d "android" ]; then
+    echo -e "${RED}❌ Error: android directory not found.${RESET}"
+    return
+  fi
+  echo -e "${YELLOW} Running Gradle Clean...${RESET}"
   (cd android && ./gradlew clean) & spinner
 }
 
 gradle_assemble() {
+  if [ ! -d "android" ]; then
+    echo -e "${RED}❌ Error: android directory not found.${RESET}"
+    return
+  fi
   echo -e "${BLUE}🏗️  Running Gradle Assemble Release...${RESET}"
   (cd android && ./gradlew assembleRelease) & spinner
 }
@@ -180,7 +216,7 @@ build_flavor() {
     echo -e "${RED}❌ Flavor name cannot be empty${RESET}"
     return
   fi
-  echo -e "${BLUE}� Building flavor: $flavor${RESET}"
+  echo -e "${BLUE} Building flavor: $flavor${RESET}"
   # Assuming standard flavor setup, adjust entry point if needed
   if [ -f "lib/main_$flavor.dart" ]; then
       flutter build apk --flavor "$flavor" -t "lib/main_$flavor.dart" & spinner
@@ -191,16 +227,28 @@ build_flavor() {
 }
 
 pod_install() {
+  if [ ! -d "ios" ]; then
+    echo -e "${RED}❌ Error: ios directory not found.${RESET}"
+    return
+  fi
   echo -e "${BLUE}🍏 Running pod install...${RESET}"
   (cd ios && pod install) & spinner
 }
 
 pod_update() {
-  echo -e "${BLUE}� Running pod update...${RESET}"
+  if [ ! -d "ios" ]; then
+    echo -e "${RED}❌ Error: ios directory not found.${RESET}"
+    return
+  fi
+  echo -e "${BLUE} Running pod update...${RESET}"
   (cd ios && pod update) & spinner
 }
 
 pod_clean_reinstall() {
+  if [ ! -d "ios" ]; then
+    echo -e "${RED}❌ Error: ios directory not found.${RESET}"
+    return
+  fi
   confirm "Delete Pods folder and Podfile.lock?" || return
   echo -e "${YELLOW}🧼 Cleaning iOS Pods...${RESET}"
   (cd ios && rm -rf Pods Podfile.lock && pod install) & spinner
@@ -269,8 +317,41 @@ full_refresh() {
 }
 
 # ------------------------------------------------------------------------------
-# MAIN LOOP
+# MAIN LOGIC
 # ------------------------------------------------------------------------------
+
+# Check for arguments
+if [ $# -gt 0 ]; then
+  if [ "$1" == "--help" ]; then
+      show_help
+      exit 0
+  fi
+
+  check_project_root
+
+  case "$1" in
+    --analyze) analyze_and_fix ;;
+    --clean) deep_clean ;;
+    --pub-repair) repair_pub_cache ;;
+    --upgrade) upgrade_deps ;;
+    --outdated) check_outdated ;;
+    --build-runner) run_build_runner ;;
+    --watch) watch_build_runner ;;
+    --slang) generate_translations ;;
+    --gradle-clean) gradle_clean ;;
+    --assemble) gradle_assemble ;;
+    --pod-install) pod_install ;;
+    --pod-update) pod_update ;;
+    --test) run_tests ;;
+    --doctor) doctor_check ;;
+    *) echo -e "${RED}❌ Unknown option: $1${RESET}"; exit 1 ;;
+  esac
+  exit 0
+fi
+
+# Interactive Mode
+check_project_root
+
 while true; do
   show_menu
   read -p "Enter your choice: " choice
@@ -298,6 +379,7 @@ while true; do
     19) doctor_check ;;
     20) show_paths ;;
     21) full_refresh ;;
+    22) show_help ;;
     0) echo -e "${GREEN}👋 Bye! Happy Coding!${RESET}"; exit 0 ;;
     *) echo -e "${RED}❌ Invalid Option${RESET}" ;;
   esac
